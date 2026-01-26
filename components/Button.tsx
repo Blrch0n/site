@@ -1,33 +1,61 @@
-import { ButtonHTMLAttributes, ReactNode } from "react";
+"use client";
+
+import { ReactNode, ButtonHTMLAttributes } from "react";
+import { motion } from "framer-motion";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "ghost";
+  variant?: "primary" | "secondary";
   children: ReactNode;
+  href?: string;
+  className?: string;
 }
 
 export function Button({
   variant = "primary",
   children,
+  href,
   className = "",
   ...props
 }: ButtonProps) {
-  const baseStyles =
-    "px-6 py-3 rounded-xl font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus-ring";
+  const baseClasses =
+    "inline-flex items-center justify-center px-8 py-3.5 rounded-2xl font-semibold text-base transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5B5FFF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#07080B]";
 
-  const variants = {
+  const variantClasses = {
     primary:
-      "accent-bg text-white hover:bg-[var(--accent-hover)] shadow-custom hover:shadow-custom-lg hover:scale-[1.02]",
+      "bg-gradient-to-r from-[#00D4FF] via-[#5B5FFF] to-[#9B4FFF] text-white shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(91,95,255,0.6),inset_0_1px_0_0_rgba(255,255,255,0.15)] hover:-translate-y-0.5 active:translate-y-0",
     secondary:
-      "surface border-2 border-custom hover:border-[var(--accent)] shadow-custom hover:shadow-custom-lg hover:scale-[1.02]",
-    ghost: "hover:surface hover:border hover:border-custom",
+      "glass-panel text-white border border-white/10 hover:border-white/20 hover:bg-white/[0.06] hover:-translate-y-0.5 active:translate-y-0 relative overflow-hidden group",
   };
 
+  const combinedClasses = `${baseClasses} ${variantClasses[variant]} ${className}`;
+
+  if (href) {
+    return (
+      <motion.a
+        href={href}
+        className={combinedClasses}
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+      >
+        {variant === "secondary" && (
+          <div className="absolute inset-0 rounded-2xl border border-transparent bg-gradient-to-r from-[#00D4FF]/20 via-[#5B5FFF]/20 to-[#9B4FFF]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        )}
+        <span className="relative z-10">{children}</span>
+      </motion.a>
+    );
+  }
+
   return (
-    <button
-      className={`${baseStyles} ${variants[variant]} ${className}`}
+    <motion.button
+      className={combinedClasses}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
       {...props}
     >
-      {children}
-    </button>
+      {variant === "secondary" && (
+        <div className="absolute inset-0 rounded-2xl border border-transparent bg-gradient-to-r from-[#00D4FF]/20 via-[#5B5FFF]/20 to-[#9B4FFF]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      )}
+      <span className="relative z-10">{children}</span>
+    </motion.button>
   );
 }

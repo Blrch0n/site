@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import { GeistSans } from "geist/font/sans";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/lib/theme-provider";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
 
 export const metadata: Metadata = {
-  title: "Sys&CoTech - Технологийн Хүчирхэг Нийгэмлэг",
-  description: "Технологи, инженерчлэл, дизайныг судалж, хөгжүүлэх оюутны клуб",
+  title: "Sys&CoTech | Where Innovation Meets Community",
+  description:
+    "Join Mongolia's premier technology student club. Learn, build, and lead the next generation of digital innovation since 2009.",
 };
 
 export default function RootLayout({
@@ -14,10 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="mn" suppressHydrationWarning>
-      <body className={`${GeistSans.className} antialiased`}>
-        <ThemeProvider>{children}</ThemeProvider>
-      </body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} antialiased`}>{children}</body>
     </html>
   );
 }

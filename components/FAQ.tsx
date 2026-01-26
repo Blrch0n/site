@@ -1,109 +1,143 @@
 "use client";
 
 import { useState } from "react";
-import { Section } from "./Section";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
 
-const faqs = [
-  {
-    question: "Хэн элсэх боломжтой вэ?",
-    answer:
-      "Технологид сонирхолтой бүх оюутан элсэх боломжтой. Өмнөх туршлага шаардлагагүй, зөвхөн суралцах хүсэл л хангалттай.",
-  },
-  {
-    question: "Гишүүнчлэлийн хураамж байдаг уу?",
-    answer:
-      "Үгүй, бидний клуб үнэгүй. Зарим арга хэмжээ, сургалт бага хэмжээний хураамжтай байж болох боловч ихэнх үйл ажиллагаа үнэгүй.",
-  },
-  {
-    question: "Сургалтууд хэзээ явагддаг вэ?",
-    answer:
-      "Сургалтууд улирал бүр нээгддэг. Ихэвчлэн долоо хоног бүрийн амралтын өдрүүдэд 2-3 цагийн хичээлтэй байдаг.",
-  },
-  {
-    question: "Яаж элсэх вэ?",
-    answer:
-      "Манай Facebook хуудас эсвэл вэбсайтаар дамжуулан бүртгүүлнэ. Улирал бүрийн эхэнд элсэлт нээгддэг.",
-  },
-  {
-    question: "Ямар төсөл дээр ажиллах вэ?",
-    answer:
-      "Та өөрийн сонирхсон төсөл дээр ажиллах эсвэл клубийн төслүүдэд нэгдэх боломжтой. Бид вэб, мобайл апп, AI, IoT гэх мэт олон төрлийн төсөл хийдэг.",
-  },
-  {
-    question: "Англи хэлний мэдлэг шаардлагатай юу?",
-    answer:
-      "Англи хэл мэдэх нь давуу тал боловч албан ёсны шаардлага биш. Ихэнх сургалт, материал монгол хэл дээр байдаг.",
-  },
-  {
-    question: "Компьютер байх ёстой юу?",
-    answer:
-      "Тийм, хувийн зөөврийн компьютертэй байх хэрэгтэй. Хэрэв танд компьютер байхгүй бол клуб танд туслах арга замыг олохыг хичээнэ.",
-  },
-  {
-    question: "Хэдэн удаа уулзалт хийдэг вэ?",
-    answer:
-      "Долоо хоног бүр нийтлэг уулзалт хийдэг. Үүнээс гадна сургалт, workshop, hackathon зэрэг тусгай арга хэмжээ байнга зохион байгуулагддаг.",
-  },
-];
+interface FAQItemProps {
+  question: string;
+  answer: string;
+  delay?: number;
+}
 
-function FAQItem({ question, answer }: { question: string; answer: string }) {
+function FAQItem({ question, answer, delay = 0 }: FAQItemProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
-    <div className="frame overflow-hidden">
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      transition={{ duration: 0.4, delay, ease: [0.16, 1, 0.3, 1] }}
+      className="border-b border-white/8 last:border-0"
+    >
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-6 py-4 flex justify-between items-center gap-4 text-left hover:bg-[var(--border)] transition-colors focus-ring"
+        className="w-full py-6 flex items-center justify-between text-left group"
+        aria-expanded={isOpen}
       >
-        <span className="font-semibold">{question}</span>
-        <svg
-          className={`w-5 h-5 transition-transform flex-shrink-0 ${
-            isOpen ? "rotate-180" : ""
-          }`}
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          aria-hidden="true"
+        <h4 className="text-lg md:text-xl font-semibold pr-4 group-hover:text-[#00D4FF] transition-colors">
+          {question}
+        </h4>
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          className="flex-shrink-0"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 9l-7 7-7-7"
-          />
-        </svg>
+          <ChevronDown className="w-5 h-5 text-white/50 group-hover:text-white transition-colors" />
+        </motion.div>
       </button>
 
-      <div
-        className={`grid transition-all duration-300 ${
-          isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-        }`}
-      >
-        <div className="overflow-hidden">
-          <div className="px-6 pb-4 text-muted">{answer}</div>
-        </div>
-      </div>
-    </div>
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden"
+          >
+            <div className="pb-6 text-white/70 leading-relaxed">{answer}</div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 }
 
-export function FAQ() {
-  return (
-    <Section id="faq" className="surface">
-      <div className="text-center mb-16">
-        <h2 className="text-4xl lg:text-5xl font-bold mb-4">
-          Түгээмэл асуултууд
-        </h2>
-        <p className="text-xl text-muted max-w-2xl mx-auto">
-          Клубийн талаар танд байж болох асуултууд болон хариултууд
-        </p>
-      </div>
+export default function FAQ() {
+  const faqData = [
+    {
+      question: "How do I join the club?",
+      answer:
+        "Simply attend one of our open events or contact us directly through Facebook or phone. We welcome all students interested in technology, regardless of skill level.",
+    },
+    {
+      question: "Are there requirements (year, major, age)?",
+      answer:
+        "No strict requirements! We welcome students from all years and majors. Passion for learning technology is the only prerequisite.",
+    },
+    {
+      question: "What are the benefits of membership?",
+      answer:
+        "Access to training programs, mentorship opportunities, networking with industry professionals, participation in competitions, and hands-on project experience.",
+    },
+    {
+      question: "How do I enroll in training programs?",
+      answer:
+        "Training enrollment opens at the start of each semester. Follow our Facebook page or contact us to get notified when registration begins.",
+    },
+  ];
 
-      <div className="max-w-3xl mx-auto space-y-4">
-        {faqs.map((faq, index) => (
-          <FAQItem key={index} question={faq.question} answer={faq.answer} />
-        ))}
+  return (
+    <section id="faq" className="py-24 md:py-32">
+      <div className="max-w-4xl mx-auto px-6 md:px-12">
+        <SectionHeader
+          eyebrow="FAQ"
+          title="Frequently Asked Questions"
+          subtitle="Everything you need to know about joining Sys&CoTech."
+        />
+
+        <div className="mt-16 rounded-2xl bg-white/4 border border-white/8 p-6 md:p-8">
+          {faqData.map((item, index) => (
+            <FAQItem
+              key={index}
+              question={item.question}
+              answer={item.answer}
+              delay={index * 0.05}
+            />
+          ))}
+        </div>
       </div>
-    </Section>
+    </section>
+  );
+}
+
+interface SectionHeaderProps {
+  eyebrow?: string;
+  title: string;
+  subtitle: string;
+}
+
+export function SectionHeader({
+  eyebrow,
+  title,
+  subtitle,
+}: SectionHeaderProps) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className="text-center max-w-3xl mx-auto mb-16"
+    >
+      {eyebrow && (
+        <div className="inline-block px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm font-medium spectral-text mb-4 uppercase tracking-wider">
+          {eyebrow}
+        </div>
+      )}
+      <h2 className="text-3xl md:text-5xl font-bold mb-4">{title}</h2>
+      <p className="text-lg md:text-xl text-white/70 leading-relaxed">
+        {subtitle}
+      </p>
+    </motion.div>
   );
 }
