@@ -30,7 +30,7 @@ function FAQItem({ question, answer, delay = 0 }: FAQItemProps) {
         className="w-full py-6 flex items-center justify-between text-left group"
         aria-expanded={isOpen}
       >
-        <h4 className="text-lg md:text-xl font-semibold pr-4 group-hover:text-[#00D4FF] transition-colors">
+        <h4 className="text-lg md:text-xl font-semibold pr-4 group-hover:text-[var(--accent-cyan)] transition-colors">
           {question}
         </h4>
         <motion.div
@@ -131,7 +131,7 @@ export function SectionHeader({
     >
       {eyebrow && (
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-md border border-white/10 bg-white/[0.02] text-[11px] font-mono uppercase tracking-[0.2em] text-white/50 mb-6 backdrop-blur-sm">
-          <div className="w-1 h-1 rounded-full bg-[#5B5FFF]" />
+          <div className="w-1 h-1 rounded-full bg-[var(--accent-blue)]" />
           {eyebrow}
         </div>
       )}

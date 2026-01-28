@@ -99,7 +99,7 @@ export default function FeedbackForm() {
             id="name"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            className="w-full px-4 py-2.5 rounded-xl bg-white/2 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#5B5FFF]/40 focus:border-[#5B5FFF]/40 transition-all"
+            className="w-full px-4 py-2.5 rounded-xl bg-white/2 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[var(--accent-blue)]/40 focus:border-[var(--accent-blue)]/40 transition-all"
             placeholder="Your name"
           />
         </div>
@@ -123,7 +123,7 @@ export default function FeedbackForm() {
             className={`w-full px-4 py-2.5 rounded-xl bg-white/2 border ${
               errors.email
                 ? "border-red-400/60 focus:ring-red-400/40"
-                : "border-white/10 focus:ring-[#5B5FFF]/40 focus:border-[#5B5FFF]/40"
+                : "border-white/10 focus:ring-[var(--accent-blue)]/40 focus:border-[var(--accent-blue)]/40"
             } text-white placeholder:text-white/30 focus:outline-none focus:ring-2 transition-all`}
             placeholder="your.email@example.com"
             required
@@ -152,7 +152,7 @@ export default function FeedbackForm() {
             className={`w-full px-4 py-2.5 rounded-xl bg-white/2 border ${
               errors.subject
                 ? "border-red-400/60 focus:ring-red-400/40"
-                : "border-white/10 focus:ring-[#5B5FFF]/40 focus:border-[#5B5FFF]/40"
+                : "border-white/10 focus:ring-[var(--accent-blue)]/40 focus:border-[var(--accent-blue)]/40"
             } text-white placeholder:text-white/30 focus:outline-none focus:ring-2 transition-all`}
             placeholder="What's this about?"
             required
@@ -181,7 +181,7 @@ export default function FeedbackForm() {
             className={`w-full px-4 py-2.5 rounded-xl bg-white/2 border ${
               errors.message
                 ? "border-red-400/60 focus:ring-red-400/40"
-                : "border-white/10 focus:ring-[#5B5FFF]/40 focus:border-[#5B5FFF]/40"
+                : "border-white/10 focus:ring-[var(--accent-blue)]/40 focus:border-[var(--accent-blue)]/40"
             } text-white placeholder:text-white/30 focus:outline-none focus:ring-2 transition-all resize-none`}
             placeholder="Tell us what you think..."
             required
@@ -195,13 +195,13 @@ export default function FeedbackForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-white/10 bg-white/2 text-white font-medium text-sm hover:border-[#5B5FFF]/40 hover:bg-white/4 hover:shadow-[0_0_20px_rgba(91,95,255,0.2)] transition-all duration-200 relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none"
+          className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-white/10 bg-white/2 text-white font-medium text-sm hover:border-[var(--accent-blue)]/40 hover:bg-white/4 hover:shadow-[0_0_20px_var(--panel-glow)] transition-all duration-200 relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none"
         >
           <span className="relative z-10 flex items-center gap-2">
             <Send size={16} />
             {isSubmitting ? "Opening email client…" : "Send Feedback"}
           </span>
-          <div className="absolute inset-0 bg-linear-to-r from-[#00D4FF]/10 via-[#5B5FFF]/10 to-[#9B4FFF]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute inset-0 bg-linear-to-r from-[var(--accent-cyan)]/10 via-[var(--accent-blue)]/10 to-[var(--accent-violet)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </button>
       </form>
     </motion.div>

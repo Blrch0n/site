@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, ExternalLink, Hash, UserPlus } from "lucide-react";
 import { useCommandPalette } from "./useCommandPalette";
@@ -101,7 +101,7 @@ const commands: CommandItem[] = [
 ];
 
 export default function CommandPalette() {
-  const { isOpen, closePalette } = useCommandPalette();
+  const { isOpen, closePalette, openCount } = useCommandPalette();
   const { openModal } = useJoinModal();
   const [search, setSearch] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -117,32 +117,60 @@ export default function CommandPalette() {
     );
   }, [search]);
 
-  useEffect(() => {
+  // Handle search input changes and reset selection
+  const handleSearchChange = useCallback((value: string) => {
+    setSearch(value);
     setSelectedIndex(0);
-  }, [search]);
+  }, []);
 
+  // Focus input when modal opens
   useEffect(() => {
     if (isOpen) {
-      setSearch("");
-      setSelectedIndex(0);
       setTimeout(() => inputRef.current?.focus(), 50);
     }
   }, [isOpen]);
+
+  const handleSelectCommand = useCallback(
+    (cmd: CommandItem) => {
+      closePalette();
+
+      if (cmd.type === "action") {
+        // Handle action commands
+        if (cmd.id === "join") {
+          setTimeout(() => openModal(), 100);
+        }
+      } else if (cmd.type === "section") {
+        // Smooth scroll to section
+        setTimeout(() => {
+          const element = document.querySelector(cmd.href!);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }, 100);
+      } else {
+        // Open external link
+        window.open(cmd.href, "_blank", "noopener,noreferrer");
+      }
+    },
+    [closePalette, openModal],
+  );
 
   useEffect(() => {
     if (!isOpen) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowDown" && filteredCommands.length > 0) {
+      if (filteredCommands.length === 0) return;
+
+      if (e.key === "ArrowDown") {
         e.preventDefault();
         setSelectedIndex((prev) => (prev + 1) % filteredCommands.length);
-      } else if (e.key === "ArrowUp" && filteredCommands.length > 0) {
+      } else if (e.key === "ArrowUp") {
         e.preventDefault();
         setSelectedIndex(
           (prev) =>
             (prev - 1 + filteredCommands.length) % filteredCommands.length,
         );
-      } else if (e.key === "Enter" && filteredCommands.length > 0) {
+      } else if (e.key === "Enter") {
         e.preventDefault();
         handleSelectCommand(filteredCommands[selectedIndex]);
       }
@@ -150,39 +178,18 @@ export default function CommandPalette() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, selectedIndex, filteredCommands]);
-
-  const handleSelectCommand = (cmd: CommandItem) => {
-    closePalette();
-
-    if (cmd.type === "action") {
-      // Handle action commands
-      if (cmd.id === "join") {
-        setTimeout(() => openModal(), 100);
-      }
-    } else if (cmd.type === "section") {
-      // Smooth scroll to section
-      setTimeout(() => {
-        const element = document.querySelector(cmd.href!);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      }, 100);
-    } else {
-      // Open external link
-      window.open(cmd.href, "_blank", "noopener,noreferrer");
-    }
-  };
+  }, [isOpen, selectedIndex, filteredCommands, handleSelectCommand]);
 
   if (!isOpen) return null;
 
   return (
     <AnimatePresence>
       <motion.div
+        key={openCount}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 0.15 }}
+        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
         className="fixed inset-0 z-[200] flex items-start justify-center pt-[15vh] px-4"
         onClick={closePalette}
       >
@@ -194,7 +201,7 @@ export default function CommandPalette() {
           initial={{ scale: 0.96, y: -20 }}
           animate={{ scale: 1, y: 0 }}
           exit={{ scale: 0.96, y: -20 }}
-          transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="relative w-full max-w-2xl"
           onClick={(e) => e.stopPropagation()}
         >
@@ -212,7 +219,7 @@ export default function CommandPalette() {
                 ref={inputRef}
                 type="text"
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => handleSearchChange(e.target.value)}
                 placeholder="Search commands..."
                 className="flex-1 bg-transparent text-white placeholder:text-white/30 outline-none text-sm"
               />
@@ -236,17 +243,17 @@ export default function CommandPalette() {
                       onMouseEnter={() => setSelectedIndex(index)}
                       className={`w-full flex items-center gap-3 px-4 py-3 transition-colors ${
                         index === selectedIndex
-                          ? "bg-white/[0.08] border-l-2 border-[#5B5FFF]"
+                          ? "bg-white/[0.08] border-l-2 border-[var(--accent-blue)]"
                           : "hover:bg-white/[0.04]"
                       }`}
                     >
                       <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/5 border border-white/8">
                         {cmd.type === "section" ? (
-                          <Hash className="w-4 h-4 text-[#00D4FF]" />
+                          <Hash className="w-4 h-4 text-[var(--accent-cyan)]" />
                         ) : cmd.type === "action" ? (
-                          <UserPlus className="w-4 h-4 text-[#5B5FFF]" />
+                          <UserPlus className="w-4 h-4 text-[var(--accent-blue)]" />
                         ) : (
-                          <ExternalLink className="w-4 h-4 text-[#E94FFF]" />
+                          <ExternalLink className="w-4 h-4 text-[var(--accent-pink)]" />
                         )}
                       </div>
                       <div className="flex-1 text-left">

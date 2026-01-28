@@ -34,17 +34,20 @@ export function ActiveSectionProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        const intersecting = entries.filter((entry) => entry.isIntersecting);
-        if (intersecting.length > 0) {
-          const mostVisible = intersecting.reduce((prev, current) =>
+        // Get all visible entries
+        const visibleEntries = entries.filter((entry) => entry.isIntersecting);
+
+        if (visibleEntries.length > 0) {
+          // Find the entry with highest intersection ratio
+          const mostVisible = visibleEntries.reduce((prev, current) =>
             current.intersectionRatio > prev.intersectionRatio ? current : prev,
           );
           setActiveSection(mostVisible.target.id);
         }
       },
       {
-        threshold: 0.3,
-        rootMargin: "-100px 0px -50% 0px",
+        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+        rootMargin: "-80px 0px -40% 0px",
       },
     );
 

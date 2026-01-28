@@ -37,7 +37,7 @@ export default function Home() {
   return (
     <>
       <Navigation />
-      <main id="top">
+      <main>
         <Hero />
 
         {/* About Section */}
@@ -45,10 +45,10 @@ export default function Home() {
           <SectionFrame index="01" className="py-24 md:py-32" showTopDivider>
             {/* Background Effects - subtle */}
             <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#00D4FF] opacity-[0.02] blur-[160px] rounded-full" />
+              <div className="absolute top-0 left-1/4 w-96 h-96 bg-[var(--accent-cyan)] opacity-[0.02] blur-[160px] rounded-full" />
             </div>
 
-            <div className="relative">
+            <div className="relative max-w-7xl mx-auto">
               <SectionHeader
                 eyebrow="WHO WE ARE"
                 title="United by Passion, Driven by Innovation"
@@ -57,19 +57,23 @@ export default function Home() {
 
               <div className="grid md:grid-cols-3 gap-5 mb-20">
                 <ValueCard
-                  icon={<Layers className="w-5 h-5 text-[#00D4FF]" />}
+                  icon={
+                    <Layers className="w-5 h-5 text-[var(--accent-cyan)]" />
+                  }
                   title="Learn Together"
                   description="Master new technologies through hands-on collaboration and peer-to-peer teaching."
                   delay={0}
                 />
                 <ValueCard
-                  icon={<Palette className="w-5 h-5 text-[#5B5FFF]" />}
+                  icon={
+                    <Palette className="w-5 h-5 text-[var(--accent-blue)]" />
+                  }
                   title="Design Excellence"
                   description="Awaken inner creativity through digital design and visual innovation."
                   delay={0.08}
                 />
                 <ValueCard
-                  icon={<Code2 className="w-5 h-5 text-[#E94FFF]" />}
+                  icon={<Code2 className="w-5 h-5 text-[var(--accent-pink)]" />}
                   title="Engineer Mindset"
                   description="Solve complex problems with competitive programming and algorithmic thinking."
                   delay={0.16}
@@ -109,10 +113,10 @@ export default function Home() {
           <SectionFrame index="02" className="py-24 md:py-32" showTopDivider>
             {/* Background Gradient */}
             <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[#5B5FFF] opacity-[0.02] blur-[180px] rounded-full" />
+              <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[var(--accent-blue)] opacity-[0.02] blur-[180px] rounded-full" />
             </div>
 
-            <div className="relative">
+            <div className="relative max-w-7xl mx-auto">
               <SectionHeader
                 eyebrow="OUR CORE"
                 title="Six Pillars of Excellence"
@@ -121,37 +125,45 @@ export default function Home() {
 
               <div className="grid md:grid-cols-3 gap-5">
                 <PillarCard
-                  icon={<BookOpen className="w-5 h-5 text-[#00D4FF]" />}
+                  icon={
+                    <BookOpen className="w-5 h-5 text-[var(--accent-cyan)]" />
+                  }
                   title="Learning New Technologies"
                   description="Master emerging tools and frameworks to stay ahead of the curve."
                   delay={0}
                 />
                 <PillarCard
-                  icon={<Palette className="w-5 h-5 text-[#5B5FFF]" />}
+                  icon={
+                    <Palette className="w-5 h-5 text-[var(--accent-blue)]" />
+                  }
                   title="Design Creation"
                   description="Awaken inner artistry through digital design and visual excellence."
                   delay={0.08}
                 />
                 <PillarCard
-                  icon={<Code2 className="w-5 h-5 text-[#9B4FFF]" />}
+                  icon={
+                    <Code2 className="w-5 h-5 text-[var(--accent-violet)]" />
+                  }
                   title="Engineering Mindset"
                   description="Solve complex problems with competitive programming expertise."
                   delay={0.16}
                 />
                 <PillarCard
-                  icon={<Users className="w-5 h-5 text-[#E94FFF]" />}
+                  icon={<Users className="w-5 h-5 text-[var(--accent-pink)]" />}
                   title="Leadership & Responsibility"
                   description="Mentor peers and lead by example in all initiatives."
                   delay={0.24}
                 />
                 <PillarCard
-                  icon={<GraduationCap className="w-5 h-5 text-[#FFAA00]" />}
+                  icon={
+                    <GraduationCap className="w-5 h-5 text-[var(--accent-amber)]" />
+                  }
                   title="Education"
                   description="Share knowledge within the club and beyond our community."
                   delay={0.32}
                 />
                 <PillarCard
-                  icon={<Zap className="w-5 h-5 text-[#00D4FF]" />}
+                  icon={<Zap className="w-5 h-5 text-[var(--accent-cyan)]" />}
                   title="Innovation"
                   description="Always think, always create, always evolve forward."
                   delay={0.4}
@@ -166,10 +178,10 @@ export default function Home() {
           <SectionFrame index="03" className="py-24 md:py-32" showTopDivider>
             {/* Centered Glow */}
             <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-              <div className="w-[800px] h-[800px] bg-[#00D4FF] opacity-[0.015] blur-[220px] rounded-full" />
+              <div className="w-[800px] h-[800px] bg-[var(--accent-cyan)] opacity-[0.015] blur-[220px] rounded-full" />
             </div>
 
-            <div className="relative">
+            <div className="relative max-w-7xl mx-auto">
               <SectionHeader
                 eyebrow="TRAINING"
                 title="Master the Fundamentals"
@@ -211,10 +223,12 @@ export default function Home() {
           <SectionFrame index="04" className="py-24 md:py-32" showTopDivider>
             {/* Background Gradient */}
             <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-[#E94FFF] opacity-[0.02] blur-[160px] rounded-full" />
+              <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-[var(--accent-pink)] opacity-[0.02] blur-[160px] rounded-full" />
             </div>
 
-            <Projects />
+            <div className="relative max-w-7xl mx-auto">
+              <Projects />
+            </div>
           </SectionFrame>
         </section>
 
@@ -223,10 +237,10 @@ export default function Home() {
           <SectionFrame index="05" className="py-24 md:py-32" showTopDivider>
             {/* Diagonal Gradients */}
             <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-[#9B4FFF] opacity-[0.02] blur-[180px] rounded-full" />
+              <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-[var(--accent-violet)] opacity-[0.02] blur-[180px] rounded-full" />
             </div>
 
-            <div className="relative">
+            <div className="relative max-w-7xl mx-auto">
               <SectionHeader
                 eyebrow="ACTIVITIES"
                 title="We Build Together"
@@ -236,28 +250,34 @@ export default function Home() {
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
                 <EventCard
                   year="17 Years"
-                  icon={<Trophy className="w-8 h-8 text-[#00D4FF]" />}
+                  icon={
+                    <Trophy className="w-8 h-8 text-[var(--accent-cyan)]" />
+                  }
                   title="Competitive Programming Contest"
                   description="Annual algorithm competition testing problem-solving skills."
                   delay={0}
                 />
                 <EventCard
                   year="10 Years"
-                  icon={<Lightbulb className="w-8 h-8 text-[#5B5FFF]" />}
+                  icon={
+                    <Lightbulb className="w-8 h-8 text-[var(--accent-blue)]" />
+                  }
                   title="Dev Hackathon"
                   description="48-hour innovation sprint to build the next big idea."
                   delay={0.08}
                 />
                 <EventCard
                   year="Ongoing"
-                  icon={<Calendar className="w-8 h-8 text-[#9B4FFF]" />}
+                  icon={
+                    <Calendar className="w-8 h-8 text-[var(--accent-violet)]" />
+                  }
                   title="Training Sessions"
                   description="Weekly workshops for students and club members."
                   delay={0.16}
                 />
                 <EventCard
                   year="Ongoing"
-                  icon={<Clock className="w-8 h-8 text-[#E94FFF]" />}
+                  icon={<Clock className="w-8 h-8 text-[var(--accent-pink)]" />}
                   title="Collaborative Events"
                   description="Partnerships with clubs and sponsors like Golomt Bank."
                   delay={0.24}

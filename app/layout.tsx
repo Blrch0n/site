@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Inter, IBM_Plex_Mono } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import BackgroundGrid from "@/components/BackgroundGrid";
 import RightRail from "@/components/RightRail";
@@ -9,19 +10,6 @@ import { CommandPaletteProvider } from "@/components/CommandPalette/CommandPalet
 import CommandPalette from "@/components/CommandPalette/CommandPalette";
 import { JoinModalProvider } from "@/components/JoinModalProvider";
 import JoinModalWrapper from "@/components/JoinModalWrapper";
-
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
-});
-
-const ibmPlexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  display: "swap",
-  variable: "--font-mono",
-});
 
 export const metadata: Metadata = {
   title: "Sys&CoTech | Where Innovation Meets Community",
@@ -35,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${ibmPlexMono.variable} ${inter.className} antialiased`}
+        className={`${GeistSans.variable} ${GeistMono.variable} ${GeistSans.className} antialiased`}
       >
         <ActiveSectionProvider>
           <CommandPaletteProvider>

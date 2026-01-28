@@ -41,7 +41,7 @@ export default function Navigation() {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
           isScrolled
             ? "bg-[rgba(7,8,11,0.95)] backdrop-blur-2xl border-b border-white/8"
@@ -74,7 +74,7 @@ export default function Navigation() {
                     className="text-[13px] font-medium text-white/50 hover:text-white transition-colors duration-200 relative group py-2"
                   >
                     {link.label}
-                    <span className="absolute -bottom-0 left-0 w-0 h-[1px] bg-gradient-to-r from-[#5B5FFF] to-[#00D4FF] group-hover:w-full transition-all duration-300" />
+                    <span className="absolute -bottom-0 left-0 w-0 h-[1px] bg-gradient-to-r from-[var(--accent-blue)] to-[var(--accent-cyan)] group-hover:w-full transition-all duration-300" />
                   </a>
                 </li>
               ))}
@@ -93,10 +93,10 @@ export default function Navigation() {
 
               <button
                 onClick={openModal}
-                className="flex items-center justify-center px-5 py-2 rounded-lg border border-white/10 bg-white/[0.02] text-white font-medium text-sm hover:border-[#5B5FFF]/40 hover:bg-white/[0.04] hover:shadow-[0_0_20px_rgba(91,95,255,0.2)] transition-all duration-200 relative overflow-hidden group"
+                className="flex items-center justify-center px-5 py-2 rounded-lg border border-white/10 bg-white/[0.02] text-white font-medium text-sm hover:border-[var(--accent-blue)]/40 hover:bg-white/[0.04] hover:shadow-[0_0_20px_var(--panel-glow)] transition-all duration-200 relative overflow-hidden group"
               >
                 <span className="relative z-10">Join Us</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-[#00D4FF]/10 via-[#5B5FFF]/10 to-[#9B4FFF]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[var(--accent-cyan)]/10 via-[var(--accent-blue)]/10 to-[var(--accent-violet)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </button>
             </div>
 
@@ -119,7 +119,7 @@ export default function Navigation() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="fixed inset-0 z-40 md:hidden"
             onClick={() => setIsMobileMenuOpen(false)}
           >
@@ -142,7 +142,7 @@ export default function Navigation() {
                     <a
                       href={link.href}
                       onClick={handleLinkClick}
-                      className="block py-3 text-lg font-medium text-white hover:text-[#00D4FF] transition-colors"
+                      className="block py-3 text-lg font-medium text-white hover:text-[var(--accent-cyan)] transition-colors"
                     >
                       {link.label}
                     </a>

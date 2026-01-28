@@ -31,7 +31,7 @@ export default function RightRail() {
             <div
               className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
                 activeSection === section.id
-                  ? "bg-[#5B5FFF] scale-150 shadow-[0_0_12px_rgba(91,95,255,0.8)]"
+                  ? "bg-[var(--accent-blue)] scale-150 shadow-[0_0_12px_rgba(91,95,255,0.8)]"
                   : "bg-white/20 hover:bg-white/40 hover:scale-125"
               }`}
             />

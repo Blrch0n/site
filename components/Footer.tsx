@@ -25,7 +25,10 @@ export default function Footer() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as any },
+      transition: {
+        duration: 0.5,
+        ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+      },
     },
   };
 
@@ -89,7 +92,7 @@ export default function Footer() {
                 href="https://www.facebook.com/SysAndCoTech/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center w-12 h-12 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 hover:-translate-y-1 hover:border-[#00D4FF] transition-all"
+                className="flex items-center justify-center w-12 h-12 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 hover:-translate-y-1 hover:border-[var(--accent-cyan)] transition-all"
                 aria-label="Facebook"
               >
                 <Facebook size={20} />
@@ -98,7 +101,7 @@ export default function Footer() {
                 href="https://goo.gl/maps/Qwv3RYvybs8YqJsS8"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center w-12 h-12 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 hover:-translate-y-1 hover:border-[#00D4FF] transition-all"
+                className="flex items-center justify-center w-12 h-12 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 hover:-translate-y-1 hover:border-[var(--accent-cyan)] transition-all"
                 aria-label="Location"
               >
                 <MapPin size={20} />

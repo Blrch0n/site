@@ -1,8 +1,32 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+
 export default function BackgroundGrid() {
+  const auroraRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const auroraElement = auroraRef.current;
+    if (!auroraElement) return;
+
+    // Passive pointer move listener for cursor-reactive scanner glow
+    const handlePointerMove = (e: PointerEvent) => {
+      auroraElement.style.setProperty("--mx", `${e.clientX}px`);
+      auroraElement.style.setProperty("--my", `${e.clientY}px`);
+    };
+
+    window.addEventListener("pointermove", handlePointerMove, {
+      passive: true,
+    });
+
+    return () => {
+      window.removeEventListener("pointermove", handlePointerMove);
+    };
+  }, []);
+
   return (
-    <div className="fixed inset-0 pointer-events-none z-[1]">
+    <div className="fixed inset-0 pointer-events-none z-0">
+      {/* Base dual-layer grid (24px + 96px) */}
       <div
         className="absolute inset-0"
         style={{
@@ -20,6 +44,19 @@ export default function BackgroundGrid() {
         }}
       />
 
+      {/* Aurora Flow overlay - animated color along grid lines */}
+      <div
+        ref={auroraRef}
+        className="aurora-flow-overlay"
+        style={
+          {
+            "--mx": "50vw",
+            "--my": "50vh",
+          } as React.CSSProperties
+        }
+      />
+
+      {/* Vignette overlay */}
       <div
         className="absolute inset-0"
         style={{

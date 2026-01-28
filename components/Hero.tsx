@@ -18,8 +18,9 @@ export default function Hero() {
   useEffect(() => {
     const checkMobile = () => {
       const mobile = window.innerWidth < 768;
+      const nav = navigator as Navigator & { deviceMemory?: number };
       const lowPower =
-        (navigator as any).deviceMemory < 4 ||
+        (nav.deviceMemory !== undefined && nav.deviceMemory < 4) ||
         navigator.hardwareConcurrency < 4;
       setIsMobile(mobile || lowPower);
     };
@@ -62,14 +63,17 @@ export default function Hero() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as any },
+      transition: {
+        duration: 0.5,
+        ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+      },
     },
   };
 
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-32 md:py-20 w-full">
         <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
@@ -85,7 +89,7 @@ export default function Hero() {
               variants={itemVariants}
               className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-md border border-white/10 bg-white/[0.02] text-[11px] font-mono uppercase tracking-wider text-white/60 backdrop-blur-sm"
             >
-              <div className="w-1.5 h-1.5 rounded-full bg-[#5B5FFF] animate-pulse shadow-[0_0_8px_rgba(91,95,255,0.8)]" />
+              <div className="w-1.5 h-1.5 rounded-full bg-[var(--accent-blue)] animate-pulse shadow-[0_0_8px_rgba(91,95,255,0.8)]" />
               <span>Est. 2009</span>
             </motion.div>
 
@@ -120,10 +124,10 @@ export default function Hero() {
             >
               <button
                 onClick={openModal}
-                className="group inline-flex items-center justify-center px-7 py-3.5 rounded-lg border border-white/10 bg-gradient-to-r from-[#00D4FF]/10 via-[#5B5FFF]/10 to-[#9B4FFF]/10 text-white font-semibold text-sm hover:border-[#5B5FFF]/40 hover:shadow-[0_0_24px_rgba(91,95,255,0.3)] hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden"
+                className="group inline-flex items-center justify-center px-7 py-3.5 rounded-lg border border-white/10 bg-gradient-to-r from-[var(--accent-cyan)]/10 via-[var(--accent-blue)]/10 to-[var(--accent-violet)]/10 text-white font-semibold text-sm hover:border-[var(--accent-blue)]/40 hover:shadow-[0_0_24px_var(--panel-glow)] hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden"
               >
                 <span className="relative z-10">Join the Club</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-[#00D4FF]/20 via-[#5B5FFF]/20 to-[#9B4FFF]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[var(--accent-cyan)]/20 via-[var(--accent-blue)]/20 to-[var(--accent-violet)]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </button>
               <a
                 href="#programs"
@@ -138,7 +142,7 @@ export default function Hero() {
               variants={itemVariants}
               className="flex items-center gap-3 pt-2"
             >
-              <div className="w-12 h-[1px] bg-gradient-to-r from-transparent via-[#5B5FFF]/50 to-transparent" />
+              <div className="w-12 h-[1px] bg-gradient-to-r from-transparent via-[var(--accent-blue)]/50 to-transparent" />
               <div className="text-[10px] text-white/30 font-mono uppercase tracking-[0.2em]">
                 SCROLL TO EXPLORE
               </div>
@@ -155,10 +159,10 @@ export default function Hero() {
             {/* Main panel with corner brackets */}
             <div className="relative aspect-square w-full max-w-lg mx-auto">
               {/* Thin HUD Frame Lines - minimal */}
-              <div className="absolute top-0 left-0 w-16 h-[1px] bg-gradient-to-r from-[#5B5FFF]/40 to-transparent" />
-              <div className="absolute top-0 left-0 w-[1px] h-16 bg-gradient-to-b from-[#5B5FFF]/40 to-transparent" />
-              <div className="absolute bottom-0 right-0 w-16 h-[1px] bg-gradient-to-l from-[#5B5FFF]/40 to-transparent" />
-              <div className="absolute bottom-0 right-0 w-[1px] h-16 bg-gradient-to-t from-[#5B5FFF]/40 to-transparent" />
+              <div className="absolute top-0 left-0 w-16 h-[1px] bg-gradient-to-r from-[var(--accent-blue)]/40 to-transparent" />
+              <div className="absolute top-0 left-0 w-[1px] h-16 bg-gradient-to-b from-[var(--accent-blue)]/40 to-transparent" />
+              <div className="absolute bottom-0 right-0 w-16 h-[1px] bg-gradient-to-l from-[var(--accent-blue)]/40 to-transparent" />
+              <div className="absolute bottom-0 right-0 w-[1px] h-16 bg-gradient-to-t from-[var(--accent-blue)]/40 to-transparent" />
 
               {/* Glass panel container */}
               <div className="relative rounded-2xl glass-panel overflow-hidden h-full border border-white/8">
@@ -206,10 +210,10 @@ export default function Hero() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1.2, duration: 0.5 }}
-                  className="absolute bottom-4 left-4 right-4 glass-panel rounded-lg p-3 border-l border-l-[#00D4FF]/40"
+                  className="absolute bottom-4 left-4 right-4 glass-panel rounded-lg p-3 border-l border-l-[var(--accent-cyan)]/40"
                 >
                   <div className="flex items-start gap-2.5">
-                    <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[#00D4FF] mt-1.5 animate-pulse shadow-[0_0_8px_rgba(0,212,255,0.8)]" />
+                    <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[var(--accent-cyan)] mt-1.5 animate-pulse shadow-[0_0_8px_rgba(0,212,255,0.8)]" />
                     <div>
                       <div className="text-xs font-semibold text-white mb-0.5">
                         Interactive 3D Experience

@@ -7,6 +7,7 @@ interface CommandPaletteContextType {
   openPalette: () => void;
   closePalette: () => void;
   togglePalette: () => void;
+  openCount: number;
 }
 
 export const CommandPaletteContext = createContext<

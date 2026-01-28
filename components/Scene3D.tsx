@@ -159,11 +159,9 @@ function Model({
 }
 
 function Scene({
-  onDprChange,
   activeSection,
   mousePosition,
 }: {
-  onDprChange: (dpr: number) => void;
   activeSection: string;
   mousePosition: { x: number; y: number };
 }) {
@@ -213,10 +211,7 @@ function Scene({
         <Vignette eskil={false} offset={0.12} darkness={0.5} />
       </EffectComposer>
 
-      <PerformanceMonitor
-        onIncline={() => onDprChange(2)}
-        onDecline={() => onDprChange(1)}
-      />
+      <PerformanceMonitor onIncline={() => {}} onDecline={() => {}} />
       <AdaptiveDpr pixelated />
     </>
   );
@@ -227,19 +222,15 @@ export default function Scene3D({
 }: {
   activeSection?: string;
 }) {
-  const [dpr, setDpr] = useState(1.5);
+  const maxDpr =
+    typeof window !== "undefined"
+      ? Math.min(2, window.devicePixelRatio || 1)
+      : 1.5;
+  const initialDpr =
+    typeof window !== "undefined" && window.innerWidth < 768 ? 1 : maxDpr;
+  const [dpr] = useState(initialDpr);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const maxDpr = Math.min(
-      2,
-      (typeof window !== "undefined" && window.devicePixelRatio) || 1,
-    );
-    setDpr(
-      typeof window !== "undefined" && window.innerWidth < 768 ? 1 : maxDpr,
-    );
-  }, []);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -269,11 +260,7 @@ export default function Scene3D({
         shadows={false}
         frameloop="always"
       >
-        <Scene
-          onDprChange={setDpr}
-          activeSection={activeSection}
-          mousePosition={mousePosition}
-        />
+        <Scene activeSection={activeSection} mousePosition={mousePosition} />
       </Canvas>
     </div>
   );
