@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, ReactNode } from "react";
+import Image from "next/image";
 
 interface CardProps {
   children: ReactNode;
@@ -99,7 +100,6 @@ export function ProgramCard({
 }: ProgramCardProps) {
   return (
     <Card delay={delay} className="relative overflow-hidden min-h-[240px]">
-      
       <div className="absolute top-6 right-6 text-6xl font-bold text-white/[0.03] group-hover:text-white/[0.05] group-hover:scale-105 transition-all duration-300">
         {number}
       </div>
@@ -182,11 +182,12 @@ export function ProjectCard({
     <Card delay={delay} className="flex flex-col h-full">
       {image && (
         <div className="relative w-full h-48 mb-5 -mx-6 -mt-6 overflow-hidden rounded-t-xl border-b border-white/8">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#07080B]/60" />
-          <img
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#07080B]/60 z-10" />
+          <Image
             src={image}
             alt={title}
-            className="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500"
+            fill
+            className="object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500"
           />
         </div>
       )}
@@ -199,7 +200,6 @@ export function ProjectCard({
           {description}
         </p>
 
-        
         <div className="flex flex-wrap gap-2 mb-5">
           {tags.map((tag, index) => (
             <span
@@ -211,7 +211,6 @@ export function ProjectCard({
           ))}
         </div>
 
-        
         <div className="flex flex-wrap gap-2">
           {links.map((link, index) => (
             <a

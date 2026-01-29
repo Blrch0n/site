@@ -1,61 +1,12 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import dynamic from "next/dynamic";
-import { useActiveSection } from "./ActiveSectionProvider";
+import Image from "next/image";
 import { useJoinModal } from "./JoinModalProvider";
 
-const Scene3D = dynamic(() => import("@/components/Scene3D"), { ssr: false });
-
 export default function Hero() {
-  const [isMobile, setIsMobile] = useState(false);
-  const [shouldLoad3D, setShouldLoad3D] = useState(false);
-  const { activeSection } = useActiveSection();
   const { openModal } = useJoinModal();
-
-  // Signal WebGL ready to BootLoader
-  const handleWebGLReady = () => {
-    if (typeof window !== "undefined") {
-      const win = window as Window & { __webglReady?: () => void };
-      if (win.__webglReady) {
-        win.__webglReady();
-      }
-    }
-  };
-
-  useEffect(() => {
-    const checkMobile = () => {
-      const mobile = window.innerWidth < 768;
-      const nav = navigator as Navigator & { deviceMemory?: number; hardwareConcurrency?: number };
-      const lowPower =
-        (nav.deviceMemory !== undefined && nav.deviceMemory < 4) ||
-        (nav.hardwareConcurrency !== undefined && nav.hardwareConcurrency < 4);
-      setIsMobile(mobile || lowPower);
-    };
-
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-
-    
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !isMobile) {
-          setShouldLoad3D(true);
-        }
-      },
-      { threshold: 0.1 },
-    );
-
-    const heroElement = document.getElementById("hero");
-    if (heroElement) observer.observe(heroElement);
-
-    return () => {
-      window.removeEventListener("resize", checkMobile);
-      observer.disconnect();
-    };
-  }, [isMobile]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -87,14 +38,12 @@ export default function Hero() {
     >
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-32 md:py-20 w-full">
         <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
-          
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="visible"
             className="space-y-8"
           >
-            
             <motion.div
               variants={itemVariants}
               className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-md border border-white/10 bg-white/[0.02] text-[11px] font-mono uppercase tracking-wider text-white/60 backdrop-blur-sm"
@@ -103,7 +52,6 @@ export default function Hero() {
               <span>Est. 2009</span>
             </motion.div>
 
-            
             <motion.div
               variants={itemVariants}
               className="relative corner-brackets pb-2"
@@ -127,7 +75,6 @@ export default function Hero() {
               build, and lead the next generation of digital innovation.
             </motion.p>
 
-            
             <motion.div
               variants={itemVariants}
               className="flex flex-col sm:flex-row gap-3 pt-2"
@@ -147,7 +94,6 @@ export default function Hero() {
               </a>
             </motion.div>
 
-            
             <motion.div
               variants={itemVariants}
               className="flex items-center gap-3 pt-2"
@@ -159,62 +105,42 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="relative"
           >
-            
             <div className="relative aspect-square w-full max-w-lg mx-auto">
-              
               <div className="absolute top-0 left-0 w-16 h-[1px] bg-gradient-to-r from-[var(--accent-blue)]/40 to-transparent" />
               <div className="absolute top-0 left-0 w-[1px] h-16 bg-gradient-to-b from-[var(--accent-blue)]/40 to-transparent" />
               <div className="absolute bottom-0 right-0 w-16 h-[1px] bg-gradient-to-l from-[var(--accent-blue)]/40 to-transparent" />
               <div className="absolute bottom-0 right-0 w-[1px] h-16 bg-gradient-to-t from-[var(--accent-blue)]/40 to-transparent" />
 
-              
               <div className="relative rounded-2xl glass-panel overflow-hidden h-full border border-white/8">
-                {isMobile ? (
-                  <div className="w-full h-full flex items-center justify-center p-12">
-                    <motion.div
-                      animate={{
-                        y: [0, -10, 0],
-                        rotate: [0, 2, 0],
-                      }}
-                      transition={{
-                        duration: 4,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
-                      className="relative w-full h-full"
-                    >
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="relative w-48 h-48">
-                          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#00D4FF] to-[#5B5FFF] opacity-30 blur-3xl" />
-                          <div className="absolute inset-8 rounded-full bg-gradient-to-br from-[#5B5FFF] to-[#9B4FFF] opacity-40 blur-2xl" />
-                          <div className="absolute inset-16 rounded-full bg-[#00D4FF] opacity-60" />
-                        </div>
-                      </div>
-                    </motion.div>
-                  </div>
-                ) : (
-                  
-                  shouldLoad3D && (
-                    <Suspense
-                      fallback={
-                        <div className="w-full h-full flex items-center justify-center">
-                          <div className="w-12 h-12 border border-[#5B5FFF] border-t-transparent rounded-full animate-spin" />
-                        </div>
-                      }
-                    >
-                      <Scene3D activeSection={activeSection} onReady={handleWebGLReady} />
-                    </Suspense>
-                  )
-                )}
+                <div className="w-full h-full flex items-center justify-center p-8">
+                  <motion.div
+                    animate={{
+                      y: [0, -10, 0],
+                      rotate: [0, 2, 0],
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                    className="relative w-full h-full"
+                  >
+                    <Image
+                      src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=800&fit=crop"
+                      alt="Technology and Innovation"
+                      fill
+                      className="object-cover rounded-lg"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#00D4FF]/20 to-[#5B5FFF]/20 rounded-lg z-10" />
+                  </motion.div>
+                </div>
 
-                
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -225,10 +151,10 @@ export default function Hero() {
                     <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[var(--accent-cyan)] mt-1.5 animate-pulse shadow-[0_0_8px_rgba(0,212,255,0.8)]" />
                     <div>
                       <div className="text-xs font-semibold text-white mb-0.5">
-                        Interactive 3D Experience
+                        Innovation & Technology
                       </div>
                       <div className="text-[10px] text-white/50">
-                        Move your mouse to explore
+                        Building the future together
                       </div>
                     </div>
                   </div>
@@ -239,7 +165,6 @@ export default function Hero() {
         </div>
       </div>
 
-      
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

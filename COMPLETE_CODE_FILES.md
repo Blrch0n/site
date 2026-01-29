@@ -2553,6 +2553,7 @@ export default function AsSeenOn() {
 10. **Accessibility**: Full `prefers-reduced-motion` support (disables animation, enables horizontal scroll)
 
 **Marquee CSS** (added to globals.css):
+
 - `.marquee` and `.marquee__track` for structure
 - `@keyframes marqueeX` for animation (translateX -50%)
 - `.marquee--reverse` for opposite direction

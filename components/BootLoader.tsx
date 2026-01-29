@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface LoaderState {
   fonts: boolean;
   images: boolean;
-  webgl: boolean;
 }
 
 export default function BootLoader() {
@@ -14,9 +13,8 @@ export default function BootLoader() {
   const [loadState, setLoadState] = useState<LoaderState>({
     fonts: false,
     images: false,
-    webgl: false,
   });
-  
+
   // Check for reduced motion preference (computed once on mount)
   const prefersReducedMotion = useMemo(() => {
     if (typeof window === "undefined") return false;
@@ -34,7 +32,6 @@ export default function BootLoader() {
   const statusText = useMemo(() => {
     if (!loadState.fonts) return "LOADING FONTS";
     if (!loadState.images) return "PRELOADING ASSETS";
-    if (!loadState.webgl) return "INITIALIZING RENDERER";
     return "SYSTEMS ONLINE";
   }, [loadState]);
 
@@ -60,26 +57,11 @@ export default function BootLoader() {
     return () => clearTimeout(timer);
   }, []);
 
-  // WebGL ready callback (will be called from Scene3D)
-  const handleWebGLReady = useCallback(() => {
-    setLoadState((prev) => ({ ...prev, webgl: true }));
-  }, []);
-
-  // Expose WebGL ready handler globally
-  useEffect(() => {
-    (window as Window & { __webglReady?: () => void }).__webglReady = handleWebGLReady;
-    return () => {
-      delete (window as Window & { __webglReady?: () => void }).__webglReady;
-    };
-  }, [handleWebGLReady]);
-
   // Complete loading sequence
   useEffect(() => {
     if (progress === 100) {
-      document.body.style.overflow = "hidden";
       // Brief moment to show completion, then fade out
       const timer = setTimeout(() => {
-        document.body.style.overflow = "";
         setIsLoading(false);
       }, 600);
       return () => clearTimeout(timer);
@@ -121,7 +103,6 @@ export default function BootLoader() {
               </motion.div>
             </div>
 
-            {/* Top Right */}
             <div className="absolute top-6 right-6 md:top-12 md:right-12">
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -134,7 +115,6 @@ export default function BootLoader() {
               </motion.div>
             </div>
 
-            {/* Bottom Left */}
             <div className="absolute bottom-6 left-6 md:bottom-12 md:left-12">
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -147,7 +127,6 @@ export default function BootLoader() {
               </motion.div>
             </div>
 
-            {/* Bottom Right */}
             <div className="absolute bottom-6 right-6 md:bottom-12 md:right-12">
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -161,14 +140,12 @@ export default function BootLoader() {
             </div>
           </div>
 
-          {/* Center Interface */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
             className="relative z-10 text-center space-y-8 px-6"
           >
-            {/* Brand Mark */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -178,7 +155,6 @@ export default function BootLoader() {
               SYS&COTECH
             </motion.div>
 
-            {/* Progress Bar - Minimal & Technical */}
             <div className="w-72 md:w-96 mx-auto space-y-3">
               <div className="relative h-[2px] bg-white/10 overflow-hidden">
                 <motion.div
@@ -190,7 +166,6 @@ export default function BootLoader() {
                     ease: "easeOut",
                   }}
                 />
-                {/* Animated glow on progress bar */}
                 {!prefersReducedMotion && progress < 100 && (
                   <motion.div
                     className="absolute inset-y-0 w-16 bg-gradient-to-r from-transparent via-white/40 to-transparent"
@@ -207,7 +182,6 @@ export default function BootLoader() {
                 )}
               </div>
 
-              {/* System Status Readout */}
               <div className="flex items-center justify-between text-xs font-mono text-white/50">
                 <motion.span
                   key={statusText}
@@ -220,12 +194,10 @@ export default function BootLoader() {
                 <span className="tabular-nums">{Math.round(progress)}%</span>
               </div>
 
-              {/* Subsystem Status Indicators */}
               <div className="flex items-center justify-center gap-6 pt-4">
                 {[
                   { label: "FONTS", ready: loadState.fonts },
                   { label: "ASSETS", ready: loadState.images },
-                  { label: "RENDER", ready: loadState.webgl },
                 ].map((system, idx) => (
                   <motion.div
                     key={system.label}
@@ -251,10 +223,10 @@ export default function BootLoader() {
                       {system.label}
                     </span>
                   </motion.div>
-                ))}\n              </div>
+                ))}
+              </div>
             </div>
 
-            {/* Signature Element - Minimal Accent */}
             {!prefersReducedMotion && (
               <motion.div
                 className="absolute -bottom-16 left-1/2 -translate-x-1/2 w-64 h-[1px] bg-gradient-to-r from-transparent via-[#5B5FFF]/30 to-transparent"
