@@ -9,6 +9,10 @@ import { usePathname } from "next/navigation";
 import { useCommandPalette } from "./CommandPalette/useCommandPalette";
 import { useJoinModal } from "./JoinModalProvider";
 import { NAV_ITEMS } from "@/lib/siteNav";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { TranslationKey } from "@/lib/translations";
+import LanguageSwitcher from "./LanguageSwitcher";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -16,6 +20,7 @@ export default function Navigation() {
   const { togglePalette } = useCommandPalette();
   const { openModal } = useJoinModal();
   const pathname = usePathname();
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,7 +35,6 @@ export default function Navigation() {
     setIsMobileMenuOpen(false);
   };
 
-  
   const desktopNavItems = NAV_ITEMS.filter((item) => item.id !== "home");
 
   return (
@@ -41,8 +45,8 @@ export default function Navigation() {
         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
           isScrolled
-            ? "bg-[rgba(7,8,11,0.95)] backdrop-blur-2xl border-b border-white/8"
-            : "bg-transparent border-b border-white/5"
+            ? "bg-[var(--bg-base)]/95 backdrop-blur-2xl border-b border-[var(--border-line-hover)]"
+            : "bg-transparent border-b border-[var(--border-line)]"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12">
@@ -72,13 +76,13 @@ export default function Navigation() {
                       href={link.path}
                       className={`text-[13px] font-medium transition-colors duration-200 relative group py-2 ${
                         isActive
-                          ? "text-white"
-                          : "text-white/50 hover:text-white"
+                          ? "text-[var(--text-primary)]"
+                          : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
                       }`}
                     >
-                      {link.label}
+                      {t(`nav.${link.id}` as TranslationKey)}
                       <span
-                        className={`absolute -bottom-0 left-0 h-[1px] bg-gradient-to-r from-[var(--accent-blue)] to-[var(--accent-cyan)] transition-all duration-300 ${
+                        className={`absolute bottom-0 left-0 h-px bg-linear-to-r from-(--accent-blue) to-(--accent-cyan) transition-all duration-300 ${
                           isActive ? "w-full" : "w-0 group-hover:w-full"
                         }`}
                       />
@@ -90,9 +94,12 @@ export default function Navigation() {
 
             {}
             <div className="hidden md:flex items-center gap-3">
+              <ThemeSwitcher />
+              <LanguageSwitcher />
+
               <button
                 onClick={togglePalette}
-                className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-white/10 bg-white/[0.02] text-white/70 hover:text-white font-medium text-xs hover:border-white/20 hover:bg-white/[0.04] transition-all duration-200 group"
+                className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-[var(--border-line)] bg-[var(--bg-surface)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-medium text-xs hover:border-[var(--border-line-hover)] hover:bg-[var(--bg-surface-hover)] transition-all duration-200 group"
                 aria-label="Open command palette"
               >
                 <Command className="w-3.5 h-3.5" />
@@ -101,17 +108,17 @@ export default function Navigation() {
 
               <button
                 onClick={openModal}
-                className="flex items-center justify-center px-5 py-2 rounded-lg border border-white/10 bg-white/[0.02] text-white font-medium text-sm hover:border-[var(--accent-blue)]/40 hover:bg-white/[0.04] hover:shadow-[0_0_20px_var(--panel-glow)] transition-all duration-200 relative overflow-hidden group"
+                className="flex items-center justify-center px-5 py-2 rounded-lg border border-[var(--border-line)] bg-[var(--bg-surface)] text-[var(--text-primary)] font-medium text-sm hover:border-[var(--border-accent)] hover:bg-[var(--bg-surface-hover)] hover:shadow-[0_0_20px_var(--panel-glow)] transition-all duration-200 relative overflow-hidden group"
               >
-                <span className="relative z-10">Join Us</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-[var(--accent-cyan)]/10 via-[var(--accent-blue)]/10 to-[var(--accent-violet)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <span className="relative z-10">{t("nav.join")}</span>
+                <div className="absolute inset-0 bg-linear-to-r from-(--accent-cyan)/10 via-(--accent-blue)/10 to-(--accent-violet)/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </button>
             </div>
 
             {}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 text-white hover:text-white/80 transition-colors"
+              className="md:hidden p-2 text-[var(--text-primary)] hover:text-[var(--text-secondary)] transition-colors"
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -131,13 +138,13 @@ export default function Navigation() {
             className="fixed inset-0 z-40 md:hidden"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            <div className="absolute inset-0 bg-[#07080B]/95 backdrop-blur-xl" />
+            <div className="absolute inset-0 bg-[var(--bg-base)]/95 backdrop-blur-xl" />
             <motion.div
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -20, opacity: 0 }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="relative mt-20 mx-6 p-8 rounded-2xl bg-white/5 border border-white/10"
+              className="relative mt-20 mx-6 p-8 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-line)]"
             >
               <ul className="flex flex-col gap-4">
                 {NAV_ITEMS.map((link, index) => (
@@ -150,21 +157,25 @@ export default function Navigation() {
                     <Link
                       href={link.path}
                       onClick={handleLinkClick}
-                      className="block py-3 text-lg font-medium text-white hover:text-[var(--accent-cyan)] transition-colors"
+                      className="block py-3 text-lg font-medium text-[var(--text-primary)] hover:text-[var(--accent-cyan)] transition-colors"
                     >
-                      {link.label}
+                      {t(`nav.${link.id}` as TranslationKey)}
                     </Link>
                   </motion.li>
                 ))}
               </ul>
 
               {}
+              <div className="mt-6 mb-4">
+                <ThemeSwitcher />
+              </div>
+
               <button
                 onClick={() => {
                   setIsMobileMenuOpen(false);
                   togglePalette();
                 }}
-                className="mt-4 w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-white/10 bg-white/[0.02] text-white/70 hover:text-white font-medium text-sm hover:border-white/20 hover:bg-white/[0.04] transition-all"
+                className="mt-4 w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-[var(--border-line)] bg-[var(--bg-surface)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-medium text-sm hover:border-[var(--border-line-hover)] hover:bg-[var(--bg-surface-hover)] transition-all"
               >
                 <Command className="w-4 h-4" />
                 <span>Command Palette</span>
@@ -175,9 +186,9 @@ export default function Navigation() {
                   setIsMobileMenuOpen(false);
                   openModal();
                 }}
-                className="mt-2 block w-full text-center px-6 py-3 rounded-xl bg-gradient-to-r from-[#00D4FF] via-[#5B5FFF] to-[#9B4FFF] text-white font-semibold"
+                className="mt-2 block w-full text-center px-6 py-3 rounded-xl bg-linear-to-r from-[#00D4FF] via-[#5B5FFF] to-[#9B4FFF] text-white font-semibold"
               >
-                Join Us
+                {t("nav.join")}
               </button>
             </motion.div>
           </motion.div>

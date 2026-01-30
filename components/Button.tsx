@@ -23,7 +23,7 @@ export function Button({
     primary:
       "bg-gradient-to-r from-[#00D4FF] via-[#5B5FFF] to-[#9B4FFF] text-white shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(91,95,255,0.6),inset_0_1px_0_0_rgba(255,255,255,0.15)] hover:-translate-y-0.5 active:translate-y-0",
     secondary:
-      "glass-panel text-white border border-white/10 hover:border-white/20 hover:bg-white/[0.06] hover:-translate-y-0.5 active:translate-y-0 relative overflow-hidden group",
+      "glass-panel text-[var(--text-primary)] border border-[var(--border-line)] hover:border-[var(--border-line-hover)] hover:bg-[var(--bg-surface-hover)] hover:-translate-y-0.5 active:translate-y-0 relative overflow-hidden group",
   };
 
   const combinedClasses = `${baseClasses} ${variantClasses[variant]} ${className}`;

@@ -73,17 +73,17 @@ export default function AsSeenOn() {
   return (
     <section className="relative py-20 md:py-32 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[var(--accent-blue)] opacity-[0.03] blur-[180px] rounded-full" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-100 bg-(--accent-blue) opacity-3 blur-[180px] rounded-full" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6">
         <div className="absolute top-0 left-6 w-12 h-12 pointer-events-none">
-          <div className="absolute top-0 left-0 w-12 h-[1px] bg-gradient-to-r from-[#5B5FFF]/40 to-transparent" />
-          <div className="absolute top-0 left-0 w-[1px] h-12 bg-gradient-to-b from-[#5B5FFF]/40 to-transparent" />
+          <div className="absolute top-0 left-0 w-12 h-px bg-linear-to-r from-[#5B5FFF]/40 to-transparent" />
+          <div className="absolute top-0 left-0 w-px h-12 bg-linear-to-b from-[#5B5FFF]/40 to-transparent" />
         </div>
         <div className="absolute top-0 right-6 w-12 h-12 pointer-events-none">
-          <div className="absolute top-0 right-0 w-12 h-[1px] bg-gradient-to-l from-[#5B5FFF]/40 to-transparent" />
-          <div className="absolute top-0 right-0 w-[1px] h-12 bg-gradient-to-b from-[#5B5FFF]/40 to-transparent" />
+          <div className="absolute top-0 right-0 w-12 h-px bg-linear-to-l from-[#5B5FFF]/40 to-transparent" />
+          <div className="absolute top-0 right-0 w-px h-12 bg-linear-to-b from-[#5B5FFF]/40 to-transparent" />
         </div>
 
         <div className="text-center mb-16">
@@ -98,26 +98,23 @@ export default function AsSeenOn() {
             <div className="marquee">
               <div className="marquee__track">
                 {duplicatedCards.map((card, index) => (
-                  <div
-                    key={index}
-                    className="inline-block mx-3 w-[380px] flex-shrink-0"
-                  >
-                    <div className="glass-panel rounded-xl p-6 h-full hover:border-[var(--border-line-hover)] transition-colors">
+                  <div key={index} className="inline-block mx-3 w-95 shrink-0">
+                    <div className="glass-panel rounded-xl p-6 h-full hover:border-(--border-line-hover) transition-colors">
                       <div className="flex items-center gap-3 mb-4">
-                        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-[var(--bg-surface)] text-[var(--accent-blue)]">
+                        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-(--bg-surface) text-(--accent-blue)">
                           {card.icon}
                         </div>
                         <div>
-                          <div className="text-sm font-medium text-[var(--text-primary)]">
+                          <div className="text-sm font-medium text-(--text-primary)">
                             {card.source}
                           </div>
-                          <div className="text-xs text-[var(--text-muted)]">
+                          <div className="text-xs text-(--text-muted)">
                             {card.handle}
                           </div>
                         </div>
                       </div>
 
-                      <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
+                      <p className="text-sm text-(--text-secondary) leading-relaxed">
                         {card.text}
                       </p>
 
@@ -137,12 +134,12 @@ export default function AsSeenOn() {
                 {duplicatedLogos.map((logo, index) => (
                   <div
                     key={index}
-                    className="inline-flex items-center justify-center mx-8 flex-shrink-0"
+                    className="inline-flex items-center justify-center mx-8 shrink-0"
                   >
                     <div
-                      className={`${logo.width} h-12 flex items-center justify-center rounded-lg bg-[var(--bg-surface)] border border-[var(--border-line)] hover:border-[var(--border-line-hover)] hover:bg-[var(--bg-surface-hover)] transition-colors px-4`}
+                      className={`${logo.width} h-12 flex items-center justify-center rounded-lg bg-(--bg-surface) border border-(--border-line) hover:border-(--border-line-hover) hover:bg-(--bg-surface-hover) transition-colors px-4`}
                     >
-                      <div className="text-xs font-medium text-[var(--text-secondary)] uppercase tracking-wider">
+                      <div className="text-xs font-medium text-(--text-secondary) uppercase tracking-wider">
                         {logo.name}
                       </div>
                     </div>
@@ -154,12 +151,12 @@ export default function AsSeenOn() {
         </div>
 
         <div className="absolute bottom-0 left-6 w-12 h-12 pointer-events-none">
-          <div className="absolute bottom-0 left-0 w-12 h-[1px] bg-gradient-to-r from-[#5B5FFF]/40 to-transparent" />
-          <div className="absolute bottom-0 left-0 w-[1px] h-12 bg-gradient-to-t from-[#5B5FFF]/40 to-transparent" />
+          <div className="absolute bottom-0 left-0 w-12 h-px bg-linear-to-r from-[#5B5FFF]/40 to-transparent" />
+          <div className="absolute bottom-0 left-0 w-px h-12 bg-linear-to-t from-[#5B5FFF]/40 to-transparent" />
         </div>
         <div className="absolute bottom-0 right-6 w-12 h-12 pointer-events-none">
-          <div className="absolute bottom-0 right-0 w-12 h-[1px] bg-gradient-to-l from-[#5B5FFF]/40 to-transparent" />
-          <div className="absolute bottom-0 right-0 w-[1px] h-12 bg-gradient-to-t from-[#5B5FFF]/40 to-transparent" />
+          <div className="absolute bottom-0 right-0 w-12 h-px bg-linear-to-l from-[#5B5FFF]/40 to-transparent" />
+          <div className="absolute bottom-0 right-0 w-px h-12 bg-linear-to-t from-[#5B5FFF]/40 to-transparent" />
         </div>
       </div>
     </section>

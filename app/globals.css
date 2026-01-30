@@ -2,7 +2,7 @@
 
 @layer base {
   :root {
-    /* ChainGPT-inspired Web3 Premium Tokens */
+    /* ChainGPT-inspired Web3 Premium Tokens - DARK MODE */
     --bg-base: #07080b;
     --bg-surface: rgba(255, 255, 255, 0.03);
     --bg-surface-hover: rgba(255, 255, 255, 0.05);
@@ -51,6 +51,56 @@
     --shadow-glow: 0 0 24px rgba(91, 95, 255, 0.4);
   }
 
+  /* LIGHT MODE */
+  .light {
+    --bg-base: #ffffff;
+    --bg-surface: rgba(0, 0, 0, 0.04);
+    --bg-surface-hover: rgba(0, 0, 0, 0.06);
+    --bg-surface-active: rgba(0, 0, 0, 0.1);
+
+    /* 1px borders - light mode */
+    --border-line: rgba(0, 0, 0, 0.1);
+    --border-line-hover: rgba(0, 0, 0, 0.2);
+    --border-accent: rgba(91, 95, 255, 0.4);
+    --border-glow: rgba(91, 95, 255, 0.6);
+
+    /* Glass panel system - light mode */
+    --panel-bg: rgba(255, 255, 255, 0.8);
+    --panel-border: rgba(0, 0, 0, 0.1);
+    --panel-glow: rgba(91, 95, 255, 0.2);
+
+    --text-primary: #07080b;
+    --text-secondary: rgba(0, 0, 0, 0.72);
+    --text-muted: rgba(0, 0, 0, 0.48);
+    --text-mono: rgba(0, 0, 0, 0.5);
+
+    /* Keep accent colors the same */
+    --accent-cyan: #00d4ff;
+    --accent-blue: #5b5fff;
+    --accent-violet: #9b4fff;
+    --accent-pink: #e94fff;
+    --accent-amber: #ffaa00;
+
+    --gradient-primary: linear-gradient(
+      135deg,
+      #00d4ff 0%,
+      #5b5fff 50%,
+      #9b4fff 100%
+    );
+    --gradient-accent: linear-gradient(
+      90deg,
+      #00d4ff 0%,
+      #5b5fff 50%,
+      #9b4fff 100%
+    );
+
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+    --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.16);
+    --shadow-glow: 0 0 24px rgba(91, 95, 255, 0.3);
+  }
+
   * {
     margin: 0;
     padding: 0;
@@ -58,7 +108,7 @@
   }
 
   body {
-    background: #07080b;
+    background: var(--bg-base);
     color: var(--text-primary);
     font-family:
       var(--font-geist-sans),
@@ -70,6 +120,9 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     position: relative;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
   }
 
   /* Film grain overlay */
@@ -97,6 +150,20 @@
     );
     pointer-events: none;
     z-index: 2;
+  }
+
+  /* Light mode adjustments for effects */
+  .light body::before {
+    opacity: 0.025;
+  }
+
+  .light body::after {
+    background: radial-gradient(
+      ellipse at center,
+      transparent 0%,
+      transparent 50%,
+      rgba(0, 0, 0, 0.05) 100%
+    );
   }
 
   * {
@@ -200,6 +267,61 @@
       linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     background-size: 48px 48px;
+  }
+
+  /* Theme-aware grid background */
+  .grid-background {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size:
+      24px 24px,
+      24px 24px,
+      96px 96px,
+      96px 96px;
+    mask-image: radial-gradient(
+      ellipse at center,
+      black 0%,
+      black 55%,
+      transparent 100%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse at center,
+      black 0%,
+      black 55%,
+      transparent 100%
+    );
+  }
+
+  /* Light mode grid */
+  .light .grid-background {
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+      linear-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+  }
+
+  /* Vignette overlay */
+  .vignette-overlay {
+    background: radial-gradient(
+      ellipse at center,
+      rgba(255, 255, 255, 0.02) 0%,
+      rgba(7, 8, 11, 0) 45%,
+      rgba(7, 8, 11, 0.55) 100%
+    );
+  }
+
+  /* Light mode vignette */
+  .light .vignette-overlay {
+    background: radial-gradient(
+      ellipse at center,
+      rgba(0, 0, 0, 0.01) 0%,
+      rgba(255, 255, 255, 0) 45%,
+      rgba(0, 0, 0, 0.08) 100%
+    );
   }
 
   /* Gradient mask (fade to bottom) */

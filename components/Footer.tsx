@@ -5,10 +5,12 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Facebook, MapPin, Phone, Mail } from "lucide-react";
 import { SectionHeader } from "./FAQ";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Footer() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -36,9 +38,9 @@ export default function Footer() {
     <section id="contact" className="py-24 md:py-32 border-t border-white/8">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <SectionHeader
-          eyebrow="GET IN TOUCH"
-          title="Join Our Community"
-          subtitle="Reach out with questions or come visit us on campus."
+          eyebrow={t("footer.eyebrow")}
+          title={t("footer.title")}
+          subtitle={t("footer.subtitle")}
         />
 
         <motion.div
@@ -48,9 +50,10 @@ export default function Footer() {
           animate={isInView ? "visible" : "hidden"}
           className="grid md:grid-cols-3 gap-8 md:gap-12 mt-16"
         >
-          
           <motion.div variants={itemVariants} className="space-y-6">
-            <h4 className="text-lg font-semibold text-white/90">Contact</h4>
+            <h4 className="text-lg font-semibold text-white/90">
+              {t("footer.contact.title")}
+            </h4>
             <div className="space-y-4">
               <a
                 href="tel:+97694945798"
@@ -92,7 +95,7 @@ export default function Footer() {
                 href="https://www.facebook.com/SysAndCoTech/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center w-12 h-12 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 hover:-translate-y-1 hover:border-[var(--accent-cyan)] transition-all"
+                className="flex items-center justify-center w-12 h-12 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 hover:-translate-y-1 hover:border-(--accent-cyan) transition-all"
                 aria-label="Facebook"
               >
                 <Facebook size={20} />
@@ -101,7 +104,7 @@ export default function Footer() {
                 href="https://goo.gl/maps/Qwv3RYvybs8YqJsS8"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center w-12 h-12 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 hover:-translate-y-1 hover:border-[var(--accent-cyan)] transition-all"
+                className="flex items-center justify-center w-12 h-12 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 hover:-translate-y-1 hover:border-(--accent-cyan) transition-all"
                 aria-label="Location"
               >
                 <MapPin size={20} />
@@ -109,15 +112,16 @@ export default function Footer() {
             </div>
           </motion.div>
 
-          
           <motion.div variants={itemVariants} className="space-y-6">
-            <h4 className="text-lg font-semibold text-white/90">Quick Links</h4>
+            <h4 className="text-lg font-semibold text-white/90">
+              {t("footer.quicklinks.title")}
+            </h4>
             <ul className="space-y-3">
               {[
-                { href: "#about", label: "About" },
-                { href: "#programs", label: "Programs" },
-                { href: "#events", label: "Events" },
-                { href: "#faq", label: "FAQ" },
+                { href: "#about", label: t("nav.about") },
+                { href: "#programs", label: t("nav.programs") },
+                { href: "#events", label: t("nav.events") },
+                { href: "#faq", label: t("nav.faq") },
               ].map((link) => (
                 <li key={link.href}>
                   <a
@@ -131,10 +135,9 @@ export default function Footer() {
             </ul>
           </motion.div>
 
-          
           <motion.div variants={itemVariants} className="space-y-6">
             <h4 className="text-lg font-semibold text-white/90">
-              Club Policies
+              {t("footer.policies.title")}
             </h4>
             <ul className="space-y-3">
               <li>
@@ -142,7 +145,7 @@ export default function Footer() {
                   href="#"
                   className="text-white/70 hover:text-white hover:translate-x-1 inline-block transition-all"
                 >
-                  Member Rights
+                  {t("footer.policies.rights")}
                 </a>
               </li>
               <li>
@@ -150,7 +153,7 @@ export default function Footer() {
                   href="#"
                   className="text-white/70 hover:text-white hover:translate-x-1 inline-block transition-all"
                 >
-                  Club Rules
+                  {t("footer.policies.rules")}
                 </a>
               </li>
               <li>
@@ -160,22 +163,21 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="text-white/70 hover:text-white hover:translate-x-1 inline-block transition-all"
                 >
-                  Dev Hackathon
+                  {t("footer.policies.hackathon")}
                 </a>
               </li>
             </ul>
           </motion.div>
         </motion.div>
 
-        
         <motion.div
           variants={itemVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           className="mt-16 pt-8 border-t border-white/8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/50"
         >
-          <p>&copy; 2026 Sys&CoTech. All rights reserved.</p>
-          <p>Built with passion by the community.</p>
+          <p>{t("footer.copyright")}</p>
+          <p>{t("footer.built")}</p>
         </motion.div>
       </div>
     </section>

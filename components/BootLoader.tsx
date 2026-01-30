@@ -15,52 +15,44 @@ export default function BootLoader() {
     images: false,
   });
 
-  
   const prefersReducedMotion = useMemo(() => {
     if (typeof window === "undefined") return false;
     return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }, []);
 
-  
   const progress = useMemo(() => {
     const completed = Object.values(loadState).filter(Boolean).length;
     const totalSteps = Object.keys(loadState).length;
     return (completed / totalSteps) * 100;
   }, [loadState]);
 
-  
   const statusText = useMemo(() => {
     if (!loadState.fonts) return "LOADING FONTS";
     if (!loadState.images) return "PRELOADING ASSETS";
     return "SYSTEMS ONLINE";
   }, [loadState]);
 
-  
   useEffect(() => {
     const loadFonts = async () => {
       if (document.fonts && document.fonts.ready) {
         await document.fonts.ready;
       }
-      
+
       await new Promise((resolve) => setTimeout(resolve, 150));
       setLoadState((prev) => ({ ...prev, fonts: true }));
     };
     loadFonts();
   }, []);
 
-  
   useEffect(() => {
-    
     const timer = setTimeout(() => {
       setLoadState((prev) => ({ ...prev, images: true }));
     }, 300);
     return () => clearTimeout(timer);
   }, []);
 
-  
   useEffect(() => {
     if (progress === 100) {
-      
       const timer = setTimeout(() => {
         setIsLoading(false);
       }, 600);
@@ -68,7 +60,6 @@ export default function BootLoader() {
     }
   }, [progress]);
 
-  
   useEffect(() => {
     if (isLoading) {
       document.body.style.overflow = "hidden";
@@ -85,7 +76,7 @@ export default function BootLoader() {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, filter: "blur(8px)" }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed inset-0 z-[9999] bg-[#07080b] flex items-center justify-center"
+          className="fixed inset-0 z-9999 bg-[#07080b] flex items-center justify-center"
           style={{ pointerEvents: "none" }}
         >
           {}
@@ -98,8 +89,8 @@ export default function BootLoader() {
                 transition={{ duration: 0.4, ease: "easeOut" }}
                 className="relative w-12 h-12 md:w-20 md:h-20"
               >
-                <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#5B5FFF] via-[#5B5FFF] to-transparent" />
-                <div className="absolute top-0 left-0 w-[2px] h-full bg-gradient-to-b from-[#5B5FFF] via-[#5B5FFF] to-transparent" />
+                <div className="absolute top-0 left-0 w-full h-0.5 bg-linear-to-r from-[#5B5FFF] via-[#5B5FFF] to-transparent" />
+                <div className="absolute top-0 left-0 w-0.5 h-full bg-linear-to-b from-[#5B5FFF] via-[#5B5FFF] to-transparent" />
               </motion.div>
             </div>
 
@@ -110,8 +101,8 @@ export default function BootLoader() {
                 transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
                 className="relative w-12 h-12 md:w-20 md:h-20"
               >
-                <div className="absolute top-0 right-0 w-full h-[2px] bg-gradient-to-l from-[#5B5FFF] via-[#5B5FFF] to-transparent" />
-                <div className="absolute top-0 right-0 w-[2px] h-full bg-gradient-to-b from-[#5B5FFF] via-[#5B5FFF] to-transparent" />
+                <div className="absolute top-0 right-0 w-full h-0.5 bg-linear-to-l from-[#5B5FFF] via-[#5B5FFF] to-transparent" />
+                <div className="absolute top-0 right-0 w-0.5 h-full bg-linear-to-b from-[#5B5FFF] via-[#5B5FFF] to-transparent" />
               </motion.div>
             </div>
 
@@ -122,8 +113,8 @@ export default function BootLoader() {
                 transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
                 className="relative w-12 h-12 md:w-20 md:h-20"
               >
-                <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#5B5FFF] via-[#5B5FFF] to-transparent" />
-                <div className="absolute bottom-0 left-0 w-[2px] h-full bg-gradient-to-t from-[#5B5FFF] via-[#5B5FFF] to-transparent" />
+                <div className="absolute bottom-0 left-0 w-full h-0.5 bg-linear-to-r from-[#5B5FFF] via-[#5B5FFF] to-transparent" />
+                <div className="absolute bottom-0 left-0 w-0.5 h-full bg-linear-to-t from-[#5B5FFF] via-[#5B5FFF] to-transparent" />
               </motion.div>
             </div>
 
@@ -134,8 +125,8 @@ export default function BootLoader() {
                 transition={{ duration: 0.4, ease: "easeOut", delay: 0.3 }}
                 className="relative w-12 h-12 md:w-20 md:h-20"
               >
-                <div className="absolute bottom-0 right-0 w-full h-[2px] bg-gradient-to-l from-[#5B5FFF] via-[#5B5FFF] to-transparent" />
-                <div className="absolute bottom-0 right-0 w-[2px] h-full bg-gradient-to-t from-[#5B5FFF] via-[#5B5FFF] to-transparent" />
+                <div className="absolute bottom-0 right-0 w-full h-0.5 bg-linear-to-l from-[#5B5FFF] via-[#5B5FFF] to-transparent" />
+                <div className="absolute bottom-0 right-0 w-0.5 h-full bg-linear-to-t from-[#5B5FFF] via-[#5B5FFF] to-transparent" />
               </motion.div>
             </div>
           </div>
@@ -156,9 +147,9 @@ export default function BootLoader() {
             </motion.div>
 
             <div className="w-72 md:w-96 mx-auto space-y-3">
-              <div className="relative h-[2px] bg-white/10 overflow-hidden">
+              <div className="relative h-0.5 bg-white/10 overflow-hidden">
                 <motion.div
-                  className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#00D4FF] via-[#5B5FFF] to-[#E94FFF]"
+                  className="absolute inset-y-0 left-0 bg-linear-to-r from-[#00D4FF] via-[#5B5FFF] to-[#E94FFF]"
                   initial={{ width: 0 }}
                   animate={{ width: `${progress}%` }}
                   transition={{
@@ -168,7 +159,7 @@ export default function BootLoader() {
                 />
                 {!prefersReducedMotion && progress < 100 && (
                   <motion.div
-                    className="absolute inset-y-0 w-16 bg-gradient-to-r from-transparent via-white/40 to-transparent"
+                    className="absolute inset-y-0 w-16 bg-linear-to-r from-transparent via-white/40 to-transparent"
                     style={{ left: `${Math.max(0, progress - 15)}%` }}
                     animate={{
                       opacity: [0.5, 1, 0.5],
@@ -229,7 +220,7 @@ export default function BootLoader() {
 
             {!prefersReducedMotion && (
               <motion.div
-                className="absolute -bottom-16 left-1/2 -translate-x-1/2 w-64 h-[1px] bg-gradient-to-r from-transparent via-[#5B5FFF]/30 to-transparent"
+                className="absolute -bottom-16 left-1/2 -translate-x-1/2 w-64 h-px bg-linear-to-r from-transparent via-[#5B5FFF]/30 to-transparent"
                 animate={{
                   opacity: [0.3, 0.6, 0.3],
                   scaleX: [0.8, 1, 0.8],

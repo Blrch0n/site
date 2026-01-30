@@ -3,45 +3,47 @@
 import SectionFrame from "@/components/SectionFrame";
 import { SectionHeader } from "@/components/FAQ";
 import { ProgramCard } from "@/components/Cards";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Programs() {
+  const { t } = useLanguage();
   return (
     <section id="programs" className="relative overflow-hidden">
       <SectionFrame index="03" className="py-24 md:py-32" showTopDivider>
         <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-          <div className="w-[800px] h-[800px] bg-[var(--accent-cyan)] opacity-[0.015] blur-[220px] rounded-full" />
+          <div className="w-200 h-200 bg-(--accent-cyan) opacity-[0.015] blur-[220px] rounded-full" />
         </div>
 
         <div className="relative max-w-7xl mx-auto">
           <SectionHeader
-            eyebrow="TRAINING"
-            title="Master the Fundamentals"
-            subtitle="Student-led training programs designed for real-world impact."
+            eyebrow={t("programs.eyebrow")}
+            title={t("programs.title")}
+            subtitle={t("programs.subtitle")}
           />
 
           <div className="grid md:grid-cols-2 gap-5">
             <ProgramCard
               number="01"
-              title="Programming Fundamentals"
-              description="Build problem-solving foundations with C language. Learn core concepts through hands-on practice."
+              title={t("programs.programming.title")}
+              description={t("programs.programming.description")}
               delay={0}
             />
             <ProgramCard
               number="02"
-              title="Object-Oriented Programming"
-              description="Master OOP patterns with Java. Practical implementation of real-world design principles."
+              title={t("programs.oop.title")}
+              description={t("programs.oop.description")}
               delay={0.08}
             />
             <ProgramCard
               number="03"
-              title="UI/UX Design"
-              description="Design theory and tools for digital products. Master Figma, principles, and user-centered design."
+              title={t("programs.uiux.title")}
+              description={t("programs.uiux.description")}
               delay={0.16}
             />
             <ProgramCard
               number="04"
-              title="Web Development"
-              description="Full-stack technologies from client to server. HTML, CSS, JavaScript, Node.js, and modern frameworks."
+              title={t("programs.webdev.title")}
+              description={t("programs.webdev.description")}
               delay={0.24}
             />
           </div>

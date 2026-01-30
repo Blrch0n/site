@@ -2,77 +2,74 @@
 
 import { SectionHeader } from "@/components/FAQ";
 import { ProjectCard } from "@/components/Cards";
-
-const projectsData = [
-  {
-    title: "Sys&CoTech Website",
-    description:
-      "Modern landing page built with Next.js 16, React 19, and Tailwind v4. Features real-time 3D graphics, command palette, and responsive design.",
-    tags: ["Next.js", "React", "Three.js"],
-    links: [
-      { label: "View Site", href: "#hero" },
-      { label: "GitHub", href: "https://github.com/syscotech" },
-    ],
-  },
-  {
-    title: "Dev Hackathon Platform",
-    description:
-      "Registration and management system for our annual 48-hour innovation sprint. Supports team formation, submission tracking, and live leaderboards.",
-    tags: ["TypeScript", "Node.js", "PostgreSQL"],
-    links: [
-      { label: "Visit", href: "https://devhackathon.mn" },
-      { label: "GitHub", href: "https://github.com/syscotech/hackathon" },
-    ],
-  },
-  {
-    title: "Learning Management System",
-    description:
-      "Internal platform for training programs with course materials, progress tracking, and interactive coding challenges for members.",
-    tags: ["React", "Express", "MongoDB"],
-    links: [
-      { label: "Demo", href: "#programs" },
-      { label: "Learn More", href: "#contact" },
-    ],
-  },
-  {
-    title: "Contest Prep Tracker",
-    description:
-      "Practice tool for competitive programming with problem sets, automated testing, and performance analytics to prepare for contests.",
-    tags: ["Python", "Django", "Redis"],
-    links: [
-      { label: "Try It", href: "#programs" },
-      { label: "GitHub", href: "https://github.com/syscotech/contest-prep" },
-    ],
-  },
-  {
-    title: "Club Portal Dashboard",
-    description:
-      "Member dashboard for event registration, project showcases, attendance tracking, and collaboration tools for club activities.",
-    tags: ["Vue.js", "Firebase", "Tailwind"],
-    links: [
-      { label: "Preview", href: "#about" },
-      { label: "Docs", href: "#faq" },
-    ],
-  },
-  {
-    title: "Design Resources Library",
-    description:
-      "Curated collection of UI/UX design assets, templates, and learning resources created by members for the community.",
-    tags: ["Figma", "React", "Markdown"],
-    links: [
-      { label: "Browse", href: "#pillars" },
-      { label: "Contribute", href: "#contact" },
-    ],
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Projects() {
+  const { t } = useLanguage();
+
+  const projectsData = [
+    {
+      title: t("projects.website.title"),
+      description: t("projects.website.description"),
+      tags: ["Next.js", "React", "Three.js"],
+      links: [
+        { label: t("projects.link.viewsite"), href: "#hero" },
+        { label: t("projects.link.github"), href: "https://github.com/syscotech" },
+      ],
+    },
+    {
+      title: t("projects.hackathon.title"),
+      description: t("projects.hackathon.description"),
+      tags: ["TypeScript", "Node.js", "PostgreSQL"],
+      links: [
+        { label: t("projects.link.visit"), href: "https://devhackathon.mn" },
+        { label: t("projects.link.github"), href: "https://github.com/syscotech/hackathon" },
+      ],
+    },
+    {
+      title: t("projects.lms.title"),
+      description: t("projects.lms.description"),
+      tags: ["React", "Express", "MongoDB"],
+      links: [
+        { label: t("projects.link.demo"), href: "#programs" },
+        { label: t("projects.link.learnmore"), href: "#contact" },
+      ],
+    },
+    {
+      title: t("projects.contest.title"),
+      description: t("projects.contest.description"),
+      tags: ["Python", "Django", "Redis"],
+      links: [
+        { label: t("projects.link.tryit"), href: "#programs" },
+        { label: t("projects.link.github"), href: "https://github.com/syscotech/contest-prep" },
+      ],
+    },
+    {
+      title: t("projects.portal.title"),
+      description: t("projects.portal.description"),
+    tags: ["Vue.js", "Firebase", "Tailwind"],
+    links: [
+        { label: t("projects.link.demo"), href: "#about" },
+        { label: t("projects.link.learnmore"), href: "#faq" },
+      ],
+    },
+    {
+      title: t("projects.designsystem.title"),
+      description: t("projects.designsystem.description"),
+      tags: ["Figma", "React", "Markdown"],
+      links: [
+        { label: t("projects.link.demo"), href: "#pillars" },
+        { label: t("projects.link.learnmore"), href: "#contact" },
+      ],
+    },
+  ];
+
   return (
     <div className="relative">
       <SectionHeader
-        eyebrow="SHOWCASE"
-        title="Built Here"
-        subtitle="Real projects shipped by members—from hackathon winners to production platforms."
+        eyebrow={t("projects.eyebrow")}
+        title={t("projects.title")}
+        subtitle={t("projects.description")}
       />
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">

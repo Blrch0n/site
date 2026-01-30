@@ -12,6 +12,8 @@ import { JoinModalProvider } from "@/components/JoinModalProvider";
 import JoinModalWrapper from "@/components/JoinModalWrapper";
 import BootLoader from "@/components/BootLoader";
 import WebVitalsReporter from "@/components/WebVitalsReporter";
+import { LanguageProvider } from "@/contexts/LanguageContext";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 
 export const metadata: Metadata = {
   title: "Sys&CoTech | Where Innovation Meets Community",
@@ -27,20 +29,24 @@ export default function RootLayout({
       <body
         className={`${GeistSans.variable} ${GeistMono.variable} ${GeistSans.className} antialiased`}
       >
-        <CommandPaletteProvider>
-          <JoinModalProvider>
-            <WebVitalsReporter />
-            <BootLoader />
-            <TopProgress />
-            <BackgroundGrid />
-            <RightRail />
-            <CommandPalette />
-            <JoinModalWrapper />
-            <Navigation />
+        <ThemeProvider>
+          <LanguageProvider>
+            <CommandPaletteProvider>
+              <JoinModalProvider>
+                <WebVitalsReporter />
+                <BootLoader />
+                <TopProgress />
+                <BackgroundGrid />
+                <RightRail />
+                <CommandPalette />
+                <JoinModalWrapper />
+                <Navigation />
 
-            <div className="relative z-10">{children}</div>
-          </JoinModalProvider>
-        </CommandPaletteProvider>
+                <div className="relative z-10">{children}</div>
+              </JoinModalProvider>
+            </CommandPaletteProvider>
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

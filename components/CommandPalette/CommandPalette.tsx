@@ -16,7 +16,6 @@ interface CommandItem {
   description?: string;
 }
 
-
 const buildCommands = (): CommandItem[] => {
   const routeCommands: CommandItem[] = NAV_ITEMS.map((item) => ({
     id: item.id,
@@ -80,13 +79,11 @@ export default function CommandPalette() {
     );
   }, [search, commands]);
 
-  
   const handleSearchChange = useCallback((value: string) => {
     setSearch(value);
     setSelectedIndex(0);
   }, []);
 
-  
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 50);
@@ -98,17 +95,14 @@ export default function CommandPalette() {
       closePalette();
 
       if (cmd.type === "action") {
-        
         if (cmd.id === "join") {
           setTimeout(() => openModal(), 100);
         }
       } else if (cmd.type === "route") {
-        
         setTimeout(() => {
           router.push(cmd.href!);
         }, 100);
       } else {
-        
         window.open(cmd.href, "_blank", "noopener,noreferrer");
       }
     },
@@ -150,7 +144,7 @@ export default function CommandPalette() {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed inset-0 z-[200] flex items-start justify-center pt-[15vh] px-4"
+        className="fixed inset-0 z-200 flex items-start justify-center pt-[15vh] px-4"
         onClick={closePalette}
       >
         {}
@@ -189,7 +183,7 @@ export default function CommandPalette() {
             </div>
 
             {}
-            <div className="max-h-[400px] overflow-y-auto">
+            <div className="max-h-100 overflow-y-auto">
               {filteredCommands.length === 0 ? (
                 <div className="px-4 py-8 text-center text-white/40 text-sm">
                   No results found
@@ -203,17 +197,17 @@ export default function CommandPalette() {
                       onMouseEnter={() => setSelectedIndex(index)}
                       className={`w-full flex items-center gap-3 px-4 py-3 transition-colors ${
                         index === selectedIndex
-                          ? "bg-white/[0.08] border-l-2 border-[var(--accent-blue)]"
-                          : "hover:bg-white/[0.04]"
+                          ? "bg-white/8 border-l-2 border-(--accent-blue)"
+                          : "hover:bg-white/4"
                       }`}
                     >
                       <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/5 border border-white/8">
                         {cmd.type === "route" ? (
-                          <Hash className="w-4 h-4 text-[var(--accent-cyan)]" />
+                          <Hash className="w-4 h-4 text-(--accent-cyan)" />
                         ) : cmd.type === "action" ? (
-                          <UserPlus className="w-4 h-4 text-[var(--accent-blue)]" />
+                          <UserPlus className="w-4 h-4 text-(--accent-blue)" />
                         ) : (
-                          <ExternalLink className="w-4 h-4 text-[var(--accent-pink)]" />
+                          <ExternalLink className="w-4 h-4 text-(--accent-pink)" />
                         )}
                       </div>
                       <div className="flex-1 text-left">
@@ -243,7 +237,7 @@ export default function CommandPalette() {
             </div>
 
             {}
-            <div className="flex items-center justify-between px-4 py-2.5 border-t border-white/8 bg-white/[0.02]">
+            <div className="flex items-center justify-between px-4 py-2.5 border-t border-white/8 bg-white/2">
               <div className="flex items-center gap-4 text-[10px] font-mono text-white/30 tracking-wider">
                 <span className="flex items-center gap-1.5">
                   <kbd className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10">
