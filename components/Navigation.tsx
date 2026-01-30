@@ -36,7 +36,7 @@ export default function Navigation() {
   };
 
   const desktopNavItems = NAV_ITEMS.filter(
-    (item) => item.id !== "home" && item.showInDesktop !== false
+    (item) => item.id !== "home" && item.showInDesktop !== false,
   );
 
   return (

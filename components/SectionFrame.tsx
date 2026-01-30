@@ -28,7 +28,6 @@ export default function SectionFrame({
 
       <div className="relative max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid lg:grid-cols-[96px_1fr] lg:gap-10">
-          
           <div className="hidden lg:block pt-24">
             {index && (
               <div className="sticky top-28">
@@ -40,9 +39,7 @@ export default function SectionFrame({
             )}
           </div>
 
-          
           <div className="relative lg:border-l lg:border-[var(--border-line)] lg:pl-10">
-            
             <div className="pointer-events-none absolute -top-3 -left-3 h-8 w-8 border-l border-t border-[var(--border-line)]" />
             <div className="pointer-events-none absolute -top-3 -right-3 h-8 w-8 border-r border-t border-[var(--border-line)]" />
             <div className="pointer-events-none absolute -bottom-3 -left-3 h-8 w-8 border-l border-b border-[var(--border-line)]" />

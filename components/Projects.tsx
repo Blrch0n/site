@@ -14,7 +14,10 @@ export default function Projects() {
       tags: ["Next.js", "React", "Three.js"],
       links: [
         { label: t("projects.link.viewsite"), href: "#hero" },
-        { label: t("projects.link.github"), href: "https://github.com/syscotech" },
+        {
+          label: t("projects.link.github"),
+          href: "https://github.com/syscotech",
+        },
       ],
     },
     {
@@ -23,7 +26,10 @@ export default function Projects() {
       tags: ["TypeScript", "Node.js", "PostgreSQL"],
       links: [
         { label: t("projects.link.visit"), href: "https://devhackathon.mn" },
-        { label: t("projects.link.github"), href: "https://github.com/syscotech/hackathon" },
+        {
+          label: t("projects.link.github"),
+          href: "https://github.com/syscotech/hackathon",
+        },
       ],
     },
     {
@@ -41,14 +47,17 @@ export default function Projects() {
       tags: ["Python", "Django", "Redis"],
       links: [
         { label: t("projects.link.tryit"), href: "#programs" },
-        { label: t("projects.link.github"), href: "https://github.com/syscotech/contest-prep" },
+        {
+          label: t("projects.link.github"),
+          href: "https://github.com/syscotech/contest-prep",
+        },
       ],
     },
     {
       title: t("projects.portal.title"),
       description: t("projects.portal.description"),
-    tags: ["Vue.js", "Firebase", "Tailwind"],
-    links: [
+      tags: ["Vue.js", "Firebase", "Tailwind"],
+      links: [
         { label: t("projects.link.demo"), href: "#about" },
         { label: t("projects.link.learnmore"), href: "#faq" },
       ],
