@@ -1,14 +1,6 @@
 import type { Metadata } from "next";
-import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import AsSeenOn from "@/components/AsSeenOn";
-import About from "@/components/About";
-import Pillars from "@/components/Pillars";
-import Programs from "@/components/Programs";
-import ProjectsSection from "@/components/ProjectsSection";
-import Events from "@/components/Events";
-import FAQ from "@/components/FAQ";
-import Feedback from "@/components/Feedback";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
@@ -19,20 +11,10 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <>
-      <Navigation />
-      <main>
-        <Hero />
-        <AsSeenOn />
-        <About />
-        <Pillars />
-        <Programs />
-        <ProjectsSection />
-        <Events />
-        <FAQ />
-        <Feedback />
-        <Footer />
-      </main>
-    </>
+    <main>
+      <Hero />
+      <AsSeenOn />
+      <Footer />
+    </main>
   );
 }

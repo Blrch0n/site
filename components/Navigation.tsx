@@ -4,24 +4,18 @@ import { useState, useEffect } from "react";
 import { Menu, X, Command } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useCommandPalette } from "./CommandPalette/useCommandPalette";
 import { useJoinModal } from "./JoinModalProvider";
-
-const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#pillars", label: "Pillars" },
-  { href: "#programs", label: "Programs" },
-  { href: "#projects", label: "Projects" },
-  { href: "#events", label: "Events" },
-  { href: "#faq", label: "FAQ" },
-  { href: "#contact", label: "Contact" },
-];
+import { NAV_ITEMS } from "@/lib/siteNav";
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { togglePalette } = useCommandPalette();
   const { openModal } = useJoinModal();
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,6 +29,9 @@ export default function Navigation() {
   const handleLinkClick = () => {
     setIsMobileMenuOpen(false);
   };
+
+  
+  const desktopNavItems = NAV_ITEMS.filter((item) => item.id !== "home");
 
   return (
     <>
@@ -50,9 +47,9 @@ export default function Navigation() {
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="flex items-center justify-between h-16">
-            
-            <a
-              href="#hero"
+            {}
+            <Link
+              href="/"
               className="flex items-center gap-2.5 hover:opacity-80 transition-opacity group"
             >
               <Image
@@ -63,24 +60,35 @@ export default function Navigation() {
                 className="h-8 w-auto"
                 priority
               />
-            </a>
+            </Link>
 
-            
+            {}
             <ul className="hidden md:flex items-center gap-8">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="text-[13px] font-medium text-white/50 hover:text-white transition-colors duration-200 relative group py-2"
-                  >
-                    {link.label}
-                    <span className="absolute -bottom-0 left-0 w-0 h-[1px] bg-gradient-to-r from-[var(--accent-blue)] to-[var(--accent-cyan)] group-hover:w-full transition-all duration-300" />
-                  </a>
-                </li>
-              ))}
+              {desktopNavItems.map((link) => {
+                const isActive = pathname === link.path;
+                return (
+                  <li key={link.path}>
+                    <Link
+                      href={link.path}
+                      className={`text-[13px] font-medium transition-colors duration-200 relative group py-2 ${
+                        isActive
+                          ? "text-white"
+                          : "text-white/50 hover:text-white"
+                      }`}
+                    >
+                      {link.label}
+                      <span
+                        className={`absolute -bottom-0 left-0 h-[1px] bg-gradient-to-r from-[var(--accent-blue)] to-[var(--accent-cyan)] transition-all duration-300 ${
+                          isActive ? "w-full" : "w-0 group-hover:w-full"
+                        }`}
+                      />
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
 
-            
+            {}
             <div className="hidden md:flex items-center gap-3">
               <button
                 onClick={togglePalette}
@@ -100,7 +108,7 @@ export default function Navigation() {
               </button>
             </div>
 
-            
+            {}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="md:hidden p-2 text-white hover:text-white/80 transition-colors"
@@ -112,7 +120,7 @@ export default function Navigation() {
         </div>
       </motion.nav>
 
-      
+      {}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -132,25 +140,25 @@ export default function Navigation() {
               className="relative mt-20 mx-6 p-8 rounded-2xl bg-white/5 border border-white/10"
             >
               <ul className="flex flex-col gap-4">
-                {navLinks.map((link, index) => (
+                {NAV_ITEMS.map((link, index) => (
                   <motion.li
-                    key={link.href}
+                    key={link.path}
                     initial={{ x: -20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: index * 0.05, duration: 0.3 }}
                   >
-                    <a
-                      href={link.href}
+                    <Link
+                      href={link.path}
                       onClick={handleLinkClick}
                       className="block py-3 text-lg font-medium text-white hover:text-[var(--accent-cyan)] transition-colors"
                     >
                       {link.label}
-                    </a>
+                    </Link>
                   </motion.li>
                 ))}
               </ul>
 
-              
+              {}
               <button
                 onClick={() => {
                   setIsMobileMenuOpen(false);

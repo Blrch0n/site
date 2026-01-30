@@ -3,109 +3,72 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, ExternalLink, Hash, UserPlus } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useCommandPalette } from "./useCommandPalette";
 import { useJoinModal } from "../JoinModalProvider";
+import { NAV_ITEMS, EXTERNAL_LINKS } from "@/lib/siteNav";
 
 interface CommandItem {
   id: string;
   label: string;
-  type: "section" | "external" | "action";
+  type: "route" | "external" | "action";
   href?: string;
   description?: string;
 }
 
-const commands: CommandItem[] = [
-  {
-    id: "join",
-    label: "Join Sys&CoTech",
-    type: "action",
-    description: "Apply for membership",
-  },
-  {
-    id: "intro",
-    label: "INTRO",
-    type: "section",
-    href: "#hero",
-    description: "Hero section",
-  },
-  {
-    id: "about",
-    label: "ABOUT",
-    type: "section",
-    href: "#about",
-    description: "Who we are",
-  },
-  {
-    id: "core",
-    label: "CORE",
-    type: "section",
-    href: "#pillars",
-    description: "Six pillars",
-  },
-  {
-    id: "training",
-    label: "TRAINING",
-    type: "section",
-    href: "#programs",
-    description: "Programs",
-  },
-  {
-    id: "showcase",
-    label: "SHOWCASE",
-    type: "section",
-    href: "#projects",
-    description: "Member projects",
-  },
-  {
-    id: "events",
-    label: "EVENTS",
-    type: "section",
-    href: "#events",
-    description: "Activities",
-  },
-  {
-    id: "faq",
-    label: "FAQ",
-    type: "section",
-    href: "#faq",
-    description: "Questions",
-  },
-  {
-    id: "contact",
-    label: "CONTACT",
-    type: "section",
-    href: "#contact",
-    description: "Get in touch",
-  },
-  {
-    id: "facebook",
-    label: "Facebook",
-    type: "external",
-    href: "https://www.facebook.com/syscotech",
-    description: "Visit our page",
-  },
-  {
-    id: "hackathon",
-    label: "Hackathon Site",
-    type: "external",
-    href: "https://devhackathon.mn",
-    description: "Dev Hackathon",
-  },
-  {
-    id: "location",
-    label: "Google Maps",
-    type: "external",
-    href: "https://maps.app.goo.gl/yourLocationLink",
-    description: "Find us",
-  },
-];
+
+const buildCommands = (): CommandItem[] => {
+  const routeCommands: CommandItem[] = NAV_ITEMS.map((item) => ({
+    id: item.id,
+    label: item.label,
+    type: "route" as const,
+    href: item.path,
+    description: getRouteDescription(item.id),
+  }));
+
+  const externalCommands: CommandItem[] = EXTERNAL_LINKS.map((link) => ({
+    id: link.id,
+    label: link.label,
+    type: "external" as const,
+    href: link.href,
+    description: link.description,
+  }));
+
+  const actionCommands: CommandItem[] = [
+    {
+      id: "join",
+      label: "Join Sys&CoTech",
+      type: "action",
+      description: "Apply for membership",
+    },
+  ];
+
+  return [...actionCommands, ...routeCommands, ...externalCommands];
+};
+
+function getRouteDescription(id: string): string {
+  const descriptions: Record<string, string> = {
+    home: "Hero section",
+    about: "Who we are",
+    core: "Six pillars",
+    training: "Programs",
+    showcase: "Member projects",
+    events: "Activities",
+    faq: "Questions",
+    contact: "Get in touch",
+  };
+  return descriptions[id] || "";
+}
 
 export default function CommandPalette() {
   const { isOpen, closePalette, openCount } = useCommandPalette();
   const { openModal } = useJoinModal();
+  const router = useRouter();
   const [search, setSearch] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const commands = useMemo(() => buildCommands(), []);
 
   const filteredCommands = useMemo(() => {
     if (!search.trim()) return commands;
@@ -115,7 +78,7 @@ export default function CommandPalette() {
         cmd.label.toLowerCase().includes(query) ||
         cmd.description?.toLowerCase().includes(query),
     );
-  }, [search]);
+  }, [search, commands]);
 
   
   const handleSearchChange = useCallback((value: string) => {
@@ -139,20 +102,17 @@ export default function CommandPalette() {
         if (cmd.id === "join") {
           setTimeout(() => openModal(), 100);
         }
-      } else if (cmd.type === "section") {
+      } else if (cmd.type === "route") {
         
         setTimeout(() => {
-          const element = document.querySelector(cmd.href!);
-          if (element) {
-            element.scrollIntoView({ behavior: "smooth", block: "start" });
-          }
+          router.push(cmd.href!);
         }, 100);
       } else {
         
         window.open(cmd.href, "_blank", "noopener,noreferrer");
       }
     },
-    [closePalette, openModal],
+    [closePalette, openModal, router],
   );
 
   useEffect(() => {
@@ -193,10 +153,10 @@ export default function CommandPalette() {
         className="fixed inset-0 z-[200] flex items-start justify-center pt-[15vh] px-4"
         onClick={closePalette}
       >
-        
+        {}
         <div className="absolute inset-0 bg-black/60 backdrop-blur-md" />
 
-        
+        {}
         <motion.div
           initial={{ scale: 0.96, y: -20 }}
           animate={{ scale: 1, y: 0 }}
@@ -205,14 +165,14 @@ export default function CommandPalette() {
           className="relative w-full max-w-2xl"
           onClick={(e) => e.stopPropagation()}
         >
-          
+          {}
           <div className="absolute -top-1 -left-1 w-3 h-3 border-l border-t border-white/20" />
           <div className="absolute -top-1 -right-1 w-3 h-3 border-r border-t border-white/20" />
           <div className="absolute -bottom-1 -left-1 w-3 h-3 border-l border-b border-white/20" />
           <div className="absolute -bottom-1 -right-1 w-3 h-3 border-r border-b border-white/20" />
 
           <div className="bg-[rgba(7,8,11,0.95)] backdrop-blur-2xl border border-white/8 rounded-xl shadow-2xl overflow-hidden">
-            
+            {}
             <div className="flex items-center gap-3 px-4 py-4 border-b border-white/8">
               <Search className="w-5 h-5 text-white/40" />
               <input
@@ -228,7 +188,7 @@ export default function CommandPalette() {
               </span>
             </div>
 
-            
+            {}
             <div className="max-h-[400px] overflow-y-auto">
               {filteredCommands.length === 0 ? (
                 <div className="px-4 py-8 text-center text-white/40 text-sm">
@@ -248,7 +208,7 @@ export default function CommandPalette() {
                       }`}
                     >
                       <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/5 border border-white/8">
-                        {cmd.type === "section" ? (
+                        {cmd.type === "route" ? (
                           <Hash className="w-4 h-4 text-[var(--accent-cyan)]" />
                         ) : cmd.type === "action" ? (
                           <UserPlus className="w-4 h-4 text-[var(--accent-blue)]" />
@@ -266,9 +226,9 @@ export default function CommandPalette() {
                           </div>
                         )}
                       </div>
-                      {cmd.type === "section" && (
+                      {cmd.type === "route" && (
                         <span className="text-[9px] font-mono text-white/30 tracking-wider uppercase">
-                          JUMP
+                          GO
                         </span>
                       )}
                       {cmd.type === "action" && (
@@ -282,7 +242,7 @@ export default function CommandPalette() {
               )}
             </div>
 
-            
+            {}
             <div className="flex items-center justify-between px-4 py-2.5 border-t border-white/8 bg-white/[0.02]">
               <div className="flex items-center gap-4 text-[10px] font-mono text-white/30 tracking-wider">
                 <span className="flex items-center gap-1.5">

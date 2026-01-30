@@ -15,52 +15,52 @@ export default function BootLoader() {
     images: false,
   });
 
-  // Check for reduced motion preference (computed once on mount)
+  
   const prefersReducedMotion = useMemo(() => {
     if (typeof window === "undefined") return false;
     return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }, []);
 
-  // Calculate overall progress (derived state)
+  
   const progress = useMemo(() => {
     const completed = Object.values(loadState).filter(Boolean).length;
     const totalSteps = Object.keys(loadState).length;
     return (completed / totalSteps) * 100;
   }, [loadState]);
 
-  // Calculate status text (derived state)
+  
   const statusText = useMemo(() => {
     if (!loadState.fonts) return "LOADING FONTS";
     if (!loadState.images) return "PRELOADING ASSETS";
     return "SYSTEMS ONLINE";
   }, [loadState]);
 
-  // Track font loading
+  
   useEffect(() => {
     const loadFonts = async () => {
       if (document.fonts && document.fonts.ready) {
         await document.fonts.ready;
       }
-      // Small delay to ensure fonts are actually rendered
+      
       await new Promise((resolve) => setTimeout(resolve, 150));
       setLoadState((prev) => ({ ...prev, fonts: true }));
     };
     loadFonts();
   }, []);
 
-  // Track critical images (Hero section, above-the-fold)
+  
   useEffect(() => {
-    // For now, simulate image preload - in real scenario, preload actual hero images
+    
     const timer = setTimeout(() => {
       setLoadState((prev) => ({ ...prev, images: true }));
     }, 300);
     return () => clearTimeout(timer);
   }, []);
 
-  // Complete loading sequence
+  
   useEffect(() => {
     if (progress === 100) {
-      // Brief moment to show completion, then fade out
+      
       const timer = setTimeout(() => {
         setIsLoading(false);
       }, 600);
@@ -68,7 +68,7 @@ export default function BootLoader() {
     }
   }, [progress]);
 
-  // Prevent body scroll during loading
+  
   useEffect(() => {
     if (isLoading) {
       document.body.style.overflow = "hidden";
@@ -88,9 +88,9 @@ export default function BootLoader() {
           className="fixed inset-0 z-[9999] bg-[#07080b] flex items-center justify-center"
           style={{ pointerEvents: "none" }}
         >
-          {/* Corner Brackets - Mission Control Aesthetic */}
+          {}
           <div className="absolute inset-0 pointer-events-none">
-            {/* Top Left */}
+            {}
             <div className="absolute top-6 left-6 md:top-12 md:left-12">
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}

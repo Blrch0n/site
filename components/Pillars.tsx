@@ -15,7 +15,11 @@ import {
 export default function Pillars() {
   return (
     <section id="pillars" className="relative overflow-hidden">
-      <SectionFrame index="02" className="py-24 md:py-32" showTopDivider>
+      <SectionFrame
+        index="02"
+        className="flex justify-center flex-col py-24 md:py-32"
+        showTopDivider
+      >
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[var(--accent-blue)] opacity-[0.02] blur-[180px] rounded-full" />
         </div>

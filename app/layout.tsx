@@ -5,7 +5,7 @@ import "./globals.css";
 import BackgroundGrid from "@/components/BackgroundGrid";
 import RightRail from "@/components/RightRail";
 import TopProgress from "@/components/TopProgress";
-import { ActiveSectionProvider } from "@/components/ActiveSectionProvider";
+import Navigation from "@/components/Navigation";
 import { CommandPaletteProvider } from "@/components/CommandPalette/CommandPaletteProvider";
 import CommandPalette from "@/components/CommandPalette/CommandPalette";
 import { JoinModalProvider } from "@/components/JoinModalProvider";
@@ -27,21 +27,20 @@ export default function RootLayout({
       <body
         className={`${GeistSans.variable} ${GeistMono.variable} ${GeistSans.className} antialiased`}
       >
-        <ActiveSectionProvider>
-          <CommandPaletteProvider>
-            <JoinModalProvider>
-              <WebVitalsReporter />
-              <BootLoader />
-              <TopProgress />
-              <BackgroundGrid />
-              <RightRail />
-              <CommandPalette />
-              <JoinModalWrapper />
+        <CommandPaletteProvider>
+          <JoinModalProvider>
+            <WebVitalsReporter />
+            <BootLoader />
+            <TopProgress />
+            <BackgroundGrid />
+            <RightRail />
+            <CommandPalette />
+            <JoinModalWrapper />
+            <Navigation />
 
-              <div className="relative z-10">{children}</div>
-            </JoinModalProvider>
-          </CommandPaletteProvider>
-        </ActiveSectionProvider>
+            <div className="relative z-10">{children}</div>
+          </JoinModalProvider>
+        </CommandPaletteProvider>
       </body>
     </html>
   );
