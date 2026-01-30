@@ -389,7 +389,9 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                           <Phone className="w-5 h-5 text-[#00D4FF]" />
                         </div>
                         <div className="text-left">
-                          <div className="text-sm font-medium text-[var(--text-primary)]">Call Us</div>
+                          <div className="text-sm font-medium text-[var(--text-primary)]">
+                            Call Us
+                          </div>
                           <div className="text-xs text-[var(--text-muted)]">
                             {phoneNumber}
                           </div>

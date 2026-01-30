@@ -54,7 +54,9 @@ export function ValueCard({
       <h3 className="text-lg font-semibold mb-2.5 text-[var(--text-primary)] group-hover:text-[var(--accent-cyan)] transition-colors">
         {title}
       </h3>
-      <p className="text-[var(--text-secondary)] text-sm leading-relaxed">{description}</p>
+      <p className="text-[var(--text-secondary)] text-sm leading-relaxed">
+        {description}
+      </p>
     </Card>
   );
 }
@@ -80,7 +82,9 @@ export function PillarCard({
       <h4 className="text-base font-semibold mb-2 text-[var(--text-primary)] group-hover:text-(--accent-blue) transition-colors">
         {title}
       </h4>
-      <p className="text-[var(--text-secondary)] text-sm leading-relaxed">{description}</p>
+      <p className="text-[var(--text-secondary)] text-sm leading-relaxed">
+        {description}
+      </p>
     </Card>
   );
 }
@@ -156,7 +160,9 @@ export function EventCard({
       <h4 className="text-base font-semibold mb-2.5 text-[var(--text-primary)] group-hover:text-(--accent-violet) transition-colors">
         {title}
       </h4>
-      <p className="text-[var(--text-secondary)] text-sm leading-relaxed">{description}</p>
+      <p className="text-[var(--text-secondary)] text-sm leading-relaxed">
+        {description}
+      </p>
     </Card>
   );
 }

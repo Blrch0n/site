@@ -35,7 +35,10 @@ export default function Footer() {
   };
 
   return (
-    <section id="contact" className="py-24 md:py-32 border-t border-[var(--border-line)]">
+    <section
+      id="contact"
+      className="py-24 md:py-32 border-t border-[var(--border-line)]"
+    >
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <SectionHeader
           eyebrow={t("footer.eyebrow")}

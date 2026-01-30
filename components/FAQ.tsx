@@ -51,7 +51,9 @@ function FAQItem({ question, answer, delay = 0 }: FAQItemProps) {
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="overflow-hidden"
           >
-            <div className="pb-6 text-[var(--text-secondary)] leading-relaxed">{answer}</div>
+            <div className="pb-6 text-[var(--text-secondary)] leading-relaxed">
+              {answer}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

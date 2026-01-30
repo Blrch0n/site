@@ -28,14 +28,12 @@ export default function FeedbackForm() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    
     const newErrors = {
       email: "",
       subject: "",
       message: "",
     };
 
-    
     if (!formData.email) {
       newErrors.email = "Email is required";
     } else if (!validateEmail(formData.email)) {
@@ -50,27 +48,22 @@ export default function FeedbackForm() {
       newErrors.message = "Message is required";
     }
 
-    
     if (newErrors.email || newErrors.subject || newErrors.message) {
       setErrors(newErrors);
       return;
     }
 
-    
     setErrors(newErrors);
     setIsSubmitting(true);
 
-    
     const subject = encodeURIComponent(formData.subject);
     const body = encodeURIComponent(
       `Name: ${formData.name || "Not provided"}\nReply-to: ${formData.email}\n\nMessage:\n${formData.message}`,
     );
     const mailtoLink = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
 
-    
     window.location.href = mailtoLink;
 
-    
     setTimeout(() => {
       setFormData({ name: "", email: "", subject: "", message: "" });
       setIsSubmitting(false);
@@ -84,9 +77,10 @@ export default function FeedbackForm() {
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       className="space-y-6"
     >
-      <h4 className="text-lg font-semibold text-[var(--text-primary)]">Send Feedback</h4>
+      <h4 className="text-lg font-semibold text-[var(--text-primary)]">
+        Send Feedback
+      </h4>
       <form onSubmit={handleSubmit} className="space-y-4">
-        
         <div>
           <label
             htmlFor="name"
@@ -104,7 +98,6 @@ export default function FeedbackForm() {
           />
         </div>
 
-        
         <div>
           <label
             htmlFor="email"
@@ -133,7 +126,6 @@ export default function FeedbackForm() {
           )}
         </div>
 
-        
         <div>
           <label
             htmlFor="subject"
@@ -162,7 +154,6 @@ export default function FeedbackForm() {
           )}
         </div>
 
-        
         <div>
           <label
             htmlFor="message"
@@ -191,7 +182,6 @@ export default function FeedbackForm() {
           )}
         </div>
 
-        
         <button
           type="submit"
           disabled={isSubmitting}
