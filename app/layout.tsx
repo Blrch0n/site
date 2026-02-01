@@ -10,7 +10,6 @@ import { CommandPaletteProvider } from "@/components/CommandPalette/CommandPalet
 import CommandPalette from "@/components/CommandPalette/CommandPalette";
 import { JoinModalProvider } from "@/components/JoinModalProvider";
 import JoinModalWrapper from "@/components/JoinModalWrapper";
-import BootLoader from "@/components/BootLoader";
 import WebVitalsReporter from "@/components/WebVitalsReporter";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
@@ -34,7 +33,6 @@ export default function RootLayout({
             <CommandPaletteProvider>
               <JoinModalProvider>
                 <WebVitalsReporter />
-                <BootLoader />
                 <TopProgress />
                 <BackgroundGrid />
                 <RightRail />
