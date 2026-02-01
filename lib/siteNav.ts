@@ -4,7 +4,7 @@ export interface SiteNavItem {
   path: string;
   shortLabel: string;
   index?: string;
-  showInDesktop?: boolean; // New flag to control desktop visibility
+  showInDesktop?: boolean;
 }
 
 export const NAV_ITEMS: SiteNavItem[] = [
@@ -60,7 +60,7 @@ export const NAV_ITEMS: SiteNavItem[] = [
     path: "/faq",
     shortLabel: "FAQ",
     index: "06",
-    showInDesktop: false, // Hide from desktop nav
+    showInDesktop: false,
   },
   {
     id: "contact",
@@ -68,7 +68,7 @@ export const NAV_ITEMS: SiteNavItem[] = [
     path: "/contact",
     shortLabel: "CONTACT",
     index: "07",
-    showInDesktop: false, // Hide from desktop nav
+    showInDesktop: false,
   },
 ];
 

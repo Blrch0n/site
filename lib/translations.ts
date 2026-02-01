@@ -13,7 +13,6 @@ export const translations = {
     "nav.contact": "Contact",
     "nav.join": "Join Us",
 
-    // Hero Section
     "hero.badge": "Since 2009",
     "hero.title": "Where Innovation Meets Community",
     "hero.description":
@@ -26,7 +25,6 @@ export const translations = {
     "hero.image.title": "Innovation & Technology",
     "hero.image.subtitle": "Building the future together",
 
-    // About Section
     "about.eyebrow": "WHO WE ARE",
     "about.title": "United by Passion, Driven by Innovation",
     "about.subtitle":
@@ -44,7 +42,6 @@ export const translations = {
     "about.stats.total": "Total Members",
     "about.stats.projects": "Projects Built",
 
-    // Pillars Section
     "pillars.eyebrow": "OUR CORE",
     "pillars.title": "Six Pillars of Excellence",
     "pillars.subtitle":
@@ -68,7 +65,6 @@ export const translations = {
     "pillars.innovation.description":
       "Always think, always create, always evolve forward.",
 
-    // Programs Section
     "programs.eyebrow": "TRAINING",
     "programs.title": "Master the Fundamentals",
     "programs.subtitle":
@@ -86,7 +82,6 @@ export const translations = {
     "programs.webdev.description":
       "Full-stack technologies from client to server. HTML, CSS, JavaScript, Node.js, and modern frameworks.",
 
-    // Projects Section
     "projects.eyebrow": "WHAT WE BUILD",
     "projects.title": "Real Projects, Real Impact",
     "projects.description":
@@ -116,7 +111,6 @@ export const translations = {
     "projects.link.learnmore": "Learn More",
     "projects.link.tryit": "Try It",
 
-    // Events Section
     "events.eyebrow": "ACTIVITIES",
     "events.title": "We Build Together",
     "events.subtitle":
@@ -138,7 +132,6 @@ export const translations = {
     "events.collaborative.description":
       "Partnerships with clubs and sponsors like Golomt Bank.",
 
-    // FAQ Section
     "faq.eyebrow": "FAQ",
     "faq.title": "Frequently Asked Questions",
     "faq.subtitle": "Everything you need to know about joining Sys&CoTech.",
@@ -155,7 +148,6 @@ export const translations = {
     "faq.q4.answer":
       "Training enrollment opens at the start of each semester. Follow our Facebook page or contact us to get notified when registration begins.",
 
-    // Footer Section
     "footer.contact.title": "Contact",
     "footer.quicklinks.title": "Quick Links",
     "footer.policies.title": "Club Policies",
@@ -168,7 +160,6 @@ export const translations = {
     "footer.subtitle": "Reach out with questions or come visit us on campus.",
     "footer.copyright": "© 2026 Sys&CoTech. All rights reserved.",
 
-    // Common
     "common.learnMore": "Learn More",
     "common.readMore": "Read More",
     "common.seeAll": "See All",
@@ -179,7 +170,6 @@ export const translations = {
     "common.scrollExplore": "Scroll to Explore",
   },
   mn: {
-    // Navigation
     "nav.home": "Нүүр",
     "nav.about": "Бидний тухай",
     "nav.pillars": "Үндсэн чиглэл",
@@ -193,7 +183,6 @@ export const translations = {
     "nav.contact": "Холбоо барих",
     "nav.join": "Бидэнтэй нэгдэх",
 
-    // Hero Section
     "hero.badge": "2009 оноос хойш",
     "hero.title": "Инновацийг нийгэмлэгтэй уялдуулан",
     "hero.description":
@@ -206,7 +195,6 @@ export const translations = {
     "hero.image.title": "Инноваци ба технологи",
     "hero.image.subtitle": "Хамтдаа ирээдүйг бүтээж байна",
 
-    // About Section
     "about.eyebrow": "БИД ХЭН БЭ",
     "about.title": "Хүсэл эрмэлзлээр нэгдсэн, инновациор хөтлөгддөг",
     "about.subtitle":
@@ -224,7 +212,6 @@ export const translations = {
     "about.stats.total": "Нийт гишүүд",
     "about.stats.projects": "Хийсэн төслүүд",
 
-    // Pillars Section
     "pillars.eyebrow": "БИДНИЙ ҮНДЭС",
     "pillars.title": "Зургаан үндсэн чиглэл",
     "pillars.subtitle":
@@ -247,7 +234,6 @@ export const translations = {
     "pillars.innovation.title": "Инноваци",
     "pillars.innovation.description": "Үргэлж бодож, бүтээж, урагшлан хөгжих.",
 
-    // Programs Section
     "programs.eyebrow": "СУРГАЛТ",
     "programs.title": "Үндсийг эзэмшээрэй",
     "programs.subtitle":
@@ -265,7 +251,6 @@ export const translations = {
     "programs.webdev.description":
       "Клиент, серверийн бүх технологи. HTML, CSS, JavaScript, Node.js болон орчин үеийн фреймворкууд.",
 
-    // Projects Section
     "projects.eyebrow": "БИД ЮУ БҮТЭЭДЭГ",
     "projects.title": "Бодит төслүүд, бодит нөлөө",
     "projects.description":
@@ -295,7 +280,6 @@ export const translations = {
     "projects.link.learnmore": "Дэлгэрэнгүй",
     "projects.link.tryit": "Туршиж үзэх",
 
-    // Events Section
     "events.eyebrow": "ҮЙЛ АЖИЛЛАГАА",
     "events.title": "Бид хамтдаа бүтээнэ",
     "events.subtitle":
@@ -317,7 +301,6 @@ export const translations = {
     "events.collaborative.description":
       "Голомт банк гэх мэт клубууд болон ивээн тэтгэгчидтэй түншлэл.",
 
-    // FAQ Section
     "faq.eyebrow": "АСУУЛТ",
     "faq.title": "Түгээмэл асуудаг асуултууд",
     "faq.subtitle": "Sys&CoTech-тэй нэгдэх талаар мэдэх шаардлагатай бүх зүйл.",
@@ -334,7 +317,6 @@ export const translations = {
     "faq.q4.answer":
       "Сургалтын элсэлт улирал бүрийн эхэнд нээгдэнэ. Бүртгэл эхлэхэд мэдээлэл авахын тулд манай Facebook хуудсыг дагаарай эсвэл бидэнтэй холбогдоорой.",
 
-    // Footer Section
     "footer.contact.title": "Холбоо барих",
     "footer.quicklinks.title": "Холбоосууд",
     "footer.policies.title": "Клубын бодлого",
@@ -347,7 +329,6 @@ export const translations = {
     "footer.subtitle": "Асуулт байвал холбогдож эсвэл кампуст зочлоорой.",
     "footer.copyright": "© 2026 Sys&CoTech. Бүх эрх хуулиар хамгаалагдсан.",
 
-    // Common
     "common.learnMore": "Дэлгэрэнгүй",
     "common.readMore": "Цааш унших",
     "common.seeAll": "Бүгдийг үзэх",

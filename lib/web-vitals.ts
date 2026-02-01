@@ -1,11 +1,5 @@
-/**
- * Web Vitals Performance Monitoring
- * Tracks LCP, INP, CLS and reports to console (can be extended to analytics)
- */
-
 import { onCLS, onINP, onLCP, onFCP, onTTFB } from "web-vitals";
 
-// Color coding for console output
 const COLORS = {
   good: "#0CCE6B",
   needsImprovement: "#FFA400",
@@ -38,7 +32,6 @@ function getRating(metric: string, value: number): string {
 }
 
 export function reportWebVitals() {
-  // Only run in browser
   if (typeof window === "undefined") return;
 
   console.log(
@@ -97,7 +90,6 @@ export function reportWebVitals() {
   });
 }
 
-// WebGL initialization timing helper
 export function trackWebGLInit() {
   if (typeof window === "undefined") return;
 
