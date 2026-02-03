@@ -9,9 +9,15 @@ export default function BackgroundGrid() {
     const auroraElement = auroraRef.current;
     if (!auroraElement) return;
 
+    let rafId: number;
     const handlePointerMove = (e: PointerEvent) => {
-      auroraElement.style.setProperty("--mx", `${e.clientX}px`);
-      auroraElement.style.setProperty("--my", `${e.clientY}px`);
+      // Use RAF to throttle updates
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        auroraElement.style.setProperty("--mx", `${e.clientX}px`);
+        auroraElement.style.setProperty("--my", `${e.clientY}px`);
+        rafId = 0;
+      });
     };
 
     window.addEventListener("pointermove", handlePointerMove, {
@@ -19,6 +25,7 @@ export default function BackgroundGrid() {
     });
 
     return () => {
+      if (rafId) cancelAnimationFrame(rafId);
       window.removeEventListener("pointermove", handlePointerMove);
     };
   }, []);

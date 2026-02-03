@@ -1,6 +1,12 @@
 "use client";
 
-import React, { createContext, useContext, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useMemo,
+} from "react";
 import { translations, TranslationKey } from "@/lib/translations";
 
 export type Language = "en" | "mn";
@@ -15,6 +21,7 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
   undefined,
 );
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
+  // Use lazy initialization to avoid setState in useEffect
   const [language, setLanguageState] = useState<Language>(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("language") as Language;
@@ -25,17 +32,25 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     return "en";
   });
 
-  const setLanguage = (lang: Language) => {
+  const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang);
     localStorage.setItem("language", lang);
-  };
+  }, []);
 
-  const t = (key: TranslationKey) => {
-    return translations[language][key] || key;
-  };
+  const t = useCallback(
+    (key: TranslationKey) => {
+      return translations[language][key] || key;
+    },
+    [language],
+  );
+
+  const value = useMemo(
+    () => ({ language, setLanguage, t }),
+    [language, setLanguage, t],
+  );
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={value}>
       {children}
     </LanguageContext.Provider>
   );

@@ -17,7 +17,7 @@ export default function RightRail() {
         <div className="text-[9px] font-mono text-white/40 tracking-[0.25em] uppercase rotate-180 [writing-mode:vertical-lr]">
           {currentLabel}
         </div>
-        <div className="w-px h-8 bg-linear-to-b from-[var(--border-line)] to-transparent" />
+        <div className="w-px h-8 bg-gradient-to-b from-[var(--border-line)] to-transparent" />
       </div>
 
       {}
@@ -35,7 +35,7 @@ export default function RightRail() {
               <div
                 className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
                   isActive
-                    ? "bg-(--accent-blue) scale-150 shadow-[0_0_12px_rgba(91,95,255,0.8)]"
+                    ? "bg-[var(--accent-blue)] scale-150 shadow-[0_0_12px_rgba(91,95,255,0.8)]"
                     : "bg-[var(--border-line)] hover:bg-[var(--border-line-hover)] hover:scale-125"
                 }`}
               />
@@ -46,7 +46,7 @@ export default function RightRail() {
 
       {}
       <div className="flex flex-col items-center gap-3 mt-2">
-        <div className="w-px h-8 bg-linear-to-t from-[var(--border-line)] to-transparent" />
+        <div className="w-px h-8 bg-gradient-to-t from-[var(--border-line)] to-transparent" />
         <div className="text-[9px] font-mono text-white/30 tracking-[0.25em] uppercase rotate-180 [writing-mode:vertical-lr]">
           MENU
         </div>

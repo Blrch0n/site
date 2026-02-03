@@ -6,8 +6,6 @@ import BackgroundGrid from "@/components/BackgroundGrid";
 import RightRail from "@/components/RightRail";
 import TopProgress from "@/components/TopProgress";
 import Navigation from "@/components/Navigation";
-import { CommandPaletteProvider } from "@/components/CommandPalette/CommandPaletteProvider";
-import CommandPalette from "@/components/CommandPalette/CommandPalette";
 import { JoinModalProvider } from "@/components/JoinModalProvider";
 import JoinModalWrapper from "@/components/JoinModalWrapper";
 import WebVitalsReporter from "@/components/WebVitalsReporter";
@@ -30,19 +28,16 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <LanguageProvider>
-            <CommandPaletteProvider>
-              <JoinModalProvider>
-                <WebVitalsReporter />
-                <TopProgress />
-                <BackgroundGrid />
-                <RightRail />
-                <CommandPalette />
-                <JoinModalWrapper />
-                <Navigation />
+            <JoinModalProvider>
+              <WebVitalsReporter />
+              <TopProgress />
+              <BackgroundGrid />
+              <RightRail />
+              <JoinModalWrapper />
+              <Navigation />
 
-                <div className="relative z-10">{children}</div>
-              </JoinModalProvider>
-            </CommandPaletteProvider>
+              <div className="relative z-10">{children}</div>
+            </JoinModalProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>

@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Menu, X, Command } from "lucide-react";
+import { useState, useEffect, useCallback, useMemo } from "react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCommandPalette } from "./CommandPalette/useCommandPalette";
 import { useJoinModal } from "./JoinModalProvider";
 import { NAV_ITEMS } from "@/lib/siteNav";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -17,26 +16,39 @@ import ThemeSwitcher from "./ThemeSwitcher";
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { togglePalette } = useCommandPalette();
   const { openModal } = useJoinModal();
   const pathname = usePathname();
   const { t } = useLanguage();
 
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
+    // Debounce scroll handler to reduce memory usage
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 80);
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        setIsScrolled(window.scrollY > 80);
+      }, 10);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
-  const handleLinkClick = () => {
+  const handleLinkClick = useCallback(() => {
     setIsMobileMenuOpen(false);
-  };
+  }, []);
 
-  const desktopNavItems = NAV_ITEMS.filter(
-    (item) => item.id !== "home" && item.showInDesktop !== false,
+  // Memoize filtered nav items
+  const desktopNavItems = useMemo(
+    () =>
+      NAV_ITEMS.filter(
+        (item) => item.id !== "home" && item.showInDesktop !== false,
+      ),
+    [],
   );
 
   return (
@@ -84,7 +96,7 @@ export default function Navigation() {
                     >
                       {t(`nav.${link.id}` as TranslationKey)}
                       <span
-                        className={`absolute bottom-0 left-0 h-px bg-linear-to-r from-(--accent-blue) to-(--accent-cyan) transition-all duration-300 ${
+                        className={`absolute bottom-0 left-0 h-px bg-gradient-to-r from-[var(--accent-blue)] to-[var(--accent-cyan)] transition-all duration-300 ${
                           isActive ? "w-full" : "w-0 group-hover:w-full"
                         }`}
                       />
@@ -100,20 +112,11 @@ export default function Navigation() {
               <LanguageSwitcher />
 
               <button
-                onClick={togglePalette}
-                className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-[var(--border-line)] bg-[var(--bg-surface)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-medium text-xs hover:border-[var(--border-line-hover)] hover:bg-[var(--bg-surface-hover)] transition-all duration-200 group"
-                aria-label="Open command palette"
-              >
-                <Command className="w-3.5 h-3.5" />
-                <span className="text-[10px] font-mono tracking-wider">⌘K</span>
-              </button>
-
-              <button
                 onClick={openModal}
-                className="flex items-center justify-center px-5 py-2 rounded-lg border border-[var(--border-line)] bg-[var(--bg-surface)] text-[var(--text-primary)] font-medium text-sm hover:border-[var(--border-accent)] hover:bg-[var(--bg-surface-hover)] hover:shadow-[0_0_20px_var(--panel-glow)] transition-all duration-200 relative overflow-hidden group"
+                className="flex items-center justify-center px-5 py-2 rounded-xl border border-[var(--border-line)] bg-[var(--bg-surface)] text-[var(--text-primary)] font-medium text-sm hover:border-[var(--border-accent)] hover:bg-[var(--bg-surface-hover)] hover:shadow-[0_0_20px_var(--panel-glow)] transition-all duration-200 relative overflow-hidden group"
               >
                 <span className="relative z-10">{t("nav.join")}</span>
-                <div className="absolute inset-0 bg-linear-to-r from-(--accent-cyan)/10 via-(--accent-blue)/10 to-(--accent-violet)/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[var(--accent-cyan)]/10 via-[var(--accent-blue)]/10 to-[var(--accent-violet)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </button>
             </div>
 
@@ -175,20 +178,9 @@ export default function Navigation() {
               <button
                 onClick={() => {
                   setIsMobileMenuOpen(false);
-                  togglePalette();
-                }}
-                className="mt-4 w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-[var(--border-line)] bg-[var(--bg-surface)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-medium text-sm hover:border-[var(--border-line-hover)] hover:bg-[var(--bg-surface-hover)] transition-all"
-              >
-                <Command className="w-4 h-4" />
-                <span>Command Palette</span>
-              </button>
-
-              <button
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
                   openModal();
                 }}
-                className="mt-2 block w-full text-center px-6 py-3 rounded-xl bg-linear-to-r from-[#00D4FF] via-[#5B5FFF] to-[#9B4FFF] text-white font-semibold"
+                className="mt-4 block w-full text-center px-6 py-3 rounded-xl bg-gradient-to-r from-[var(--accent-cyan)] via-[var(--accent-blue)] to-[var(--accent-violet)] text-white font-semibold"
               >
                 {t("nav.join")}
               </button>

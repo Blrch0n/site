@@ -30,7 +30,7 @@ export default function ThemeSwitcher() {
           key={name}
           onClick={() => setTheme(name)}
           className={`
-            relative px-3 py-2 rounded-md flex items-center gap-2 text-sm font-medium
+            relative px-3 py-2 rounded-lg flex items-center gap-2 text-sm font-medium
             transition-all duration-200
             ${
               theme === name
@@ -43,7 +43,7 @@ export default function ThemeSwitcher() {
         >
           <Icon className="w-4 h-4" />
           {theme === name && (
-            <div className="absolute inset-0 rounded-md border border-[var(--border-accent)] pointer-events-none" />
+            <div className="absolute inset-0 rounded-lg border border-[var(--border-accent)] pointer-events-none" />
           )}
         </button>
       ))}

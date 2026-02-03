@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { useInView } from "framer-motion";
@@ -64,24 +64,28 @@ function FAQItem({ question, answer, delay = 0 }: FAQItemProps) {
 export default function FAQ() {
   const { t } = useLanguage();
 
-  const faqData = [
-    {
-      question: t("faq.q1.question"),
-      answer: t("faq.q1.answer"),
-    },
-    {
-      question: t("faq.q2.question"),
-      answer: t("faq.q2.answer"),
-    },
-    {
-      question: t("faq.q3.question"),
-      answer: t("faq.q3.answer"),
-    },
-    {
-      question: t("faq.q4.question"),
-      answer: t("faq.q4.answer"),
-    },
-  ];
+  // Memoize FAQ data to prevent recreation on every render
+  const faqData = useMemo(
+    () => [
+      {
+        question: t("faq.q1.question"),
+        answer: t("faq.q1.answer"),
+      },
+      {
+        question: t("faq.q2.question"),
+        answer: t("faq.q2.answer"),
+      },
+      {
+        question: t("faq.q3.question"),
+        answer: t("faq.q3.answer"),
+      },
+      {
+        question: t("faq.q4.question"),
+        answer: t("faq.q4.answer"),
+      },
+    ],
+    [t],
+  );
 
   return (
     <section id="faq" className="py-24 md:py-32">
@@ -130,8 +134,8 @@ export function SectionHeader({
       className="text-center max-w-3xl mx-auto mb-20"
     >
       {eyebrow && (
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-md border border-[var(--border-line)] bg-[var(--bg-surface)] text-[11px] font-mono uppercase tracking-[0.2em] text-[var(--text-muted)] mb-6 backdrop-blur-sm">
-          <div className="w-1 h-1 rounded-full bg-(--accent-blue)" />
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-lg border border-[var(--border-line)] bg-[var(--bg-surface)] text-[11px] font-mono uppercase tracking-[0.2em] text-[var(--text-muted)] mb-6 backdrop-blur-sm">
+          <div className="w-1 h-1 rounded-full bg-[var(--accent-blue)]" />
           {eyebrow}
         </div>
       )}

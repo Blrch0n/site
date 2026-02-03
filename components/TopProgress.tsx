@@ -12,7 +12,7 @@ export default function TopProgress() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-0.5 bg-linear-to-r from-[#00D4FF] via-[#5B5FFF] to-[#E94FFF] origin-left z-100 opacity-80"
+      className="fixed top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[var(--accent-cyan)] via-[var(--accent-blue)] to-[var(--accent-violet)] origin-left z-100 opacity-80"
       style={{ scaleX }}
     />
   );

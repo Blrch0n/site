@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef, ReactNode } from "react";
+import { useRef, ReactNode, memo } from "react";
 import Image from "next/image";
 
 interface CardProps {
@@ -11,7 +11,11 @@ interface CardProps {
   delay?: number;
 }
 
-export function Card({ children, className = "", delay = 0 }: CardProps) {
+export const Card = memo(function Card({
+  children,
+  className = "",
+  delay = 0,
+}: CardProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -31,7 +35,7 @@ export function Card({ children, className = "", delay = 0 }: CardProps) {
       <div className="relative z-10">{children}</div>
     </motion.div>
   );
-}
+});
 
 interface ValueCardProps {
   icon: ReactNode;
@@ -40,7 +44,7 @@ interface ValueCardProps {
   delay?: number;
 }
 
-export function ValueCard({
+export const ValueCard = memo(function ValueCard({
   icon,
   title,
   description,
@@ -59,7 +63,7 @@ export function ValueCard({
       </p>
     </Card>
   );
-}
+});
 
 interface PillarCardProps {
   icon: ReactNode;
@@ -68,7 +72,7 @@ interface PillarCardProps {
   delay?: number;
 }
 
-export function PillarCard({
+export const PillarCard = memo(function PillarCard({
   icon,
   title,
   description,
@@ -76,10 +80,10 @@ export function PillarCard({
 }: PillarCardProps) {
   return (
     <Card delay={delay}>
-      <div className="relative inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--bg-surface)] border border-(--accent-blue)/20 mb-4 group-hover:scale-105 group-hover:border-(--accent-blue)/40 group-hover:shadow-[0_0_16px_rgba(91,95,255,0.2)] transition-all duration-300">
+      <div className="relative inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--bg-surface)] border border-[var(--accent-blue)]/20 mb-4 group-hover:scale-105 group-hover:border-[var(--accent-blue)]/40 group-hover:shadow-[0_0_16px_rgba(91,95,255,0.2)] transition-all duration-300">
         <div className="relative">{icon}</div>
       </div>
-      <h4 className="text-base font-semibold mb-2 text-[var(--text-primary)] group-hover:text-(--accent-blue) transition-colors">
+      <h4 className="text-base font-semibold mb-2 text-[var(--text-primary)] group-hover:text-[var(--accent-blue)] transition-colors">
         {title}
       </h4>
       <p className="text-[var(--text-secondary)] text-sm leading-relaxed">
@@ -87,7 +91,7 @@ export function PillarCard({
       </p>
     </Card>
   );
-}
+});
 
 interface ProgramCardProps {
   number: string;
@@ -96,7 +100,7 @@ interface ProgramCardProps {
   delay?: number;
 }
 
-export function ProgramCard({
+export const ProgramCard = memo(function ProgramCard({
   number,
   title,
   description,
@@ -108,7 +112,7 @@ export function ProgramCard({
         {number}
       </div>
       <div className="relative z-10">
-        <h3 className="text-xl font-semibold mb-3 pr-12 text-[var(--text-primary)] group-hover:text-(--accent-cyan) transition-colors">
+        <h3 className="text-xl font-semibold mb-3 pr-12 text-[var(--text-primary)] group-hover:text-[var(--accent-cyan)] transition-colors">
           {title}
         </h3>
         <p className="text-[var(--text-secondary)] text-sm leading-relaxed mb-5">
@@ -116,7 +120,7 @@ export function ProgramCard({
         </p>
         <a
           href="#contact"
-          className="inline-flex items-center gap-2 px-3.5 py-2 rounded-md bg-[var(--bg-surface)] border border-(--accent-cyan)/20 text-(--accent-cyan) text-sm font-medium hover:bg-[var(--bg-surface-hover)] hover:border-(--accent-cyan)/40 hover:gap-2.5 hover:shadow-[0_0_16px_rgba(0,212,255,0.2)] transition-all"
+          className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[var(--bg-surface)] border border-[var(--accent-cyan)]/20 text-[var(--accent-cyan)] text-sm font-medium hover:bg-[var(--bg-surface-hover)] hover:border-[var(--accent-cyan)]/40 hover:gap-2.5 hover:shadow-[0_0_16px_rgba(0,212,255,0.2)] transition-all"
         >
           Learn More
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
@@ -132,7 +136,7 @@ export function ProgramCard({
       </div>
     </Card>
   );
-}
+});
 
 interface EventCardProps {
   year: string;
@@ -142,7 +146,7 @@ interface EventCardProps {
   delay?: number;
 }
 
-export function EventCard({
+export const EventCard = memo(function EventCard({
   year,
   icon,
   title,
@@ -151,13 +155,13 @@ export function EventCard({
 }: EventCardProps) {
   return (
     <Card delay={delay}>
-      <div className="inline-block px-3 py-1 rounded-md border border-(--accent-blue)/20 bg-[var(--bg-surface)] text-[11px] font-mono uppercase tracking-wider text-[var(--text-muted)] mb-4 group-hover:border-(--accent-blue)/40 group-hover:text-[var(--text-secondary)] transition-all">
+      <div className="inline-block px-3 py-1 rounded-lg border border-[var(--accent-blue)]/20 bg-[var(--bg-surface)] text-[11px] font-mono uppercase tracking-wider text-[var(--text-muted)] mb-4 group-hover:border-[var(--accent-blue)]/40 group-hover:text-[var(--text-secondary)] transition-all">
         {year}
       </div>
-      <div className="relative inline-flex items-center justify-center w-14 h-14 rounded-lg bg-[var(--bg-surface)] border border-(--accent-violet)/20 mb-4 group-hover:scale-105 group-hover:border-(--accent-violet)/40 group-hover:shadow-[0_0_20px_rgba(155,79,255,0.25)] transition-all duration-300">
+      <div className="relative inline-flex items-center justify-center w-14 h-14 rounded-lg bg-[var(--bg-surface)] border border-[var(--accent-violet)]/20 mb-4 group-hover:scale-105 group-hover:border-[var(--accent-violet)]/40 group-hover:shadow-[0_0_20px_rgba(155,79,255,0.25)] transition-all duration-300">
         <div className="relative">{icon}</div>
       </div>
-      <h4 className="text-base font-semibold mb-2.5 text-[var(--text-primary)] group-hover:text-(--accent-violet) transition-colors">
+      <h4 className="text-base font-semibold mb-2.5 text-[var(--text-primary)] group-hover:text-[var(--accent-violet)] transition-colors">
         {title}
       </h4>
       <p className="text-[var(--text-secondary)] text-sm leading-relaxed">
@@ -165,7 +169,7 @@ export function EventCard({
       </p>
     </Card>
   );
-}
+});
 
 interface ProjectCardProps {
   title: string;
@@ -176,7 +180,7 @@ interface ProjectCardProps {
   delay?: number;
 }
 
-export function ProjectCard({
+export const ProjectCard = memo(function ProjectCard({
   title,
   description,
   tags,
@@ -188,7 +192,7 @@ export function ProjectCard({
     <Card delay={delay} className="flex flex-col h-full">
       {image && (
         <div className="relative w-full h-48 mb-5 -mx-6 -mt-6 overflow-hidden rounded-t-xl border-b border-[var(--border-line)]">
-          <div className="absolute inset-0 bg-linear-to-b from-transparent to-[var(--bg-base)]/60 z-10" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[var(--bg-base)]/60 z-10" />
           <Image
             src={image}
             alt={title}
@@ -199,7 +203,7 @@ export function ProjectCard({
       )}
 
       <div className="flex flex-col flex-1">
-        <h3 className="text-xl font-semibold mb-3 text-[var(--text-primary)] group-hover:text-(--accent-cyan) transition-colors">
+        <h3 className="text-xl font-semibold mb-3 text-[var(--text-primary)] group-hover:text-[var(--accent-cyan)] transition-colors">
           {title}
         </h3>
         <p className="text-[var(--text-secondary)] text-sm leading-relaxed mb-5 flex-1">
@@ -210,7 +214,7 @@ export function ProjectCard({
           {tags.map((tag, index) => (
             <span
               key={index}
-              className="px-2.5 py-1 rounded-md bg-[var(--bg-surface)] border border-[var(--border-line)] text-[11px] font-mono uppercase tracking-wider text-[var(--text-muted)] group-hover:border-(--accent-cyan)/30 group-hover:text-[var(--text-secondary)] transition-all"
+              className="px-2.5 py-1 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-line)] text-[11px] font-mono uppercase tracking-wider text-[var(--text-muted)] group-hover:border-[var(--accent-cyan)]/30 group-hover:text-[var(--text-secondary)] transition-all"
             >
               {tag}
             </span>
@@ -224,7 +228,7 @@ export function ProjectCard({
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[var(--bg-surface)] border border-(--accent-cyan)/20 text-(--accent-cyan) text-xs font-medium hover:bg-[var(--bg-surface-hover)] hover:border-(--accent-cyan)/40 hover:shadow-[0_0_16px_rgba(0,212,255,0.2)] transition-all"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[var(--bg-surface)] border border-[var(--accent-cyan)]/20 text-[var(--accent-cyan)] text-xs font-medium hover:bg-[var(--bg-surface-hover)] hover:border-[var(--accent-cyan)]/40 hover:shadow-[0_0_16px_rgba(0,212,255,0.2)] transition-all"
             >
               {link.label}
               <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
@@ -242,4 +246,4 @@ export function ProjectCard({
       </div>
     </Card>
   );
-}
+});

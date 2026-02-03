@@ -19,7 +19,7 @@ export default function LanguageSwitcher() {
         {language === "en" && (
           <motion.div
             layoutId="language-indicator"
-            className="absolute inset-0 rounded-md bg-[var(--bg-surface-active)]"
+            className="absolute inset-0 rounded-lg bg-[var(--bg-surface-active)]"
             transition={{
               type: "spring",
               stiffness: 380,
@@ -40,7 +40,7 @@ export default function LanguageSwitcher() {
         {language === "mn" && (
           <motion.div
             layoutId="language-indicator"
-            className="absolute inset-0 rounded-md bg-[var(--bg-surface-active)]"
+            className="absolute inset-0 rounded-lg bg-[var(--bg-surface-active)]"
             transition={{
               type: "spring",
               stiffness: 380,

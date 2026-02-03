@@ -187,7 +187,8 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                       htmlFor="name"
                       className="block text-sm font-medium text-[var(--text-secondary)] mb-2"
                     >
-                      Full Name <span className="text-(--accent-pink)">*</span>
+                      Full Name{" "}
+                      <span className="text-[var(--accent-pink)]">*</span>
                     </label>
                     <input
                       ref={inputRef}
@@ -197,15 +198,15 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                       onChange={(e) =>
                         setFormData({ ...formData, name: e.target.value })
                       }
-                      className={`w-full px-4 py-2.5 rounded-lg bg-[var(--bg-surface)] border ${
+                      className={`w-full px-4 py-2.5 rounded-xl bg-[var(--bg-surface)] border ${
                         errors.name
-                          ? "border-(--accent-pink)/40"
+                          ? "border-[var(--accent-pink)]/40"
                           : "border-[var(--border-line)]"
-                      } text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-(--accent-blue)/40 focus:bg-[var(--bg-surface-hover)] transition-all`}
+                      } text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:bg-[var(--bg-surface-hover)] transition-all`}
                       placeholder="Your name"
                     />
                     {errors.name && (
-                      <p className="text-xs text-(--accent-pink) mt-1.5">
+                      <p className="text-xs text-[var(--accent-pink)] mt-1.5">
                         {errors.name}
                       </p>
                     )}
@@ -216,7 +217,7 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                       htmlFor="email"
                       className="block text-sm font-medium text-[var(--text-secondary)] mb-2"
                     >
-                      Email <span className="text-(--accent-pink)">*</span>
+                      Email <span className="text-[var(--accent-pink)]">*</span>
                     </label>
                     <input
                       id="email"
@@ -225,15 +226,15 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                       onChange={(e) =>
                         setFormData({ ...formData, email: e.target.value })
                       }
-                      className={`w-full px-4 py-2.5 rounded-lg bg-[var(--bg-surface)] border ${
+                      className={`w-full px-4 py-2.5 rounded-xl bg-[var(--bg-surface)] border ${
                         errors.email
-                          ? "border-(--accent-pink)/40"
+                          ? "border-[var(--accent-pink)]/40"
                           : "border-[var(--border-line)]"
-                      } text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-(--accent-blue)/40 focus:bg-[var(--bg-surface-hover)] transition-all`}
+                      } text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:bg-[var(--bg-surface-hover)] transition-all`}
                       placeholder="your.email@example.com"
                     />
                     {errors.email && (
-                      <p className="text-xs text-(--accent-pink) mt-1.5">
+                      <p className="text-xs text-[var(--accent-pink)] mt-1.5">
                         {errors.email}
                       </p>
                     )}
@@ -244,7 +245,7 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                       htmlFor="major"
                       className="block text-sm font-medium text-[var(--text-secondary)] mb-2"
                     >
-                      Major <span className="text-(--accent-pink)">*</span>
+                      Major <span className="text-[var(--accent-pink)]">*</span>
                     </label>
                     <input
                       id="major"
@@ -253,15 +254,15 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                       onChange={(e) =>
                         setFormData({ ...formData, major: e.target.value })
                       }
-                      className={`w-full px-4 py-2.5 rounded-lg bg-[var(--bg-surface)] border ${
+                      className={`w-full px-4 py-2.5 rounded-xl bg-[var(--bg-surface)] border ${
                         errors.major
-                          ? "border-(--accent-pink)/40"
+                          ? "border-[var(--accent-pink)]/40"
                           : "border-[var(--border-line)]"
-                      } text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-(--accent-blue)/40 focus:bg-[var(--bg-surface-hover)] transition-all`}
+                      } text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:bg-[var(--bg-surface-hover)] transition-all`}
                       placeholder="e.g., Computer Science"
                     />
                     {errors.major && (
-                      <p className="text-xs text-(--accent-pink) mt-1.5">
+                      <p className="text-xs text-[var(--accent-pink)] mt-1.5">
                         {errors.major}
                       </p>
                     )}
@@ -273,7 +274,7 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                       className="block text-sm font-medium text-[var(--text-secondary)] mb-2"
                     >
                       Primary Interest{" "}
-                      <span className="text-(--accent-pink)">*</span>
+                      <span className="text-[var(--accent-pink)]">*</span>
                     </label>
                     <select
                       id="interest"
@@ -281,11 +282,11 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                       onChange={(e) =>
                         setFormData({ ...formData, interest: e.target.value })
                       }
-                      className={`w-full px-4 py-2.5 rounded-lg bg-[var(--bg-surface)] border ${
+                      className={`w-full px-4 py-2.5 rounded-xl bg-[var(--bg-surface)] border ${
                         errors.interest
-                          ? "border-(--accent-pink)/40"
+                          ? "border-[var(--accent-pink)]/40"
                           : "border-[var(--border-line)]"
-                      } text-[var(--text-primary)] focus:outline-none focus:border-(--accent-blue)/40 focus:bg-[var(--bg-surface-hover)] transition-all`}
+                      } text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:bg-[var(--bg-surface-hover)] transition-all`}
                     >
                       <option value="" className="bg-[var(--bg-base)]">
                         Select an area
@@ -301,7 +302,7 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                       ))}
                     </select>
                     {errors.interest && (
-                      <p className="text-xs text-(--accent-pink) mt-1.5">
+                      <p className="text-xs text-[var(--accent-pink)] mt-1.5">
                         {errors.interest}
                       </p>
                     )}
@@ -321,17 +322,17 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                         setFormData({ ...formData, message: e.target.value })
                       }
                       rows={3}
-                      className="w-full px-4 py-2.5 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-line)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-(--accent-blue)/40 focus:bg-[var(--bg-surface-hover)] transition-all resize-none"
+                      className="w-full px-4 py-2.5 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-line)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:bg-[var(--bg-surface-hover)] transition-all resize-none"
                       placeholder="Tell us about yourself..."
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-lg border border-(--accent-blue)/30 bg-(--accent-blue)/10 text-[var(--text-primary)] font-medium hover:border-(--accent-blue)/50 hover:bg-(--accent-blue)/20 hover:shadow-[0_0_24px_var(--panel-glow)] transition-all duration-200 relative overflow-hidden group"
+                    className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-[var(--accent-blue)]/30 bg-[var(--accent-blue)]/10 text-[var(--text-primary)] font-medium hover:border-[var(--accent-blue)]/50 hover:bg-[var(--accent-blue)]/20 hover:shadow-[0_0_24px_var(--panel-glow)] transition-all duration-200 relative overflow-hidden group"
                   >
                     <span className="relative z-10">Submit Application</span>
-                    <div className="absolute inset-0 bg-linear-to-r from-(--accent-blue)/20 via-(--accent-cyan)/20 to-(--accent-blue)/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[var(--accent-blue)]/20 via-[var(--accent-cyan)]/20 to-[var(--accent-blue)]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </button>
                 </form>
               ) : (

@@ -6,6 +6,7 @@ import {
   useEffect,
   useState,
   ReactNode,
+  useMemo,
 } from "react";
 
 interface ActiveSectionContextType {
@@ -28,28 +29,25 @@ export const sections = [
   { id: "contact", label: "CONTACT" },
 ];
 
+const observerOptions = {
+  threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+  rootMargin: "-80px 0px -40% 0px",
+};
+
 export function ActiveSectionProvider({ children }: { children: ReactNode }) {
   const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        
-        const visibleEntries = entries.filter((entry) => entry.isIntersecting);
+    const observer = new IntersectionObserver((entries) => {
+      const visibleEntries = entries.filter((entry) => entry.isIntersecting);
 
-        if (visibleEntries.length > 0) {
-          
-          const mostVisible = visibleEntries.reduce((prev, current) =>
-            current.intersectionRatio > prev.intersectionRatio ? current : prev,
-          );
-          setActiveSection(mostVisible.target.id);
-        }
-      },
-      {
-        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
-        rootMargin: "-80px 0px -40% 0px",
-      },
-    );
+      if (visibleEntries.length > 0) {
+        const mostVisible = visibleEntries.reduce((prev, current) =>
+          current.intersectionRatio > prev.intersectionRatio ? current : prev,
+        );
+        setActiveSection(mostVisible.target.id);
+      }
+    }, observerOptions);
 
     sections.forEach((section) => {
       const element = document.getElementById(section.id);
@@ -59,8 +57,13 @@ export function ActiveSectionProvider({ children }: { children: ReactNode }) {
     return () => observer.disconnect();
   }, []);
 
+  const value = useMemo(
+    () => ({ activeSection, setActiveSection }),
+    [activeSection],
+  );
+
   return (
-    <ActiveSectionContext.Provider value={{ activeSection, setActiveSection }}>
+    <ActiveSectionContext.Provider value={value}>
       {children}
     </ActiveSectionContext.Provider>
   );

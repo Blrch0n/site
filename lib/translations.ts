@@ -11,6 +11,8 @@ export const translations = {
     "nav.events": "Events",
     "nav.faq": "FAQ",
     "nav.contact": "Contact",
+    "nav.community": "Community",
+    "nav.pastevents": "Past Events",
     "nav.join": "Join Us",
 
     "hero.badge": "Since 2009",
@@ -65,72 +67,50 @@ export const translations = {
     "pillars.innovation.description":
       "Always think, always create, always evolve forward.",
 
-    "programs.eyebrow": "TRAINING",
-    "programs.title": "Master the Fundamentals",
+    "programs.eyebrow": "STATS",
+    "programs.title": "Sys&CoTech Club",
     "programs.subtitle":
-      "Student-led training programs designed for real-world impact.",
-    "programs.programming.title": "Programming Fundamentals",
-    "programs.programming.description":
-      "Build problem-solving foundations with C language. Learn core concepts through hands-on practice.",
-    "programs.oop.title": "Object-Oriented Programming",
-    "programs.oop.description":
-      "Master OOP patterns with Java. Practical implementation of real-world design principles.",
-    "programs.uiux.title": "UI/UX Design",
-    "programs.uiux.description":
-      "Design theory and tools for digital products. Master Figma, principles, and user-centered design.",
-    "programs.webdev.title": "Web Development",
-    "programs.webdev.description":
-      "Full-stack technologies from client to server. HTML, CSS, JavaScript, Node.js, and modern frameworks.",
+      "Since our establishment, we have accomplished many things together and created wonderful memories—the best moments of our lives.",
+    "programs.stat1.number": "20+",
+    "programs.stat1.label": "Active Members",
+    "programs.stat2.number": "90+",
+    "programs.stat2.label": "Sys&CoTech Family - Total Members",
+    "programs.stat3.number": "90+",
+    "programs.stat3.label": "Collaborative Works & Activities",
 
-    "projects.eyebrow": "WHAT WE BUILD",
-    "projects.title": "Real Projects, Real Impact",
+    "projects.eyebrow": "ACTIVITIES",
+    "projects.title": "Sys&CoTech Community",
     "projects.description":
-      "From web apps to AI solutions, our members are building the future.",
-    "projects.website.title": "Sys&CoTech Website",
-    "projects.website.description":
-      "Modern landing page built with Next.js 16, React 19, and Tailwind v4. Features real-time 3D graphics, command palette, and responsive design.",
-    "projects.hackathon.title": "Dev Hackathon Platform",
-    "projects.hackathon.description":
-      "Registration and management system for our annual 48-hour innovation sprint. Supports team formation, submission tracking, and live leaderboards.",
-    "projects.lms.title": "Learning Management System",
-    "projects.lms.description":
-      "Internal platform for training programs with course materials, progress tracking, and interactive coding challenges for members.",
-    "projects.contest.title": "Contest Prep Tracker",
-    "projects.contest.description":
-      "Practice tool for competitive programming with problem sets, automated testing, and performance analytics to prepare for contests.",
-    "projects.portal.title": "Club Portal Dashboard",
-    "projects.portal.description":
-      "Member dashboard for event registration, project showcases, attendance tracking, and collaboration tools for club activities.",
-    "projects.designsystem.title": "Design System",
-    "projects.designsystem.description":
-      "Component library and style guide for consistent branding across all club digital products and marketing materials.",
-    "projects.link.viewsite": "View Site",
-    "projects.link.github": "GitHub",
-    "projects.link.visit": "Visit",
-    "projects.link.demo": "Demo",
-    "projects.link.learnmore": "Learn More",
-    "projects.link.tryit": "Try It",
+      "We always strive to express innovation, continuously learn and develop, aiming to be better than yesterday.",
+    "projects.activity1.number": "17",
+    "projects.activity1.title":
+      "Club's competitive programming contest in its 17th year",
+    "projects.activity2.number": "10",
+    "projects.activity2.title":
+      "Hackathon development competition introducing new ideas and solutions in its 10th year",
+    "projects.activity3.number": "∞",
+    "projects.activity3.title":
+      "Training for school students and internal club members",
+    "projects.activity4.number": "+",
+    "projects.activity4.title":
+      "Organizing and participating in club joint meetings and other activities with Golomt Bank",
 
-    "events.eyebrow": "ACTIVITIES",
-    "events.title": "We Build Together",
+    "events.eyebrow": "CORE TRAININGS",
+    "events.title": "Our Club's Core Trainings",
     "events.subtitle":
-      "Annual competitions and community events that define us.",
-    "events.competitive.year": "17 Years",
-    "events.competitive.title": "Competitive Programming Contest",
-    "events.competitive.description":
-      "Annual algorithm competition testing problem-solving skills.",
-    "events.hackathon.year": "10 Years",
-    "events.hackathon.title": "Dev Hackathon",
-    "events.hackathon.description":
-      "48-hour innovation sprint to build the next big idea.",
-    "events.training.year": "Ongoing",
-    "events.training.title": "Training Sessions",
-    "events.training.description":
-      "Weekly workshops for students and club members.",
-    "events.collaborative.year": "Ongoing",
-    "events.collaborative.title": "Collaborative Events",
-    "events.collaborative.description":
-      "Partnerships with clubs and sponsors like Golomt Bank.",
+      "We focus most on maintaining quality and effectiveness of core trainings. Teaching student-to-student is the best way to develop.",
+    "events.training1.title": "Programming Fundamentals",
+    "events.training1.description":
+      "Teaching fundamental programming concepts in C language based on problem solving",
+    "events.training2.title": "Object-Oriented Programming",
+    "events.training2.description":
+      "Teaching the most important programming concepts in Java language based on practice",
+    "events.training3.title": "UI/UX Design Course",
+    "events.training3.description":
+      "Teaching how to use design programs for apps, web and other digital designs, design theory and methodology",
+    "events.training4.title": "Web Development",
+    "events.training4.description":
+      "Learning the fundamentals of web technology and teaching how to use server & client technologies",
 
     "faq.eyebrow": "FAQ",
     "faq.title": "Frequently Asked Questions",
@@ -160,6 +140,23 @@ export const translations = {
     "footer.subtitle": "Reach out with questions or come visit us on campus.",
     "footer.copyright": "© 2026 Sys&CoTech. All rights reserved.",
 
+    "community.title": "Coming Soon",
+    "community.subtitle": "Community Page",
+    "community.description":
+      "We're working hard to bring you an amazing community experience. Stay tuned for updates on our events, member showcases, and collaboration opportunities!",
+    "community.cta.home": "Back to Home",
+    "community.cta.join": "Join Our Club",
+
+    "contact.eyebrow": "GET IN TOUCH",
+    "contact.title": "Contact Us",
+    "contact.description":
+      "Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
+
+    "pastEvents.eyebrow": "OUR HISTORY",
+    "pastEvents.title": "Past Events",
+    "pastEvents.description":
+      "Our history of 10+ years of CTF events, hackathons, and competitions that have shaped the future of technology in Mongolia.",
+
     "common.learnMore": "Learn More",
     "common.readMore": "Read More",
     "common.seeAll": "See All",
@@ -181,6 +178,8 @@ export const translations = {
     "nav.events": "Арга хэмжээ",
     "nav.faq": "Түгээмэл асуулт",
     "nav.contact": "Холбоо барих",
+    "nav.community": "Хамт олон",
+    "nav.pastevents": "Өнгөрсөн арга хэмжээ",
     "nav.join": "Бидэнтэй нэгдэх",
 
     "hero.badge": "2009 оноос хойш",
@@ -234,72 +233,50 @@ export const translations = {
     "pillars.innovation.title": "Инноваци",
     "pillars.innovation.description": "Үргэлж бодож, бүтээж, урагшлан хөгжих.",
 
-    "programs.eyebrow": "СУРГАЛТ",
-    "programs.title": "Үндсийг эзэмшээрэй",
+    "programs.eyebrow": "СТАТИСТИК",
+    "programs.title": "Sys&CoTech клуб",
     "programs.subtitle":
-      "Оюутнуудын удирдлагатай, бодит ахиц дэвшил авчирдаг сургалтын хөтөлбөрүүд.",
-    "programs.programming.title": "Программчлалын үндэс",
-    "programs.programming.description":
-      "C хэл дээр асуудал шийдвэрлэх үндсийг тавих. Практик дадлагаар үндсэн ойлголтуудыг суралцах.",
-    "programs.oop.title": "Объект хандалтат программчлал",
-    "programs.oop.description":
-      "Java дээр OOP загваруудыг эзэмшье. Бодит ертөнцийн дизайны зарчмын практик хэрэгжүүлэлт.",
-    "programs.uiux.title": "UI/UX дизайн",
-    "programs.uiux.description":
-      "Дижитал бүтээгдэхүүний дизайны онол, хэрэгсэл. Figma, зарчим, хэрэглэгч төвтэй дизайныг эзэмшье.",
-    "programs.webdev.title": "Вэб хөгжүүлэлт",
-    "programs.webdev.description":
-      "Клиент, серверийн бүх технологи. HTML, CSS, JavaScript, Node.js болон орчин үеийн фреймворкууд.",
+      "Бид байгуулагдсан цагаасаа хойш хамтдаа маш олон зүйлсийг хийж бүтээж гайхалтай дурсамжуудыг бий болгосон бидний амьдралын хамгийн сайхан мөч",
+    "programs.stat1.number": "20+",
+    "programs.stat1.label": "Идэвхтэн гишүүд",
+    "programs.stat2.number": "90+",
+    "programs.stat2.label": "Sys&CoTech гэх том гэр бүл нийт гишүүд",
+    "programs.stat3.number": "90+",
+    "programs.stat3.label": "Хамтын бүтээл, үйл ажиллагаа",
 
-    "projects.eyebrow": "БИД ЮУ БҮТЭЭДЭГ",
-    "projects.title": "Бодит төслүүд, бодит нөлөө",
+    "projects.eyebrow": "ҮЙЛ АЖИЛЛАГАА",
+    "projects.title": "Sys&CoTech хамт олон",
     "projects.description":
-      "Вэб апп-аас хиймэл оюун ухааны шийдэл хүртэл, бидний гишүүд ирээдүйг бүтээж байна.",
-    "projects.website.title": "Sys&CoTech Вэбсайт",
-    "projects.website.description":
-      "Next.js 16, React 19, Tailwind v4-ээр бүтээсэн орчин үеийн вэб хуудас. Бодит цагийн 3D график, команд палет, чимэглэлт дизайн.",
-    "projects.hackathon.title": "Dev Hackathon Платформ",
-    "projects.hackathon.description":
-      "Жил бүрийн 48 цагийн инновацийн спринтийн бүртгэл, удирдлагын систем. Багийн бүрдүүлэлт, илгээлт хянах, амьд чартуудыг дэмждэг.",
-    "projects.lms.title": "Суралцахуйн удирдлагын систем",
-    "projects.lms.description":
-      "Сургалтын хөтөлбөрт зориулсан дотоод платформ, хичээлийн материал, явцын хянах, гишүүдэд зориулсан интерактив кодлох асуулт.",
-    "projects.contest.title": "Тэмцээний бэлтгэл tracker",
-    "projects.contest.description":
-      "Өрсөлдөөнт программчлалын дадлагын хэрэгсэл, асуудлын багц, автомат тест, гүйцэтгэлийн аналитикаар тэмцээнд бэлтгэх.",
-    "projects.portal.title": "Клубын Portal Самбар",
-    "projects.portal.description":
-      "Арга хэмжээний бүртгэл, төслийн дэлгэц, ирцийн хянах, клубын үйл ажиллагаанд зориулсан хамтын ажиллагааны хэрэгслүүдтэй гишүүний самбар.",
-    "projects.designsystem.title": "Дизайны систем",
-    "projects.designsystem.description":
-      "Клубын бүх дижитал бүтээгдэхүүн, маркетингийн материалд тогтвортой брэнд бий болгох компонент сан болон загварын гарын авлага.",
-    "projects.link.viewsite": "Сайт үзэх",
-    "projects.link.github": "GitHub",
-    "projects.link.visit": "Зочлох",
-    "projects.link.demo": "Демо",
-    "projects.link.learnmore": "Дэлгэрэнгүй",
-    "projects.link.tryit": "Туршиж үзэх",
+      "Бид үргэлж шинийг илэрхийлж, тасралтгүй хөгжин суралцаж өчигдрөөс илүү байхыг зорьдог.",
+    "projects.activity1.number": "17",
+    "projects.activity1.title":
+      "Клубийн нэрэмжит өрсөлдөөнт програмчлалын тэмцээнийг 17 дах жилдээ",
+    "projects.activity2.number": "10",
+    "projects.activity2.title":
+      "Шинэ санаа, шийдлийг танилцуулах Hackathon хөгжүүлэлтийн тэмцээн 10 дах жилдээ",
+    "projects.activity3.number": "∞",
+    "projects.activity3.title":
+      "Сургуулийн оюутнуудад болон клубийн дотоод гишүүдэд зориулсан сургалт",
+    "projects.activity4.number": "+",
+    "projects.activity4.title":
+      "Клуб нэгдсэн зөвлөгөөн, Голомт банктай хамтарсан бусад үйл ажиллагааг зохион байгуулж оролцдог",
 
-    "events.eyebrow": "ҮЙЛ АЖИЛЛАГАА",
-    "events.title": "Бид хамтдаа бүтээнэ",
+    "events.eyebrow": "ҮНДСЭН СУРГАЛТУУД",
+    "events.title": "Манай клубийн үндсэн сургалтууд",
     "events.subtitle":
-      "Жил бүрийн тэмцээн, нийгэмлэгийн арга хэмжээнүүд биднийг тодорхойлно.",
-    "events.competitive.year": "17 жил",
-    "events.competitive.title": "Өрсөлдөөнт программчлалын тэмцээн",
-    "events.competitive.description":
-      "Жил бүрийн алгоритмын тэмцээн, асуудал шийдвэрлэх чадварыг шалгана.",
-    "events.hackathon.year": "10 жил",
-    "events.hackathon.title": "Dev Hackathon",
-    "events.hackathon.description":
-      "48 цагийн инновацийн спринт дараагийн том санааг бүтээхийн тулд.",
-    "events.training.year": "Тогтмол",
-    "events.training.title": "Сургалтын сессүүд",
-    "events.training.description":
-      "Долоо хоног бүрийн семинар оюутнууд болон клубын гишүүдэд зориулсан.",
-    "events.collaborative.year": "Тогтмол",
-    "events.collaborative.title": "Хамтарсан арга хэмжээнүүд",
-    "events.collaborative.description":
-      "Голомт банк гэх мэт клубууд болон ивээн тэтгэгчидтэй түншлэл.",
+      "Үндсэн сургалтуудыг чанартай үр өгөөжтэй байлгах тал дээр хамгийн чухалчлан анхаардаг. Оюутан оюутандаа багшлах нь хөгжих хамгийн сайн арга юм.",
+    "events.training1.title": "Програмчлалын үндэс",
+    "events.training1.description":
+      "С хэл дээр програмчлалын үндсэн тулгуур ойлголтуудыг бодлого бодоход тулгуурлан заадаг",
+    "events.training2.title": "Обьект хандалтад програмчлал",
+    "events.training2.description":
+      "Програмчлалын хамгийн чухал ойлголтуудыг нэгийг Java хэл дээр практикт тулгуурлан заадаг",
+    "events.training3.title": "UI/UX дизайны хичээл",
+    "events.training3.description":
+      "Апп, веб болон бусад дижитал дизайн гаргах програм ашиглах, дизайны онол арга барил заадаг",
+    "events.training4.title": "Веб хөгжүүлэлт",
+    "events.training4.description":
+      "Веб технологийн үндэс суурийг судалж сурах ба server & client технологиудыг ашиглахыг заадаг",
 
     "faq.eyebrow": "АСУУЛТ",
     "faq.title": "Түгээмэл асуудаг асуултууд",
@@ -328,6 +305,23 @@ export const translations = {
     "footer.title": "Нийгэмлэгт нэгдээрэй",
     "footer.subtitle": "Асуулт байвал холбогдож эсвэл кампуст зочлоорой.",
     "footer.copyright": "© 2026 Sys&CoTech. Бүх эрх хуулиар хамгаалагдсан.",
+
+    "community.title": "Удахгүй",
+    "community.subtitle": "Хамт олны хуудас",
+    "community.description":
+      "Бид танд гайхалтай хамт олны туршлагыг авчрахаар шаргуу ажиллаж байна. Арга хэмжээ, гишүүдийн үзвэр, хамтын ажиллагааны боломжуудын талаар мэдээлэл хүлээж байгаарай!",
+    "community.cta.home": "Нүүр хуудас руу буцах",
+    "community.cta.join": "Манай клубт нэгдэх",
+
+    "contact.eyebrow": "ХОЛБОГДОХ",
+    "contact.title": "Холбоо барих",
+    "contact.description":
+      "Асуулт байна уу? Бид тантай ярихыг хүсч байна. Бидэнд мессеж илгээгээрэй, бид аль болох хурдан хариу өгөх болно.",
+
+    "pastEvents.eyebrow": "БИДНИЙ ТҮҮХ",
+    "pastEvents.title": "Өнгөрсөн арга хэмжээнүүд",
+    "pastEvents.description":
+      "Монголын технологийн ирээдүйг бүрдүүлсэн 10+ жилийн CTF арга хэмжээ, хакатон, тэмцээнүүдийн түүх.",
 
     "common.learnMore": "Дэлгэрэнгүй",
     "common.readMore": "Цааш унших",

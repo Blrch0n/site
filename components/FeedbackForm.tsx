@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useCallback } from "react";
 import { Send } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -20,55 +20,58 @@ export default function FeedbackForm() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const validateEmail = (email: string): boolean => {
+  const validateEmail = useCallback((email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
-  };
+  }, []);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(
+    (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
 
-    const newErrors = {
-      email: "",
-      subject: "",
-      message: "",
-    };
+      const newErrors = {
+        email: "",
+        subject: "",
+        message: "",
+      };
 
-    if (!formData.email) {
-      newErrors.email = "Email is required";
-    } else if (!validateEmail(formData.email)) {
-      newErrors.email = "Please enter a valid email";
-    }
+      if (!formData.email) {
+        newErrors.email = "Email is required";
+      } else if (!validateEmail(formData.email)) {
+        newErrors.email = "Please enter a valid email";
+      }
 
-    if (!formData.subject.trim()) {
-      newErrors.subject = "Subject is required";
-    }
+      if (!formData.subject.trim()) {
+        newErrors.subject = "Subject is required";
+      }
 
-    if (!formData.message.trim()) {
-      newErrors.message = "Message is required";
-    }
+      if (!formData.message.trim()) {
+        newErrors.message = "Message is required";
+      }
 
-    if (newErrors.email || newErrors.subject || newErrors.message) {
+      if (newErrors.email || newErrors.subject || newErrors.message) {
+        setErrors(newErrors);
+        return;
+      }
+
       setErrors(newErrors);
-      return;
-    }
+      setIsSubmitting(true);
 
-    setErrors(newErrors);
-    setIsSubmitting(true);
+      const subject = encodeURIComponent(formData.subject);
+      const body = encodeURIComponent(
+        `Name: ${formData.name || "Not provided"}\nReply-to: ${formData.email}\n\nMessage:\n${formData.message}`,
+      );
+      const mailtoLink = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
 
-    const subject = encodeURIComponent(formData.subject);
-    const body = encodeURIComponent(
-      `Name: ${formData.name || "Not provided"}\nReply-to: ${formData.email}\n\nMessage:\n${formData.message}`,
-    );
-    const mailtoLink = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+      window.location.href = mailtoLink;
 
-    window.location.href = mailtoLink;
-
-    setTimeout(() => {
-      setFormData({ name: "", email: "", subject: "", message: "" });
-      setIsSubmitting(false);
-    }, 1500);
-  };
+      setTimeout(() => {
+        setFormData({ name: "", email: "", subject: "", message: "" });
+        setIsSubmitting(false);
+      }, 1500);
+    },
+    [formData, validateEmail],
+  );
 
   return (
     <motion.div
@@ -191,7 +194,7 @@ export default function FeedbackForm() {
             <Send size={16} />
             {isSubmitting ? "Opening email client…" : "Send Feedback"}
           </span>
-          <div className="absolute inset-0 bg-linear-to-r from-[var(--accent-cyan)]/10 via-[var(--accent-blue)]/10 to-[var(--accent-violet)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[var(--accent-cyan)]/10 via-[var(--accent-blue)]/10 to-[var(--accent-violet)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </button>
       </form>
     </motion.div>

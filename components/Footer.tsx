@@ -2,42 +2,42 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import { Facebook, MapPin, Phone, Mail } from "lucide-react";
 import { SectionHeader } from "./FAQ";
 import { useLanguage } from "@/contexts/LanguageContext";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+    },
+  },
+};
 
 export default function Footer() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { t } = useLanguage();
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
-      },
-    },
-  };
-
   return (
     <section
       id="contact"
-      className="py-24 md:py-32 border-t border-[var(--border-line)]"
+      className="py-16 md:py-20 border-t border-[var(--border-line)]"
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <SectionHeader
@@ -51,13 +51,13 @@ export default function Footer() {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="grid md:grid-cols-3 gap-8 md:gap-12 mt-16"
+          className="grid md:grid-cols-3 gap-6 md:gap-8 mt-12"
         >
-          <motion.div variants={itemVariants} className="space-y-6">
+          <motion.div variants={itemVariants} className="space-y-4">
             <h4 className="text-lg font-semibold text-[var(--text-primary)]">
               {t("footer.contact.title")}
             </h4>
-            <div className="space-y-4">
+            <div className="space-y-3">
               <a
                 href="tel:+97694945798"
                 className="flex items-center gap-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors group"
@@ -93,12 +93,12 @@ export default function Footer() {
               </div>
             </div>
 
-            <div className="flex gap-3 pt-4">
+            <div className="flex gap-3 pt-3">
               <a
                 href="https://www.facebook.com/SysAndCoTech/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center w-12 h-12 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-line)] text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] hover:-translate-y-1 hover:border-(--accent-cyan) transition-all"
+                className="flex items-center justify-center w-12 h-12 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-line)] text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] hover:-translate-y-1 hover:border-[var(--accent-cyan)] transition-all"
                 aria-label="Facebook"
               >
                 <Facebook size={20} />
@@ -107,7 +107,7 @@ export default function Footer() {
                 href="https://goo.gl/maps/Qwv3RYvybs8YqJsS8"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center w-12 h-12 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-line)] text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] hover:-translate-y-1 hover:border-(--accent-cyan) transition-all"
+                className="flex items-center justify-center w-12 h-12 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-line)] text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] hover:-translate-y-1 hover:border-[var(--accent-cyan)] transition-all"
                 aria-label="Location"
               >
                 <MapPin size={20} />
@@ -115,17 +115,20 @@ export default function Footer() {
             </div>
           </motion.div>
 
-          <motion.div variants={itemVariants} className="space-y-6">
+          <motion.div variants={itemVariants} className="space-y-4">
             <h4 className="text-lg font-semibold text-[var(--text-primary)]">
               {t("footer.quicklinks.title")}
             </h4>
-            <ul className="space-y-3">
-              {[
-                { href: "#about", label: t("nav.about") },
-                { href: "#programs", label: t("nav.programs") },
-                { href: "#events", label: t("nav.events") },
-                { href: "#faq", label: t("nav.faq") },
-              ].map((link) => (
+            <ul className="space-y-2">
+              {useMemo(
+                () => [
+                  { href: "#about", label: t("nav.about") },
+                  { href: "#programs", label: t("nav.programs") },
+                  { href: "#events", label: t("nav.events") },
+                  { href: "#faq", label: t("nav.faq") },
+                ],
+                [t],
+              ).map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
@@ -138,11 +141,11 @@ export default function Footer() {
             </ul>
           </motion.div>
 
-          <motion.div variants={itemVariants} className="space-y-6">
+          <motion.div variants={itemVariants} className="space-y-4">
             <h4 className="text-lg font-semibold text-[var(--text-primary)]">
               {t("footer.policies.title")}
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-2">
               <li>
                 <a
                   href="#"
@@ -177,7 +180,7 @@ export default function Footer() {
           variants={itemVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="mt-16 pt-8 border-t border-[var(--border-line)] flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-[var(--text-muted)]"
+          className="mt-12 pt-6 border-t border-[var(--border-line)] flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-[var(--text-muted)]"
         >
           <p>{t("footer.copyright")}</p>
           <p>{t("footer.built")}</p>
