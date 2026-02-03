@@ -11,7 +11,7 @@ export default function BackgroundGrid() {
 
     let rafId: number;
     const handlePointerMove = (e: PointerEvent) => {
-      // Use RAF to throttle updates
+      
       if (rafId) return;
       rafId = requestAnimationFrame(() => {
         auroraElement.style.setProperty("--mx", `${e.clientX}px`);

@@ -57,7 +57,6 @@ function TrainingCard({
 export default function Events() {
   const { t } = useLanguage();
 
-  // Memoize training data to prevent recreation on every render
   const trainingsData = useMemo(
     () => [
       {

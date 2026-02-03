@@ -73,13 +73,12 @@ export default function PastEventsPage() {
     <>
       <main className="relative overflow-x-hidden min-h-screen">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-32">
-          {/* Background decoration */}
+          
           <div className="absolute inset-0 -z-10 overflow-hidden">
             <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[var(--accent-blue)]/5 rounded-full blur-3xl" />
             <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[var(--accent-cyan)]/5 rounded-full blur-3xl" />
           </div>
 
-          {/* Header */}
           <div className="text-center mb-16">
             <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-[var(--accent-blue)]/10 border border-[var(--accent-blue)]/20">
               <span className="text-sm font-medium text-[var(--accent-blue)]">
@@ -94,7 +93,6 @@ export default function PastEventsPage() {
             </p>
           </div>
 
-          {/* Statistics */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
             <div className="bg-[var(--bg-base)]/98 backdrop-blur-2xl border border-[var(--border-line)] rounded-xl p-6 text-center">
               <div className="flex justify-center mb-3">
@@ -149,11 +147,10 @@ export default function PastEventsPage() {
             </div>
           </div>
 
-          {/* Timeline */}
           <div className="space-y-12">
             {pastEvents.map((yearData) => (
               <div key={yearData.year} className="relative">
-                {/* Year Header */}
+                
                 <div className="mb-8">
                   <h2 className="text-3xl font-bold text-[var(--text-primary)] mb-2">
                     {yearData.year}
@@ -161,7 +158,6 @@ export default function PastEventsPage() {
                   <div className="h-1 w-20 bg-gradient-to-r from-[var(--accent-blue)] to-[var(--accent-cyan)] rounded-full" />
                 </div>
 
-                {/* Events Grid */}
                 <div className="grid md:grid-cols-2 gap-6">
                   {yearData.events.map((event, eventIndex) => {
                     const Icon = event.icon;
@@ -198,7 +194,6 @@ export default function PastEventsPage() {
             ))}
           </div>
 
-          {/* CTA Section */}
           <div className="mt-16 text-center bg-[var(--bg-base)]/98 backdrop-blur-2xl border border-[var(--border-line)] rounded-xl p-12">
             <h2 className="text-3xl font-bold text-[var(--text-primary)] mb-4">
               Be Part of Our Next Event

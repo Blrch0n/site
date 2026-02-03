@@ -27,7 +27,7 @@ export default function SectionFrame({
       )}
 
       <div className="relative w-full">
-        {/* Index positioned absolutely on the left */}
+        
         {index && (
           <div className="hidden lg:block absolute left-6 xl:left-[max(1.5rem,calc((100vw-80rem)/2-7rem))] pt-24">
             <div className="sticky top-28">
@@ -39,7 +39,6 @@ export default function SectionFrame({
           </div>
         )}
 
-        {/* Centered content */}
         <div className="relative max-w-7xl mx-auto px-6 md:px-12">
           <div className="relative">
             <div className="pointer-events-none absolute -top-3 -left-3 h-8 w-8 border-l border-t border-[var(--border-line)]" />

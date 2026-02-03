@@ -6,7 +6,6 @@ import Image from "next/image";
 import { useJoinModal } from "./JoinModalProvider";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-// Extract animation variants outside component to prevent recreation
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {

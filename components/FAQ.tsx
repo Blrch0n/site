@@ -64,7 +64,6 @@ function FAQItem({ question, answer, delay = 0 }: FAQItemProps) {
 export default function FAQ() {
   const { t } = useLanguage();
 
-  // Memoize FAQ data to prevent recreation on every render
   const faqData = useMemo(
     () => [
       {

@@ -11,7 +11,7 @@ export default function ContactPage() {
     <>
       <main className="relative overflow-x-hidden min-h-screen">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-32">
-          {/* Background decoration */}
+          
           <div className="absolute inset-0 -z-10 overflow-hidden">
             <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[var(--accent-blue)]/5 rounded-full blur-3xl" />
             <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[var(--accent-cyan)]/5 rounded-full blur-3xl" />
@@ -32,7 +32,7 @@ export default function ContactPage() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
-            {/* Contact Information */}
+            
             <div className="space-y-8">
               <div className="bg-[var(--bg-base)]/98 backdrop-blur-2xl border border-[var(--border-line)] rounded-xl p-8 shadow-lg">
                 <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-6">
@@ -128,7 +128,6 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Contact Form */}
             <div className="bg-[var(--bg-base)]/98 backdrop-blur-2xl border border-[var(--border-line)] rounded-xl p-8 shadow-lg">
               <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-6">
                 Send us a Message
@@ -206,7 +205,6 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {/* Map Section */}
           <div className="mt-16 max-w-5xl mx-auto">
             <div className="bg-[var(--bg-base)]/98 backdrop-blur-2xl border border-[var(--border-line)] rounded-xl p-8 shadow-lg">
               <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-6">

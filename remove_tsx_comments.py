@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-TSX Comment Remover
+TSX/CSS Comment Remover
 
-This script removes all types of comments from TSX/TS files:
-- Single-line comments: // comment
+This script removes all types of comments from TSX/TS/CSS files:
+- Single-line comments: // comment (TSX/TS only)
 - Multi-line comments: /* comment */
-- JSX comments: {/* comment */}
+- JSX comments: {/* comment */} (TSX only)
 
 Usage:
     python remove_tsx_comments.py <file_or_directory>
@@ -21,7 +21,7 @@ from typing import List, Tuple
 
 
 class TSXCommentRemover:
-    """Removes various types of comments from TSX/TS files."""
+    """Removes various types of comments from TSX/TS/CSS files."""
     
     def __init__(self):
         # Pattern for single-line comments
@@ -57,30 +57,37 @@ class TSXCommentRemover:
             content = content.replace(placeholder, string)
         return content
     
-    def remove_comments(self, content: str) -> str:
+    def remove_comments(self, content: str, file_extension: str = '.tsx') -> str:
         """
-        Remove all types of comments from TSX/TS content.
+        Remove all types of comments from TSX/TS/CSS content.
         
         Args:
             content: The file content as a string
+            file_extension: File extension to determine comment types to remove
             
         Returns:
             Content with comments removed
         """
-        # Step 1: Preserve strings
-        content, strings = self.preserve_strings(content)
+        is_css = file_extension == '.css'
         
-        # Step 2: Remove JSX comments {/* ... */}
-        content = self.jsx_comment_pattern.sub('', content)
+        # Step 1: Preserve strings (not needed for CSS, but doesn't hurt)
+        if not is_css:
+            content, strings = self.preserve_strings(content)
+        
+        # Step 2: Remove JSX comments {/* ... */} (only for TSX)
+        if not is_css:
+            content = self.jsx_comment_pattern.sub('', content)
         
         # Step 3: Remove multi-line comments /* ... */
         content = self.multi_line_pattern.sub('', content)
         
-        # Step 4: Remove single-line comments //
-        content = self.single_line_pattern.sub('', content)
+        # Step 4: Remove single-line comments // (only for TSX/TS)
+        if not is_css:
+            content = self.single_line_pattern.sub('', content)
         
-        # Step 5: Restore strings
-        content = self.restore_strings(content, strings)
+        # Step 5: Restore strings (only for TSX/TS)
+        if not is_css:
+            content = self.restore_strings(content, strings)
         
         # Step 6: Clean up excessive blank lines (more than 2 consecutive)
         content = re.sub(r'\n\s*\n\s*\n+', '\n\n', content)
@@ -89,7 +96,7 @@ class TSXCommentRemover:
     
     def process_file(self, file_path: Path, backup: bool = True, dry_run: bool = False) -> bool:
         """
-        Process a single TSX/TS file to remove comments.
+        Process a single TSX/TS/CSS file to remove comments.
         
         Args:
             file_path: Path to the file
@@ -105,7 +112,7 @@ class TSXCommentRemover:
                 original_content = f.read()
             
             # Remove comments
-            cleaned_content = self.remove_comments(original_content)
+            cleaned_content = self.remove_comments(original_content, file_path.suffix)
             
             # Check if there are changes
             if original_content == cleaned_content:
@@ -137,7 +144,7 @@ class TSXCommentRemover:
     def process_directory(self, directory: Path, backup: bool = True, 
                          dry_run: bool = False, recursive: bool = True) -> Tuple[int, int]:
         """
-        Process all TSX/TS files in a directory.
+        Process all TSX/TS/CSS files in a directory.
         
         Args:
             directory: Path to the directory
@@ -155,13 +162,20 @@ class TSXCommentRemover:
         pattern = '**/*.ts' if recursive else '*.ts'
         ts_files = list(directory.glob(pattern))
         
-        all_files = tsx_files + ts_files
+        # Also include .css files
+        pattern = '**/*.css' if recursive else '*.css'
+        css_files = list(directory.glob(pattern))
+        
+        all_files = tsx_files + ts_files + css_files
         
         if not all_files:
-            print(f"No TSX/TS files found in {directory}")
+            print(f"No TSX/TS/CSS files found in {directory}")
             return 0, 0
         
-        print(f"\nFound {len(all_files)} TSX/TS file(s) to process\n")
+        print(f"\nFound {len(all_files)} file(s) to process")
+        print(f"  - TSX files: {len(tsx_files)}")
+        print(f"  - TS files: {len(ts_files)}")
+        print(f"  - CSS files: {len(css_files)}\n")
         
         successful = 0
         failed = 0
@@ -177,14 +191,17 @@ class TSXCommentRemover:
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Remove all types of comments from TSX/TS files',
+        description='Remove all types of comments from TSX/TS/CSS files',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
   # Remove comments from a single file
   python remove_tsx_comments.py components/Footer.tsx
   
-  # Remove comments from all TSX files in a directory (recursive)
+  # Remove comments from CSS file
+  python remove_tsx_comments.py app/globals.css
+  
+  # Remove comments from all files in a directory (recursive)
   python remove_tsx_comments.py components/
   
   # Dry run (show what would be changed without modifying)
@@ -201,7 +218,7 @@ Examples:
     parser.add_argument(
         'path',
         type=str,
-        help='Path to TSX/TS file or directory'
+        help='Path to TSX/TS/CSS file or directory'
     )
     
     parser.add_argument(
@@ -235,8 +252,8 @@ Examples:
     
     # Process file or directory
     if path.is_file():
-        if not (path.suffix in ['.tsx', '.ts']):
-            print(f"Error: File must have .tsx or .ts extension", file=sys.stderr)
+        if not (path.suffix in ['.tsx', '.ts', '.css']):
+            print(f"Error: File must have .tsx, .ts, or .css extension", file=sys.stderr)
             return 1
         
         success = remover.process_file(

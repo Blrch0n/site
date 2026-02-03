@@ -23,7 +23,6 @@ export default function Navigation() {
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
 
-    // Debounce scroll handler to reduce memory usage
     const handleScroll = () => {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
@@ -42,7 +41,6 @@ export default function Navigation() {
     setIsMobileMenuOpen(false);
   }, []);
 
-  // Memoize filtered nav items
   const desktopNavItems = useMemo(
     () =>
       NAV_ITEMS.filter(
