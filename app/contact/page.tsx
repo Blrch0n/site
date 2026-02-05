@@ -1,22 +1,78 @@
 "use client";
 
-import { Phone, Mail, MapPin, Facebook } from "lucide-react";
+import { useState, FormEvent, useCallback } from "react";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Facebook,
+  Send,
+  CheckCircle2,
+} from "lucide-react";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function ContactPage() {
   const { t } = useLanguage();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const handleSubmit = useCallback(
+    async (e: FormEvent) => {
+      e.preventDefault();
+
+      // Basic validation
+      if (
+        !formData.name.trim() ||
+        !formData.email.trim() ||
+        !formData.message.trim()
+      ) {
+        return;
+      }
+
+      setIsSubmitting(true);
+
+      try {
+        // Simulate API call
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+
+        setShowSuccess(true);
+        setFormData({ name: "", email: "", subject: "", message: "" });
+
+        setTimeout(() => setShowSuccess(false), 5000);
+      } catch (error) {
+        console.error("Form submission error:", error);
+      } finally {
+        setIsSubmitting(false);
+      }
+    },
+    [formData],
+  );
+
+  const handleInputChange = useCallback(
+    (field: keyof typeof formData) =>
+      (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setFormData((prev) => ({ ...prev, [field]: e.target.value }));
+      },
+    [],
+  );
 
   return (
     <>
       <main className="relative overflow-x-hidden min-h-screen">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-32">
-          
           <div className="absolute inset-0 -z-10 overflow-hidden">
             <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[var(--accent-blue)]/5 rounded-full blur-3xl" />
             <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[var(--accent-cyan)]/5 rounded-full blur-3xl" />
           </div>
 
+          {/* Header */}
           <div className="text-center mb-16">
             <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-[var(--accent-blue)]/10 border border-[var(--accent-blue)]/20">
               <span className="text-sm font-medium text-[var(--accent-blue)]">
@@ -31,21 +87,21 @@ export default function ContactPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
-            
-            <div className="space-y-8">
-              <div className="bg-[var(--bg-base)]/98 backdrop-blur-2xl border border-[var(--border-line)] rounded-xl p-8 shadow-lg">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto">
+            {/* Contact Info */}
+            <div className="space-y-6">
+              <div className="bg-[var(--bg-surface)] border border-[var(--border-line)] rounded-2xl p-8">
                 <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-6">
-                  Contact Information
+                  Get in Touch
                 </h2>
 
-                <div className="space-y-6">
+                <div className="space-y-5">
                   <a
                     href="tel:+97694945798"
-                    className="flex items-center gap-4 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors group"
+                    className="flex items-center gap-4 p-4 rounded-xl bg-[var(--bg-base)] border border-[var(--border-line)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--accent-cyan)]/40 transition-all group"
                   >
-                    <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-line)] group-hover:bg-[var(--bg-surface-hover)] group-hover:border-[var(--accent-cyan)] transition-all">
-                      <Phone size={20} />
+                    <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-[var(--accent-cyan)]/10 border border-[var(--accent-cyan)]/20 group-hover:bg-[var(--accent-cyan)]/20 transition-all">
+                      <Phone className="w-5 h-5 text-[var(--accent-cyan)]" />
                     </div>
                     <div>
                       <div className="text-xs text-[var(--text-muted)] mb-1">
@@ -57,14 +113,14 @@ export default function ContactPage() {
 
                   <a
                     href="tel:+97694351314"
-                    className="flex items-center gap-4 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors group"
+                    className="flex items-center gap-4 p-4 rounded-xl bg-[var(--bg-base)] border border-[var(--border-line)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--accent-cyan)]/40 transition-all group"
                   >
-                    <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-line)] group-hover:bg-[var(--bg-surface-hover)] group-hover:border-[var(--accent-cyan)] transition-all">
-                      <Phone size={20} />
+                    <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-[var(--accent-cyan)]/10 border border-[var(--accent-cyan)]/20 group-hover:bg-[var(--accent-cyan)]/20 transition-all">
+                      <Phone className="w-5 h-5 text-[var(--accent-cyan)]" />
                     </div>
                     <div>
                       <div className="text-xs text-[var(--text-muted)] mb-1">
-                        Alternative Phone
+                        Alternative
                       </div>
                       <div className="font-medium">+976 9435 1314</div>
                     </div>
@@ -72,80 +128,97 @@ export default function ContactPage() {
 
                   <a
                     href="mailto:contact@syscotech.club"
-                    className="flex items-center gap-4 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors group"
+                    className="flex items-center gap-4 p-4 rounded-xl bg-[var(--bg-base)] border border-[var(--border-line)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--accent-blue)]/40 transition-all group"
                   >
-                    <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-line)] group-hover:bg-[var(--bg-surface-hover)] group-hover:border-[var(--accent-cyan)] transition-all">
-                      <Mail size={20} />
+                    <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-[var(--accent-blue)]/10 border border-[var(--accent-blue)]/20 group-hover:bg-[var(--accent-blue)]/20 transition-all">
+                      <Mail className="w-5 h-5 text-[var(--accent-blue)]" />
                     </div>
                     <div>
                       <div className="text-xs text-[var(--text-muted)] mb-1">
                         Email
                       </div>
-                      <div className="font-medium break-all">
+                      <div className="font-medium break-all text-sm">
                         contact@syscotech.club
                       </div>
                     </div>
                   </a>
 
-                  <div className="flex items-center gap-4 text-[var(--text-secondary)]">
-                    <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-line)]">
-                      <MapPin size={20} />
+                  <div className="flex items-center gap-4 p-4 rounded-xl bg-[var(--bg-base)] border border-[var(--border-line)]">
+                    <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-[var(--accent-violet)]/10 border border-[var(--accent-violet)]/20">
+                      <MapPin className="w-5 h-5 text-[var(--accent-violet)]" />
                     </div>
                     <div>
                       <div className="text-xs text-[var(--text-muted)] mb-1">
                         Location
                       </div>
-                      <div className="font-medium">SHUTIS-MHTS Room 400</div>
+                      <div className="font-medium text-[var(--text-secondary)]">
+                        SHUTIS-MHTS Room 400
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-8 pt-8 border-t border-[var(--border-line)]">
+                <div className="mt-6 pt-6 border-t border-[var(--border-line)]">
                   <h3 className="text-sm font-semibold text-[var(--text-primary)] mb-4">
-                    Follow Us
+                    Connect With Us
                   </h3>
                   <div className="flex gap-3">
                     <a
                       href="https://www.facebook.com/SysAndCoTech/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center w-12 h-12 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-line)] text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] hover:-translate-y-1 hover:border-[var(--accent-cyan)] transition-all"
+                      className="relative flex items-center justify-center w-12 h-12 rounded-xl bg-[var(--bg-base)] border border-[var(--border-line)] text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] hover:border-[var(--accent-cyan)]/40 hover:scale-110 transition-all group"
                       aria-label="Facebook"
                     >
-                      <Facebook size={20} />
+                      <div className="absolute inset-0 rounded-xl bg-[var(--accent-cyan)]/20 opacity-0 group-hover:opacity-100 group-hover:animate-ping" />
+                      <Facebook className="relative z-10" size={20} />
                     </a>
                     <a
                       href="https://goo.gl/maps/Qwv3RYvybs8YqJsS8"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center w-12 h-12 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-line)] text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] hover:-translate-y-1 hover:border-[var(--accent-cyan)] transition-all"
+                      className="relative flex items-center justify-center w-12 h-12 rounded-xl bg-[var(--bg-base)] border border-[var(--border-line)] text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] hover:border-[var(--accent-cyan)]/40 hover:scale-110 transition-all group"
                       aria-label="Location"
                     >
-                      <MapPin size={20} />
+                      <div className="absolute inset-0 rounded-xl bg-[var(--accent-cyan)]/20 opacity-0 group-hover:opacity-100 group-hover:animate-ping" />
+                      <MapPin className="relative z-10" size={20} />
                     </a>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-[var(--bg-base)]/98 backdrop-blur-2xl border border-[var(--border-line)] rounded-xl p-8 shadow-lg">
+            {/* Message Form */}
+            <div className="bg-[var(--bg-surface)] border border-[var(--border-line)] rounded-2xl p-8">
               <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-6">
-                Send us a Message
+                Send a Message
               </h2>
 
-              <form className="space-y-5">
+              {showSuccess && (
+                <div className="mb-4 p-4 rounded-xl bg-[var(--accent-cyan)]/10 border border-[var(--accent-cyan)]/30 flex items-center gap-3 animate-in fade-in slide-in-from-top-2 duration-300">
+                  <CheckCircle2 className="w-5 h-5 text-[var(--accent-cyan)]" />
+                  <span className="text-[var(--accent-cyan)] text-sm font-medium">
+                    Message sent successfully! We&apos;ll get back to you soon.
+                  </span>
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
                   <label
                     htmlFor="contact-name"
                     className="block text-sm font-medium text-[var(--text-secondary)] mb-2"
                   >
-                    Name
+                    Your Name
                   </label>
                   <input
                     id="contact-name"
                     type="text"
-                    className="w-full px-4 py-2.5 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-line)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:bg-[var(--bg-surface-hover)] transition-all"
-                    placeholder="Your name"
+                    value={formData.name}
+                    onChange={handleInputChange("name")}
+                    required
+                    className="w-full px-4 py-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-line)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:ring-2 focus:ring-[var(--accent-blue)]/10 transition-all"
+                    placeholder="Enter your name"
                   />
                 </div>
 
@@ -154,12 +227,15 @@ export default function ContactPage() {
                     htmlFor="contact-email"
                     className="block text-sm font-medium text-[var(--text-secondary)] mb-2"
                   >
-                    Email
+                    Email Address
                   </label>
                   <input
                     id="contact-email"
                     type="email"
-                    className="w-full px-4 py-2.5 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-line)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:bg-[var(--bg-surface-hover)] transition-all"
+                    value={formData.email}
+                    onChange={handleInputChange("email")}
+                    required
+                    className="w-full px-4 py-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-line)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:ring-2 focus:ring-[var(--accent-blue)]/10 transition-all"
                     placeholder="your.email@example.com"
                   />
                 </div>
@@ -174,8 +250,11 @@ export default function ContactPage() {
                   <input
                     id="contact-subject"
                     type="text"
-                    className="w-full px-4 py-2.5 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-line)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:bg-[var(--bg-surface-hover)] transition-all"
-                    placeholder="What is this about?"
+                    value={formData.subject}
+                    onChange={handleInputChange("subject")}
+                    required
+                    className="w-full px-4 py-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-line)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:ring-2 focus:ring-[var(--accent-blue)]/10 transition-all"
+                    placeholder="How can we help?"
                   />
                 </div>
 
@@ -189,37 +268,51 @@ export default function ContactPage() {
                   <textarea
                     id="contact-message"
                     rows={5}
-                    className="w-full px-4 py-2.5 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-line)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:bg-[var(--bg-surface-hover)] transition-all resize-none"
-                    placeholder="Your message..."
+                    value={formData.message}
+                    onChange={handleInputChange("message")}
+                    required
+                    className="w-full px-4 py-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-line)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:ring-2 focus:ring-[var(--accent-blue)]/10 transition-all resize-none"
+                    placeholder="Tell us what's on your mind..."
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-[var(--accent-blue)]/30 bg-[var(--accent-blue)]/10 text-[var(--text-primary)] font-medium hover:border-[var(--accent-blue)]/50 hover:bg-[var(--accent-blue)]/20 hover:shadow-[0_0_24px_var(--panel-glow)] transition-all duration-200 relative overflow-hidden group"
+                  disabled={isSubmitting}
+                  className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[var(--accent-blue)] to-[var(--accent-cyan)] text-white font-medium hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all group"
                 >
-                  <span className="relative z-10">Send Message</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-[var(--accent-blue)]/20 via-[var(--accent-cyan)]/20 to-[var(--accent-blue)]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      <span>Sending...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Send Message</span>
+                      <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </>
+                  )}
                 </button>
               </form>
             </div>
           </div>
 
-          <div className="mt-16 max-w-5xl mx-auto">
-            <div className="bg-[var(--bg-base)]/98 backdrop-blur-2xl border border-[var(--border-line)] rounded-xl p-8 shadow-lg">
+          {/* Map Section */}
+          <div className="mt-16 max-w-6xl mx-auto">
+            <div className="bg-[var(--bg-surface)] border border-[var(--border-line)] rounded-2xl p-8">
               <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-6">
-                Find Us
+                Visit Us
               </h2>
-              <div className="aspect-video w-full rounded-lg overflow-hidden bg-[var(--bg-surface)] flex items-center justify-center">
+              <div className="aspect-video w-full rounded-xl overflow-hidden bg-[var(--bg-base)] flex items-center justify-center hover:border-[var(--accent-blue)]/40 transition-all">
                 <a
                   href="https://goo.gl/maps/Qwv3RYvybs8YqJsS8"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex flex-col items-center gap-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+                  className="flex flex-col items-center gap-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors group"
                 >
-                  <MapPin size={48} />
+                  <MapPin className="w-12 h-12 text-[var(--accent-violet)] group-hover:scale-110 transition-transform" />
                   <span className="text-lg font-medium">
-                    View on Google Maps
+                    Open in Google Maps
                   </span>
                 </a>
               </div>

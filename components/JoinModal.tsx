@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, FormEvent } from "react";
+import { useState, useEffect, useRef, FormEvent, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, CheckCircle, Copy, Facebook, Phone } from "lucide-react";
 
@@ -17,13 +17,17 @@ interface FormData {
   message: string;
 }
 
-const interestOptions = [
+const INTEREST_OPTIONS = [
   "Programming",
   "UI/UX Design",
   "Web Development",
   "Competitive Programming",
   "General Exploration",
-];
+] as const;
+
+const FACEBOOK_LINK = "https://www.facebook.com/syscotech";
+const PHONE_NUMBER = "+976 9911-1234";
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
   const [formData, setFormData] = useState<FormData>({
@@ -37,9 +41,6 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [copiedItem, setCopiedItem] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  const facebookLink = "https://www.facebook.com/syscotech";
-  const phoneNumber = "+976 9911-1234";
 
   useEffect(() => {
     if (isOpen && !isSubmitted) {
@@ -77,7 +78,7 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
     return () => window.removeEventListener("keydown", handleEscape);
   }, [isOpen, onClose]);
 
-  const validateForm = (): boolean => {
+  const validateForm = useCallback((): boolean => {
     const newErrors: Partial<FormData> = {};
 
     if (!formData.name.trim()) {
@@ -86,7 +87,7 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
 
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    } else if (!EMAIL_REGEX.test(formData.email)) {
       newErrors.email = "Invalid email format";
     }
 
@@ -100,28 +101,31 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };
+  }, [formData]);
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(
+    (e: FormEvent) => {
+      e.preventDefault();
 
-    if (!validateForm()) {
-      return;
-    }
+      if (!validateForm()) {
+        return;
+      }
 
-    const submissions = JSON.parse(
-      localStorage.getItem("joinSubmissions") || "[]",
-    );
-    submissions.push({
-      ...formData,
-      timestamp: new Date().toISOString(),
-    });
-    localStorage.setItem("joinSubmissions", JSON.stringify(submissions));
+      const submissions = JSON.parse(
+        localStorage.getItem("joinSubmissions") || "[]",
+      );
+      submissions.push({
+        ...formData,
+        timestamp: new Date().toISOString(),
+      });
+      localStorage.setItem("joinSubmissions", JSON.stringify(submissions));
 
-    setIsSubmitted(true);
-  };
+      setIsSubmitted(true);
+    },
+    [formData, validateForm],
+  );
 
-  const handleCopy = async (text: string, item: string) => {
+  const handleCopy = useCallback(async (text: string, item: string) => {
     try {
       await navigator.clipboard.writeText(text);
       setCopiedItem(item);
@@ -129,7 +133,7 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
     } catch (err) {
       console.error("Failed to copy:", err);
     }
-  };
+  }, []);
 
   if (!isOpen) return null;
 
@@ -291,7 +295,7 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                       <option value="" className="bg-[var(--bg-base)]">
                         Select an area
                       </option>
-                      {interestOptions.map((option) => (
+                      {INTEREST_OPTIONS.map((option) => (
                         <option
                           key={option}
                           value={option}
@@ -355,7 +359,7 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
 
                   <div className="space-y-3 pt-4">
                     <button
-                      onClick={() => handleCopy(facebookLink, "facebook")}
+                      onClick={() => handleCopy(FACEBOOK_LINK, "facebook")}
                       className="w-full flex items-center justify-between gap-3 px-4 py-3 rounded-lg border border-[var(--border-line)] bg-[var(--bg-surface)] hover:bg-[var(--bg-surface-hover)] hover:border-[#5B5FFF]/30 transition-all group"
                     >
                       <div className="flex items-center gap-3">
@@ -382,7 +386,7 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                     </button>
 
                     <button
-                      onClick={() => handleCopy(phoneNumber, "phone")}
+                      onClick={() => handleCopy(PHONE_NUMBER, "phone")}
                       className="w-full flex items-center justify-between gap-3 px-4 py-3 rounded-lg border border-[var(--border-line)] bg-[var(--bg-surface)] hover:bg-[var(--bg-surface-hover)] hover:border-[#00D4FF]/30 transition-all group"
                     >
                       <div className="flex items-center gap-3">
@@ -394,7 +398,7 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                             Call Us
                           </div>
                           <div className="text-xs text-[var(--text-muted)]">
-                            {phoneNumber}
+                            {PHONE_NUMBER}
                           </div>
                         </div>
                       </div>

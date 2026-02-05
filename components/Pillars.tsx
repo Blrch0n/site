@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import SectionFrame from "@/components/SectionFrame";
 import { SectionHeader } from "@/components/FAQ";
 import { PillarCard } from "@/components/Cards";
@@ -15,6 +16,49 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Pillars() {
   const { t } = useLanguage();
+
+  const pillarsData = useMemo(
+    () => [
+      {
+        icon: <BookOpen className="w-5 h-5 text-[var(--accent-cyan)]" />,
+        title: t("pillars.learning.title"),
+        description: t("pillars.learning.description"),
+        delay: 0,
+      },
+      {
+        icon: <Palette className="w-5 h-5 text-[var(--accent-blue)]" />,
+        title: t("pillars.design.title"),
+        description: t("pillars.design.description"),
+        delay: 0.08,
+      },
+      {
+        icon: <Code2 className="w-5 h-5 text-[var(--accent-violet)]" />,
+        title: t("pillars.engineering.title"),
+        description: t("pillars.engineering.description"),
+        delay: 0.16,
+      },
+      {
+        icon: <Users className="w-5 h-5 text-[var(--accent-pink)]" />,
+        title: t("pillars.leadership.title"),
+        description: t("pillars.leadership.description"),
+        delay: 0.24,
+      },
+      {
+        icon: <GraduationCap className="w-5 h-5 text-[var(--accent-amber)]" />,
+        title: t("pillars.education.title"),
+        description: t("pillars.education.description"),
+        delay: 0.32,
+      },
+      {
+        icon: <Zap className="w-5 h-5 text-[var(--accent-cyan)]" />,
+        title: t("pillars.innovation.title"),
+        description: t("pillars.innovation.description"),
+        delay: 0.4,
+      },
+    ],
+    [t],
+  );
+
   return (
     <section id="pillars" className="relative overflow-hidden">
       <SectionFrame index="02" className="py-24 md:py-32" showTopDivider>
@@ -29,44 +73,15 @@ export default function Pillars() {
         />
 
         <div className="grid md:grid-cols-3 gap-5">
-          <PillarCard
-            icon={<BookOpen className="w-5 h-5 text-[var(--accent-cyan)]" />}
-            title={t("pillars.learning.title")}
-            description={t("pillars.learning.description")}
-            delay={0}
-          />
-          <PillarCard
-            icon={<Palette className="w-5 h-5 text-[var(--accent-blue)]" />}
-            title={t("pillars.design.title")}
-            description={t("pillars.design.description")}
-            delay={0.08}
-          />
-          <PillarCard
-            icon={<Code2 className="w-5 h-5 text-[var(--accent-violet)]" />}
-            title={t("pillars.engineering.title")}
-            description={t("pillars.engineering.description")}
-            delay={0.16}
-          />
-          <PillarCard
-            icon={<Users className="w-5 h-5 text-[var(--accent-pink)]" />}
-            title={t("pillars.leadership.title")}
-            description={t("pillars.leadership.description")}
-            delay={0.24}
-          />
-          <PillarCard
-            icon={
-              <GraduationCap className="w-5 h-5 text-[var(--accent-amber)]" />
-            }
-            title={t("pillars.education.title")}
-            description={t("pillars.education.description")}
-            delay={0.32}
-          />
-          <PillarCard
-            icon={<Zap className="w-5 h-5 text-[var(--accent-cyan)]" />}
-            title={t("pillars.innovation.title")}
-            description={t("pillars.innovation.description")}
-            delay={0.4}
-          />
+          {pillarsData.map((pillar, index) => (
+            <PillarCard
+              key={index}
+              icon={pillar.icon}
+              title={pillar.title}
+              description={pillar.description}
+              delay={pillar.delay}
+            />
+          ))}
         </div>
       </SectionFrame>
     </section>

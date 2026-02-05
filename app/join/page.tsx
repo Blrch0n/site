@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState, FormEvent } from "react";
-import { CheckCircle, Copy, Facebook, Phone } from "lucide-react";
+import { useState, FormEvent, useCallback } from "react";
+import { CheckCircle, Copy, Facebook, Phone, ArrowRight } from "lucide-react";
 import Footer from "@/components/Footer";
 
 interface FormData {
@@ -22,13 +22,17 @@ interface FormErrors {
   agreedToTerms?: boolean;
 }
 
-const interestOptions = [
+const INTEREST_OPTIONS = [
   "Programming",
   "UI/UX Design",
   "Web Development",
   "Competitive Programming",
   "General Exploration",
-];
+] as const;
+
+const FACEBOOK_LINK = "https://www.facebook.com/syscotech";
+const PHONE_NUMBER = "+976 9911-1234";
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function JoinPage() {
   const [formData, setFormData] = useState<FormData>({
@@ -43,10 +47,7 @@ export default function JoinPage() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [copiedItem, setCopiedItem] = useState<string | null>(null);
 
-  const facebookLink = "https://www.facebook.com/syscotech";
-  const phoneNumber = "+976 9911-1234";
-
-  const validateForm = (): boolean => {
+  const validateForm = useCallback((): boolean => {
     const newErrors: FormErrors = {};
 
     if (!formData.name.trim()) {
@@ -55,7 +56,7 @@ export default function JoinPage() {
 
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    } else if (!EMAIL_REGEX.test(formData.email)) {
       newErrors.email = "Invalid email format";
     }
 
@@ -73,7 +74,7 @@ export default function JoinPage() {
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };
+  }, [formData]);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -104,27 +105,41 @@ export default function JoinPage() {
     }
   };
 
+  const handleInputChange =
+    (field: keyof FormData) =>
+    (
+      e: React.ChangeEvent<
+        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+      >,
+    ) => {
+      setFormData((prev) => ({ ...prev, [field]: e.target.value }));
+      // Clear error when user starts typing
+      if (errors[field as keyof FormErrors]) {
+        setErrors((prev) => ({ ...prev, [field]: undefined }));
+      }
+    };
+
   return (
     <>
       <main className="relative overflow-x-hidden min-h-screen">
         <div className="max-w-4xl mx-auto px-6 md:px-12 py-32">
-          
           <div className="absolute inset-0 -z-10 overflow-hidden">
             <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[var(--accent-blue)]/5 rounded-full blur-3xl" />
             <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[var(--accent-cyan)]/5 rounded-full blur-3xl" />
           </div>
 
+          {/* Header */}
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-6xl font-bold text-[var(--text-primary)] mb-4">
               Join Sys&CoTech
             </h1>
             <p className="text-lg md:text-xl text-[var(--text-secondary)]">
-              Start your innovation journey with us
+              Start your journey in tech innovation with us
             </p>
           </div>
 
           <div className="max-w-2xl mx-auto">
-            <div className="bg-[var(--bg-base)]/98 backdrop-blur-2xl border border-[var(--border-line)] rounded-xl shadow-2xl overflow-hidden">
+            <div className="bg-[var(--bg-surface)] border border-[var(--border-line)] rounded-2xl shadow-xl overflow-hidden">
               <div className="p-8">
                 {!isSubmitted ? (
                   <form onSubmit={handleSubmit} className="space-y-6">
@@ -140,14 +155,12 @@ export default function JoinPage() {
                         id="name"
                         type="text"
                         value={formData.name}
-                        onChange={(e) =>
-                          setFormData({ ...formData, name: e.target.value })
-                        }
-                        className={`w-full px-4 py-2.5 rounded-xl bg-[var(--bg-surface)] border ${
+                        onChange={handleInputChange("name")}
+                        className={`w-full px-4 py-3 rounded-xl bg-[var(--bg-base)] border ${
                           errors.name
                             ? "border-[var(--accent-pink)]/40"
                             : "border-[var(--border-line)]"
-                        } text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:bg-[var(--bg-surface-hover)] transition-all`}
+                        } text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 transition-all`}
                         placeholder="Your name"
                       />
                       {errors.name && (
@@ -172,11 +185,11 @@ export default function JoinPage() {
                         onChange={(e) =>
                           setFormData({ ...formData, email: e.target.value })
                         }
-                        className={`w-full px-4 py-2.5 rounded-xl bg-[var(--bg-surface)] border ${
+                        className={`w-full px-4 py-3 rounded-xl bg-[var(--bg-base)] border ${
                           errors.email
                             ? "border-[var(--accent-pink)]/40"
                             : "border-[var(--border-line)]"
-                        } text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:bg-[var(--bg-surface-hover)] transition-all`}
+                        } text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 transition-all`}
                         placeholder="your.email@example.com"
                       />
                       {errors.email && (
@@ -198,14 +211,12 @@ export default function JoinPage() {
                         id="major"
                         type="text"
                         value={formData.major}
-                        onChange={(e) =>
-                          setFormData({ ...formData, major: e.target.value })
-                        }
-                        className={`w-full px-4 py-2.5 rounded-xl bg-[var(--bg-surface)] border ${
+                        onChange={handleInputChange("major")}
+                        className={`w-full px-4 py-3 rounded-xl bg-[var(--bg-base)] border ${
                           errors.major
                             ? "border-[var(--accent-pink)]/40"
                             : "border-[var(--border-line)]"
-                        } text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:bg-[var(--bg-surface-hover)] transition-all`}
+                        } text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 transition-all`}
                         placeholder="e.g., Computer Science"
                       />
                       {errors.major && (
@@ -226,19 +237,17 @@ export default function JoinPage() {
                       <select
                         id="interest"
                         value={formData.interest}
-                        onChange={(e) =>
-                          setFormData({ ...formData, interest: e.target.value })
-                        }
-                        className={`w-full px-4 py-2.5 rounded-xl bg-[var(--bg-surface)] border ${
+                        onChange={handleInputChange("interest")}
+                        className={`w-full px-4 py-3 rounded-xl bg-[var(--bg-base)] border ${
                           errors.interest
                             ? "border-[var(--accent-pink)]/40"
                             : "border-[var(--border-line)]"
-                        } text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:bg-[var(--bg-surface-hover)] transition-all`}
+                        } text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-blue)]/40 transition-all`}
                       >
                         <option value="" className="bg-[var(--bg-base)]">
                           Select an area
                         </option>
-                        {interestOptions.map((option) => (
+                        {INTEREST_OPTIONS.map((option) => (
                           <option
                             key={option}
                             value={option}
@@ -265,16 +274,14 @@ export default function JoinPage() {
                       <textarea
                         id="message"
                         value={formData.message}
-                        onChange={(e) =>
-                          setFormData({ ...formData, message: e.target.value })
-                        }
+                        onChange={handleInputChange("message")}
                         rows={3}
-                        className="w-full px-4 py-2.5 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-line)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:bg-[var(--bg-surface-hover)] transition-all resize-none"
+                        className="w-full px-4 py-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-line)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 transition-all resize-none"
                         placeholder="Tell us about yourself..."
                       />
                     </div>
 
-                    <div className="bg-[var(--bg-surface)] border border-[var(--border-line)] rounded-xl p-6">
+                    <div className="bg-[var(--bg-base)] border border-[var(--border-line)] rounded-xl p-6">
                       <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-3">
                         Terms and Conditions
                       </h3>
@@ -313,7 +320,7 @@ export default function JoinPage() {
                               agreedToTerms: e.target.checked,
                             })
                           }
-                          className="mt-1 w-4 h-4 rounded border-[var(--border-line)] bg-[var(--bg-surface)] text-[var(--accent-blue)] focus:ring-2 focus:ring-[var(--accent-blue)]/40"
+                          className="mt-1 w-4 h-4 rounded border-[var(--border-line)] bg-[var(--bg-base)] text-[var(--accent-blue)] focus:ring-2 focus:ring-[var(--accent-blue)]/40"
                         />
                         <label
                           htmlFor="terms"
@@ -332,10 +339,10 @@ export default function JoinPage() {
 
                     <button
                       type="submit"
-                      className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-[var(--accent-blue)]/30 bg-[var(--accent-blue)]/10 text-[var(--text-primary)] font-medium hover:border-[var(--accent-blue)]/50 hover:bg-[var(--accent-blue)]/20 hover:shadow-[0_0_24px_var(--panel-glow)] transition-all duration-200 relative overflow-hidden group"
+                      className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[var(--accent-blue)] to-[var(--accent-cyan)] text-white font-medium hover:opacity-90 transition-all group"
                     >
-                      <span className="relative z-10">Submit Application</span>
-                      <div className="absolute inset-0 bg-gradient-to-r from-[var(--accent-blue)]/20 via-[var(--accent-cyan)]/20 to-[var(--accent-blue)]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <span>Submit Application</span>
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </button>
                   </form>
                 ) : (
@@ -359,12 +366,12 @@ export default function JoinPage() {
 
                     <div className="space-y-3 pt-4">
                       <button
-                        onClick={() => handleCopy(facebookLink, "facebook")}
-                        className="w-full flex items-center justify-between gap-3 px-4 py-3 rounded-lg border border-[var(--border-line)] bg-[var(--bg-surface)] hover:bg-[var(--bg-surface-hover)] hover:border-[#5B5FFF]/30 transition-all group"
+                        onClick={() => handleCopy(FACEBOOK_LINK, "facebook")}
+                        className="w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl border border-[var(--border-line)] bg-[var(--bg-base)] hover:bg-[var(--bg-surface-hover)] hover:border-[var(--accent-blue)]/30 transition-all group"
                       >
                         <div className="flex items-center gap-3">
-                          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-[#5B5FFF]/10 border border-[#5B5FFF]/20 group-hover:border-[#5B5FFF]/40 transition-all">
-                            <Facebook className="w-5 h-5 text-[#5B5FFF]" />
+                          <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-[var(--accent-blue)]/10 border border-[var(--accent-blue)]/20 group-hover:border-[var(--accent-blue)]/40 transition-all">
+                            <Facebook className="w-5 h-5 text-[var(--accent-blue)]" />
                           </div>
                           <div className="text-left">
                             <div className="text-sm font-medium text-[var(--text-primary)]">
@@ -377,7 +384,7 @@ export default function JoinPage() {
                         </div>
                         <div className="flex items-center gap-2">
                           {copiedItem === "facebook" && (
-                            <span className="text-xs text-[#00D4FF]">
+                            <span className="text-xs text-[var(--accent-cyan)]">
                               Copied!
                             </span>
                           )}
@@ -386,25 +393,25 @@ export default function JoinPage() {
                       </button>
 
                       <button
-                        onClick={() => handleCopy(phoneNumber, "phone")}
-                        className="w-full flex items-center justify-between gap-3 px-4 py-3 rounded-lg border border-[var(--border-line)] bg-[var(--bg-surface)] hover:bg-[var(--bg-surface-hover)] hover:border-[#00D4FF]/30 transition-all group"
+                        onClick={() => handleCopy(PHONE_NUMBER, "phone")}
+                        className="w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl border border-[var(--border-line)] bg-[var(--bg-base)] hover:bg-[var(--bg-surface-hover)] hover:border-[var(--accent-cyan)]/30 transition-all group"
                       >
                         <div className="flex items-center gap-3">
-                          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-[#00D4FF]/10 border border-[#00D4FF]/20 group-hover:border-[#00D4FF]/40 transition-all">
-                            <Phone className="w-5 h-5 text-[#00D4FF]" />
+                          <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-[var(--accent-cyan)]/10 border border-[var(--accent-cyan)]/20 group-hover:border-[var(--accent-cyan)]/40 transition-all">
+                            <Phone className="w-5 h-5 text-[var(--accent-cyan)]" />
                           </div>
                           <div className="text-left">
                             <div className="text-sm font-medium text-[var(--text-primary)]">
                               Call Us
                             </div>
                             <div className="text-xs text-[var(--text-muted)]">
-                              {phoneNumber}
+                              {PHONE_NUMBER}
                             </div>
                           </div>
                         </div>
                         <div className="flex items-center gap-2">
                           {copiedItem === "phone" && (
-                            <span className="text-xs text-[#00D4FF]">
+                            <span className="text-xs text-[var(--accent-cyan)]">
                               Copied!
                             </span>
                           )}
@@ -415,7 +422,7 @@ export default function JoinPage() {
 
                     <Link
                       href="/"
-                      className="block w-full mt-4 px-5 py-2.5 rounded-lg border border-[var(--border-line)] bg-[var(--bg-surface)] text-[var(--text-secondary)] font-medium hover:text-[var(--text-primary)] hover:border-[var(--border-line-hover)] hover:bg-[var(--bg-surface-hover)] transition-all text-center"
+                      className="block w-full mt-4 px-5 py-2.5 rounded-xl border border-[var(--border-line)] bg-transparent text-[var(--text-secondary)] font-medium hover:text-[var(--text-primary)] hover:border-[var(--border-line-hover)] hover:bg-[var(--bg-surface-hover)] transition-all text-center"
                     >
                       Back to Home
                     </Link>

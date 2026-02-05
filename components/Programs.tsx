@@ -1,19 +1,22 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useMemo, memo } from "react";
 import { motion, useInView } from "framer-motion";
 import SectionFrame from "@/components/SectionFrame";
 import { SectionHeader } from "@/components/FAQ";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Rocket, Users, Trophy } from "lucide-react";
 
-function StatCard({
+const ProgramCard = memo(function ProgramCard({
   number,
   label,
   delay = 0,
+  icon,
 }: {
   number: string;
   label: string;
   delay?: number;
+  icon: React.ReactNode;
 }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -24,27 +27,53 @@ function StatCard({
       initial={{ opacity: 0, y: 20 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
       transition={{ duration: 0.5, delay, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative rounded-xl glass-panel p-8 hover-lift hover:shadow-[0_8px_32px_rgba(0,0,0,0.4),0_0_40px_var(--panel-glow)] transition-all duration-300 text-center"
+      className="group relative rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-line)] p-8 hover:border-[var(--accent-blue)]/40 hover:shadow-lg hover:shadow-[var(--accent-blue)]/10 hover:-translate-y-1 transition-all duration-300 cursor-pointer overflow-hidden"
     >
-      <div className="absolute top-0 left-0 w-4 h-4 border-l border-t border-[var(--border-line)] group-hover:border-[var(--border-accent)] transition-colors" />
-      <div className="absolute top-0 right-0 w-4 h-4 border-r border-t border-[var(--border-line)] group-hover:border-[var(--border-accent)] transition-colors" />
-      <div className="absolute bottom-0 left-0 w-4 h-4 border-l border-b border-[var(--border-line)] group-hover:border-[var(--border-accent)] transition-colors" />
-      <div className="absolute bottom-0 right-0 w-4 h-4 border-r border-b border-[var(--border-line)] group-hover:border-[var(--border-accent)] transition-colors" />
-
-      <div className="relative z-10">
-        <div className="text-5xl md:text-6xl font-bold spectral-text mb-4 group-hover:scale-105 transition-transform duration-300">
-          {number}
+      <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent-blue)]/0 to-[var(--accent-cyan)]/0 group-hover:from-[var(--accent-blue)]/5 group-hover:to-[var(--accent-cyan)]/5 transition-all duration-500" />
+      <div className="relative flex flex-col items-start gap-4">
+        <div className="p-3 rounded-xl bg-[var(--accent-blue)]/10 border border-[var(--accent-blue)]/20 text-[var(--accent-blue)] group-hover:bg-[var(--accent-blue)]/20 group-hover:scale-110 transition-all duration-300">
+          {icon}
         </div>
-        <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-          {label}
-        </p>
+        <div>
+          <div className="text-4xl md:text-5xl font-bold text-[var(--text-primary)] mb-2">
+            {number}
+          </div>
+          <p className="text-base text-[var(--text-secondary)] leading-relaxed">
+            {label}
+          </p>
+        </div>
       </div>
+      <div className="absolute top-4 right-4 w-2 h-2 rounded-full bg-[var(--accent-blue)]/30 group-hover:bg-[var(--accent-cyan)] transition-colors" />
     </motion.div>
   );
-}
+});
 
 export default function Programs() {
   const { t } = useLanguage();
+
+  const programData = useMemo(
+    () => [
+      {
+        number: t("programs.stat1.number"),
+        label: t("programs.stat1.label"),
+        icon: <Trophy className="w-6 h-6" />,
+        delay: 0,
+      },
+      {
+        number: t("programs.stat2.number"),
+        label: t("programs.stat2.label"),
+        icon: <Users className="w-6 h-6" />,
+        delay: 0.08,
+      },
+      {
+        number: t("programs.stat3.number"),
+        label: t("programs.stat3.label"),
+        icon: <Rocket className="w-6 h-6" />,
+        delay: 0.16,
+      },
+    ],
+    [t],
+  );
 
   return (
     <section id="programs" className="relative overflow-hidden">
@@ -59,22 +88,16 @@ export default function Programs() {
           subtitle={t("programs.subtitle")}
         />
 
-        <div className="grid md:grid-cols-3 gap-5">
-          <StatCard
-            number={t("programs.stat1.number")}
-            label={t("programs.stat1.label")}
-            delay={0}
-          />
-          <StatCard
-            number={t("programs.stat2.number")}
-            label={t("programs.stat2.label")}
-            delay={0.08}
-          />
-          <StatCard
-            number={t("programs.stat3.number")}
-            label={t("programs.stat3.label")}
-            delay={0.16}
-          />
+        <div className="grid md:grid-cols-3 gap-6">
+          {programData.map((program, index) => (
+            <ProgramCard
+              key={index}
+              number={program.number}
+              label={program.label}
+              icon={program.icon}
+              delay={program.delay}
+            />
+          ))}
         </div>
       </SectionFrame>
     </section>

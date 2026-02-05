@@ -21,18 +21,23 @@ export default function Navigation() {
   const { t } = useLanguage();
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
+    let ticking = false;
 
     const handleScroll = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        setIsScrolled(window.scrollY > 80);
-      }, 10);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 80);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
+
+    // Set initial state
+    handleScroll();
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
-      clearTimeout(timeoutId);
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);

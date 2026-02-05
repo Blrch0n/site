@@ -73,6 +73,18 @@ export default function FeedbackForm() {
     [formData, validateEmail],
   );
 
+  const handleInputChange = useCallback(
+    (field: keyof typeof formData) =>
+      (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setFormData((prev) => ({ ...prev, [field]: e.target.value }));
+        // Clear error when user types
+        if (errors[field as keyof typeof errors]) {
+          setErrors((prev) => ({ ...prev, [field]: "" }));
+        }
+      },
+    [errors],
+  );
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -95,7 +107,7 @@ export default function FeedbackForm() {
             type="text"
             id="name"
             value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            onChange={handleInputChange("name")}
             className="w-full px-4 py-2.5 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-line)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-blue)]/40 focus:border-[var(--accent-blue)]/40 transition-all"
             placeholder="Your name"
           />
@@ -112,10 +124,7 @@ export default function FeedbackForm() {
             type="email"
             id="email"
             value={formData.email}
-            onChange={(e) => {
-              setFormData({ ...formData, email: e.target.value });
-              if (errors.email) setErrors({ ...errors, email: "" });
-            }}
+            onChange={handleInputChange("email")}
             className={`w-full px-4 py-2.5 rounded-xl bg-[var(--bg-surface)] border ${
               errors.email
                 ? "border-red-400/60 focus:ring-red-400/40"
@@ -140,10 +149,7 @@ export default function FeedbackForm() {
             type="text"
             id="subject"
             value={formData.subject}
-            onChange={(e) => {
-              setFormData({ ...formData, subject: e.target.value });
-              if (errors.subject) setErrors({ ...errors, subject: "" });
-            }}
+            onChange={handleInputChange("subject")}
             className={`w-full px-4 py-2.5 rounded-xl bg-[var(--bg-surface)] border ${
               errors.subject
                 ? "border-red-400/60 focus:ring-red-400/40"
@@ -167,10 +173,7 @@ export default function FeedbackForm() {
           <textarea
             id="message"
             value={formData.message}
-            onChange={(e) => {
-              setFormData({ ...formData, message: e.target.value });
-              if (errors.message) setErrors({ ...errors, message: "" });
-            }}
+            onChange={handleInputChange("message")}
             rows={4}
             className={`w-full px-4 py-2.5 rounded-xl bg-[var(--bg-surface)] border ${
               errors.message

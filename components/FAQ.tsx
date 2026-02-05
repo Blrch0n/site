@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useMemo } from "react";
+import { useState, useRef, useMemo, memo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { useInView } from "framer-motion";
@@ -12,10 +12,16 @@ interface FAQItemProps {
   delay?: number;
 }
 
-function FAQItem({ question, answer, delay = 0 }: FAQItemProps) {
+const FAQItem = memo(function FAQItem({
+  question,
+  answer,
+  delay = 0,
+}: FAQItemProps) {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+  const toggleOpen = useCallback(() => setIsOpen((prev) => !prev), []);
 
   return (
     <motion.div
@@ -26,7 +32,7 @@ function FAQItem({ question, answer, delay = 0 }: FAQItemProps) {
       className="border-b border-[var(--border-line)] last:border-0"
     >
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={toggleOpen}
         className="w-full py-6 flex items-center justify-between text-left group"
         aria-expanded={isOpen}
       >
@@ -59,7 +65,7 @@ function FAQItem({ question, answer, delay = 0 }: FAQItemProps) {
       </AnimatePresence>
     </motion.div>
   );
-}
+});
 
 export default function FAQ() {
   const { t } = useLanguage();

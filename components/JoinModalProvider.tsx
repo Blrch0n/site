@@ -1,6 +1,13 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useMemo,
+  ReactNode,
+} from "react";
 
 interface JoinModalContextType {
   isOpen: boolean;
@@ -15,11 +22,16 @@ const JoinModalContext = createContext<JoinModalContextType | undefined>(
 export function JoinModalProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const openModal = () => setIsOpen(true);
-  const closeModal = () => setIsOpen(false);
+  const openModal = useCallback(() => setIsOpen(true), []);
+  const closeModal = useCallback(() => setIsOpen(false), []);
+
+  const value = useMemo(
+    () => ({ isOpen, openModal, closeModal }),
+    [isOpen, openModal, closeModal],
+  );
 
   return (
-    <JoinModalContext.Provider value={{ isOpen, openModal, closeModal }}>
+    <JoinModalContext.Provider value={value}>
       {children}
     </JoinModalContext.Provider>
   );

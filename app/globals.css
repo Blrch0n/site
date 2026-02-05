@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
 @layer base {
+  * {
+    @apply scroll-smooth;
+  }
+
   :root {
-    
     --bg-base: #0a0c12;
     --bg-surface: rgba(255, 255, 255, 0.03);
     --bg-surface-hover: rgba(255, 255, 255, 0.05);
@@ -233,7 +236,6 @@
 }
 
 @layer utilities {
-  
   .spectral-text {
     background: linear-gradient(
       90deg,
@@ -702,5 +704,308 @@ html {
   .mask-edges {
     -webkit-mask-image: none;
     mask-image: none;
+  }
+}
+
+.hud-loader-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.hud-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.hud-loader-background {
+  position: absolute;
+  inset: 0;
+  background: #0a090f;
+  background: radial-gradient(
+    ellipse at center,
+    #0a090f 0%,
+    #06050a 50%,
+    #020104 100%
+  );
+}
+
+.hud-loader-grid-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hud-loader-vertical-center {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(239, 239, 229, 0.12);
+  transform: translateX(-0.5px);
+}
+
+.hud-loader-horizontal-center {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(239, 239, 229, 0.12);
+  transform: translateY(-0.5px);
+}
+
+.hud-loader-vertical-left {
+  position: absolute;
+  left: 6%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(239, 239, 229, 0.08);
+}
+
+.hud-loader-vertical-right {
+  position: absolute;
+  right: 6%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(239, 239, 229, 0.08);
+}
+
+.hud-loader-horizontal-top {
+  position: absolute;
+  top: 5%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(239, 239, 229, 0.08);
+}
+
+.hud-loader-horizontal-bottom {
+  position: absolute;
+  bottom: 5%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(239, 239, 229, 0.08);
+}
+
+.hud-loader-corner-top-left,
+.hud-loader-corner-top-right,
+.hud-loader-corner-bottom-left,
+.hud-loader-corner-bottom-right {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+}
+
+.hud-loader-corner-top-left {
+  top: 22px;
+  left: 22px;
+  border-top: 2px solid rgba(239, 239, 229, 0.6);
+  border-left: 2px solid rgba(239, 239, 229, 0.6);
+}
+
+.hud-loader-corner-top-right {
+  top: 22px;
+  right: 22px;
+  border-top: 2px solid rgba(239, 239, 229, 0.6);
+  border-right: 2px solid rgba(239, 239, 229, 0.6);
+}
+
+.hud-loader-corner-bottom-left {
+  bottom: 22px;
+  left: 22px;
+  border-bottom: 2px solid rgba(239, 239, 229, 0.6);
+  border-left: 2px solid rgba(239, 239, 229, 0.6);
+}
+
+.hud-loader-corner-bottom-right {
+  bottom: 22px;
+  right: 22px;
+  border-bottom: 2px solid rgba(239, 239, 229, 0.6);
+  border-right: 2px solid rgba(239, 239, 229, 0.6);
+}
+
+.hud-loader-loading-text-left,
+.hud-loader-loading-text-right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: rgba(239, 239, 229, 0.8);
+  text-transform: uppercase;
+  animation: hud-loader-breathe 3s ease-in-out infinite;
+}
+
+.hud-loader-loading-text-left {
+  left: 8%;
+}
+
+.hud-loader-loading-text-right {
+  right: 8%;
+}
+
+@keyframes hud-loader-breathe {
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.hud-loader-center-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hud-loader-rainbow-ring {
+  position: relative;
+  padding: 14px;
+  border-radius: 24px;
+  background: conic-gradient(
+    from 0deg,
+    #2ef2e1 0deg,
+    #4f7bff 60deg,
+    #8a5cff 120deg,
+    #ff7a45 180deg,
+    #ffd24a 240deg,
+    #7ff28f 300deg,
+    #2ef2e1 360deg
+  );
+  animation: hud-loader-rotate-ring 10s linear infinite;
+}
+
+@keyframes hud-loader-rotate-ring {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.hud-loader-ring-inner {
+  position: relative;
+  background: #0a090f;
+  border-radius: 10px;
+  padding: 32px;
+}
+
+.hud-loader-helmet-svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140px;
+  height: 140px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hud-loader-face-window {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border: 2px solid rgba(239, 239, 229, 0.7);
+  border-radius: 12px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hud-loader-face-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 19px,
+      rgba(239, 239, 229, 0.1) 19px,
+      rgba(239, 239, 229, 0.1) 20px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 19px,
+      rgba(239, 239, 229, 0.1) 19px,
+      rgba(239, 239, 229, 0.1) 20px
+    );
+}
+
+.hud-loader-eye-left,
+.hud-loader-eye-right {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(239, 239, 229, 0.95);
+  z-index: 3;
+  animation: hud-loader-blink 6s ease-in-out infinite;
+}
+
+.hud-loader-eye-left {
+  left: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hud-loader-eye-right {
+  right: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@keyframes hud-loader-blink {
+  0%,
+  48%,
+  52%,
+  100% {
+    transform: translateY(-50%) scaleY(1);
+  }
+  50% {
+    transform: translateY(-50%) scaleY(0.1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hud-loader-loading-text-left,
+  .hud-loader-loading-text-right,
+  .hud-loader-rainbow-ring,
+  .hud-loader-eye-left,
+  .hud-loader-eye-right {
+    animation: none;
   }
 }

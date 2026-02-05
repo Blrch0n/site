@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
@@ -33,6 +34,19 @@ export default function Hero() {
   const { openModal } = useJoinModal();
   const { t } = useLanguage();
 
+  const translations = useMemo(
+    () => ({
+      badge: t("hero.badge"),
+      title: t("hero.title"),
+      description: t("hero.description"),
+      ctaPrimary: t("hero.cta.primary"),
+      ctaSecondary: t("hero.cta.secondary"),
+      scrollExplore: t("common.scrollExplore"),
+      imageTitle: t("hero.image.title"),
+    }),
+    [t],
+  );
+
   return (
     <section
       id="hero"
@@ -51,7 +65,7 @@ export default function Hero() {
               className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-lg border border-[var(--border-line)] bg-[var(--bg-surface)] text-[11px] font-mono uppercase tracking-wider text-[var(--text-muted)] backdrop-blur-sm"
             >
               <div className="w-1.5 h-1.5 rounded-full bg-[var(--accent-blue)] animate-pulse shadow-[0_0_8px_rgba(91,95,255,0.8)]" />
-              <span>{t("hero.badge")}</span>
+              <span>{translations.badge}</span>
             </motion.div>
 
             <motion.div
@@ -59,7 +73,7 @@ export default function Hero() {
               className="relative corner-brackets pb-2"
             >
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight">
-                {t("hero.title")}
+                {translations.title}
               </h1>
             </motion.div>
 
@@ -67,7 +81,7 @@ export default function Hero() {
               variants={itemVariants}
               className="text-base md:text-lg text-[var(--text-secondary)] leading-relaxed max-w-lg"
             >
-              {t("hero.description")}
+              {translations.description}
             </motion.p>
 
             <motion.div
@@ -77,15 +91,16 @@ export default function Hero() {
               <button
                 onClick={openModal}
                 className="group inline-flex items-center justify-center px-7 py-3.5 rounded-xl border border-[var(--border-line)] bg-gradient-to-r from-[var(--accent-cyan)]/10 via-[var(--accent-blue)]/10 to-[var(--accent-violet)]/10 text-[var(--text-primary)] font-semibold text-sm hover:border-[var(--accent-blue)]/40 hover:shadow-[0_0_24px_var(--panel-glow)] hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden"
+                aria-label={translations.ctaPrimary}
               >
-                <span className="relative z-10">{t("hero.cta.primary")}</span>
+                <span className="relative z-10">{translations.ctaPrimary}</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-[var(--accent-cyan)]/20 via-[var(--accent-blue)]/20 to-[var(--accent-violet)]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </button>
               <a
                 href="#programs"
                 className="inline-flex items-center justify-center px-7 py-3.5 rounded-xl border border-[var(--border-line)] bg-[var(--bg-surface)] text-[var(--text-primary)] font-semibold text-sm hover:border-[var(--border-line-hover)] hover:bg-[var(--bg-surface-hover)] hover:-translate-y-0.5 transition-all duration-300"
               >
-                <span>{t("hero.cta.secondary")}</span>
+                <span>{translations.ctaSecondary}</span>
               </a>
             </motion.div>
 
@@ -95,7 +110,7 @@ export default function Hero() {
             >
               <div className="w-12 h-px bg-gradient-to-r from-transparent via-[var(--accent-blue)]/50 to-transparent" />
               <div className="text-[10px] text-[var(--text-mono)] font-mono uppercase tracking-[0.2em]">
-                {t("common.scrollExplore")}
+                {translations.scrollExplore}
               </div>
             </motion.div>
           </motion.div>

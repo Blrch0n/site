@@ -51,14 +51,16 @@ export const ValueCard = memo(function ValueCard({
   delay = 0,
 }: ValueCardProps) {
   return (
-    <Card delay={delay}>
-      <div className="relative inline-flex h-11 w-11 items-center justify-center rounded-lg bg-[var(--bg-surface)] border border-[var(--border-accent)] mb-5 group-hover:border-[var(--border-glow)] group-hover:shadow-[0_0_16px_rgba(0,212,255,0.2)] transition-all duration-300">
-        <div className="relative">{icon}</div>
+    <Card delay={delay} className="hover:scale-105">
+      <div className="relative inline-flex h-11 w-11 items-center justify-center rounded-lg bg-[var(--bg-surface)] border border-[var(--border-accent)] mb-5 group-hover:border-[var(--border-glow)] group-hover:shadow-[0_0_20px_rgba(0,212,255,0.3)] group-hover:rotate-6 transition-all duration-300">
+        <div className="relative group-hover:scale-110 transition-transform">
+          {icon}
+        </div>
       </div>
       <h3 className="text-lg font-semibold mb-2.5 text-[var(--text-primary)] group-hover:text-[var(--accent-cyan)] transition-colors">
         {title}
       </h3>
-      <p className="text-[var(--text-secondary)] text-sm leading-relaxed">
+      <p className="text-[var(--text-secondary)] text-sm leading-relaxed group-hover:text-[var(--text-primary)] transition-colors">
         {description}
       </p>
     </Card>
@@ -79,14 +81,14 @@ export const PillarCard = memo(function PillarCard({
   delay = 0,
 }: PillarCardProps) {
   return (
-    <Card delay={delay}>
-      <div className="relative inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--bg-surface)] border border-[var(--accent-blue)]/20 mb-4 group-hover:scale-105 group-hover:border-[var(--accent-blue)]/40 group-hover:shadow-[0_0_16px_rgba(91,95,255,0.2)] transition-all duration-300">
+    <Card delay={delay} className="hover:scale-105">
+      <div className="relative inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--bg-surface)] border border-[var(--accent-blue)]/20 mb-4 group-hover:scale-110 group-hover:rotate-12 group-hover:border-[var(--accent-blue)]/40 group-hover:shadow-[0_0_20px_rgba(91,95,255,0.3)] transition-all duration-300">
         <div className="relative">{icon}</div>
       </div>
       <h4 className="text-base font-semibold mb-2 text-[var(--text-primary)] group-hover:text-[var(--accent-blue)] transition-colors">
         {title}
       </h4>
-      <p className="text-[var(--text-secondary)] text-sm leading-relaxed">
+      <p className="text-[var(--text-secondary)] text-sm leading-relaxed group-hover:text-[var(--text-primary)] transition-colors">
         {description}
       </p>
     </Card>

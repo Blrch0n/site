@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { Twitter, MessageCircle, Linkedin, Instagram } from "lucide-react";
 
 interface SocialCard {
@@ -67,8 +68,8 @@ const logos: Logo[] = [
 ];
 
 export default function AsSeenOn() {
-  const duplicatedCards = [...socialCards, ...socialCards];
-  const duplicatedLogos = [...logos, ...logos];
+  const duplicatedCards = useMemo(() => [...socialCards, ...socialCards], []);
+  const duplicatedLogos = useMemo(() => [...logos, ...logos], []);
 
   return (
     <section className="relative py-20 md:py-32 overflow-hidden">
