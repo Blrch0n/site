@@ -729,13 +729,7 @@ html {
 .hud-loader-background {
   position: absolute;
   inset: 0;
-  background: #0a090f;
-  background: radial-gradient(
-    ellipse at center,
-    #0a090f 0%,
-    #06050a 50%,
-    #020104 100%
-  );
+  background: var(--bg-base);
 }
 
 .hud-loader-grid-lines {
@@ -916,7 +910,7 @@ html {
 
 .hud-loader-ring-inner {
   position: relative;
-  background: #0a090f;
+  background: var(--bg-base);
   border-radius: 10px;
   padding: 32px;
 }

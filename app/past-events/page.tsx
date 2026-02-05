@@ -105,7 +105,6 @@ export default function PastEventsPage() {
             <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[var(--accent-cyan)]/5 rounded-full blur-3xl" />
           </div>
 
-          {/* Header */}
           <div className="text-center mb-16">
             <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-[var(--accent-blue)]/10 border border-[var(--accent-blue)]/20">
               <span className="text-sm font-medium text-[var(--accent-blue)]">
@@ -120,7 +119,6 @@ export default function PastEventsPage() {
             </p>
           </div>
 
-          {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
             {STATS.map((stat, index) => {
               const Icon = stat.icon;
@@ -145,7 +143,6 @@ export default function PastEventsPage() {
             })}
           </div>
 
-          {/* Events Timeline */}
           <div className="space-y-12">
             {pastEvents.map((yearData) => (
               <div key={yearData.year} className="relative">

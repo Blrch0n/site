@@ -51,7 +51,6 @@ export default function CommunityPage() {
             <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[var(--accent-cyan)]/5 rounded-full blur-3xl" />
           </div>
 
-          {/* Header */}
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full bg-[var(--accent-blue)]/10 border border-[var(--accent-blue)]/20">
               <Sparkles className="w-4 h-4 text-[var(--accent-blue)]" />
@@ -68,7 +67,6 @@ export default function CommunityPage() {
             </p>
           </div>
 
-          {/* Preview Cards */}
           <div className="grid md:grid-cols-3 gap-6 mb-12">
             {PREVIEW_CARDS.map((card, index) => {
               const Icon = card.icon;
@@ -97,7 +95,6 @@ export default function CommunityPage() {
             })}
           </div>
 
-          {/* CTA Section */}
           <div className="bg-[var(--bg-surface)] border border-[var(--border-line)] rounded-2xl p-12 text-center">
             <h2 className="text-3xl font-bold text-[var(--text-primary)] mb-4">
               Want to Be Notified?

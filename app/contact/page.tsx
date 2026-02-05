@@ -72,7 +72,6 @@ export default function ContactPage() {
             <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[var(--accent-cyan)]/5 rounded-full blur-3xl" />
           </div>
 
-          {/* Header */}
           <div className="text-center mb-16">
             <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-[var(--accent-blue)]/10 border border-[var(--accent-blue)]/20">
               <span className="text-sm font-medium text-[var(--accent-blue)]">
@@ -88,7 +87,6 @@ export default function ContactPage() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto">
-            {/* Contact Info */}
             <div className="space-y-6">
               <div className="bg-[var(--bg-surface)] border border-[var(--border-line)] rounded-2xl p-8">
                 <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-6">
@@ -188,7 +186,6 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Message Form */}
             <div className="bg-[var(--bg-surface)] border border-[var(--border-line)] rounded-2xl p-8">
               <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-6">
                 Send a Message
@@ -297,7 +294,6 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {/* Map Section */}
           <div className="mt-16 max-w-6xl mx-auto">
             <div className="bg-[var(--bg-surface)] border border-[var(--border-line)] rounded-2xl p-8">
               <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-6">
