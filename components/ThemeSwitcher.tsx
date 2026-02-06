@@ -2,7 +2,7 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { Sun, Moon, Monitor } from "lucide-react";
+import { Sun, Moon } from "lucide-react";
 
 export default function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
@@ -20,7 +20,6 @@ export default function ThemeSwitcher() {
   const themes = [
     { name: "light", icon: Sun, label: "Light" },
     { name: "dark", icon: Moon, label: "Dark" },
-    { name: "system", icon: Monitor, label: "System" },
   ];
 
   return (

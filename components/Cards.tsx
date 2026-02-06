@@ -25,7 +25,7 @@ export const Card = memo(function Card({
       initial={{ opacity: 0, y: 20 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
       transition={{ duration: 0.5, delay, ease: [0.16, 1, 0.3, 1] }}
-      className={`group relative rounded-xl glass-panel p-6 hover-lift hover:shadow-[0_8px_32px_rgba(0,0,0,0.4),0_0_40px_var(--panel-glow)] transition-all duration-300 ${className}`}
+      className={`group relative rounded-xl glass-panel p-6 hover-lift hover:shadow-[0_8px_32px_var(--shadow-lg),0_0_40px_var(--panel-glow)] transition-all duration-300 ${className}`}
     >
       <div className="absolute top-0 left-0 w-4 h-4 border-l border-t border-[var(--border-line)] group-hover:border-[var(--border-accent)] transition-colors" />
       <div className="absolute top-0 right-0 w-4 h-4 border-r border-t border-[var(--border-line)] group-hover:border-[var(--border-accent)] transition-colors" />
@@ -52,7 +52,7 @@ export const ValueCard = memo(function ValueCard({
 }: ValueCardProps) {
   return (
     <Card delay={delay} className="hover:scale-105">
-      <div className="relative inline-flex h-11 w-11 items-center justify-center rounded-lg bg-[var(--bg-surface)] border border-[var(--border-accent)] mb-5 group-hover:border-[var(--border-glow)] group-hover:shadow-[0_0_20px_rgba(0,212,255,0.3)] group-hover:rotate-6 transition-all duration-300">
+      <div className="relative inline-flex h-11 w-11 items-center justify-center rounded-lg bg-[var(--bg-surface)] border border-[var(--border-accent)] mb-5 group-hover:border-[var(--border-glow)] group-hover:shadow-[0_0_20px_var(--accent-cyan)] group-hover:rotate-6 transition-all duration-300">
         <div className="relative group-hover:scale-110 transition-transform">
           {icon}
         </div>
@@ -82,7 +82,7 @@ export const PillarCard = memo(function PillarCard({
 }: PillarCardProps) {
   return (
     <Card delay={delay} className="hover:scale-105">
-      <div className="relative inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--bg-surface)] border border-[var(--accent-blue)]/20 mb-4 group-hover:scale-110 group-hover:rotate-12 group-hover:border-[var(--accent-blue)]/40 group-hover:shadow-[0_0_20px_rgba(91,95,255,0.3)] transition-all duration-300">
+      <div className="relative inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--bg-surface)] border border-[var(--accent-blue)]/20 mb-4 group-hover:scale-110 group-hover:rotate-12 group-hover:border-[var(--accent-blue)]/40 group-hover:shadow-[0_0_20px_var(--accent-blue)] transition-all duration-300">
         <div className="relative">{icon}</div>
       </div>
       <h4 className="text-base font-semibold mb-2 text-[var(--text-primary)] group-hover:text-[var(--accent-blue)] transition-colors">
@@ -122,7 +122,7 @@ export const ProgramCard = memo(function ProgramCard({
         </p>
         <a
           href="#contact"
-          className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[var(--bg-surface)] border border-[var(--accent-cyan)]/20 text-[var(--accent-cyan)] text-sm font-medium hover:bg-[var(--bg-surface-hover)] hover:border-[var(--accent-cyan)]/40 hover:gap-2.5 hover:shadow-[0_0_16px_rgba(0,212,255,0.2)] transition-all"
+          className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[var(--bg-surface)] border border-[var(--accent-cyan)]/20 text-[var(--accent-cyan)] text-sm font-medium hover:bg-[var(--bg-surface-hover)] hover:border-[var(--accent-cyan)]/40 hover:gap-2.5 hover:shadow-[0_0_16px_var(--accent-cyan)] transition-all"
         >
           Learn More
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
@@ -160,7 +160,7 @@ export const EventCard = memo(function EventCard({
       <div className="inline-block px-3 py-1 rounded-lg border border-[var(--accent-blue)]/20 bg-[var(--bg-surface)] text-[11px] font-mono uppercase tracking-wider text-[var(--text-muted)] mb-4 group-hover:border-[var(--accent-blue)]/40 group-hover:text-[var(--text-secondary)] transition-all">
         {year}
       </div>
-      <div className="relative inline-flex items-center justify-center w-14 h-14 rounded-lg bg-[var(--bg-surface)] border border-[var(--accent-violet)]/20 mb-4 group-hover:scale-105 group-hover:border-[var(--accent-violet)]/40 group-hover:shadow-[0_0_20px_rgba(155,79,255,0.25)] transition-all duration-300">
+      <div className="relative inline-flex items-center justify-center w-14 h-14 rounded-lg bg-[var(--bg-surface)] border border-[var(--accent-violet)]/20 mb-4 group-hover:scale-105 group-hover:border-[var(--accent-violet)]/40 group-hover:shadow-[0_0_20px_var(--accent-violet)] transition-all duration-300">
         <div className="relative">{icon}</div>
       </div>
       <h4 className="text-base font-semibold mb-2.5 text-[var(--text-primary)] group-hover:text-[var(--accent-violet)] transition-colors">
@@ -230,7 +230,7 @@ export const ProjectCard = memo(function ProjectCard({
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[var(--bg-surface)] border border-[var(--accent-cyan)]/20 text-[var(--accent-cyan)] text-xs font-medium hover:bg-[var(--bg-surface-hover)] hover:border-[var(--accent-cyan)]/40 hover:shadow-[0_0_16px_rgba(0,212,255,0.2)] transition-all"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[var(--bg-surface)] border border-[var(--accent-cyan)]/20 text-[var(--accent-cyan)] text-xs font-medium hover:bg-[var(--bg-surface-hover)] hover:border-[var(--accent-cyan)]/40 hover:shadow-[0_0_16px_var(--accent-cyan)] transition-all"
             >
               {link.label}
               <svg width="12" height="12" viewBox="0 0 16 16" fill="none">

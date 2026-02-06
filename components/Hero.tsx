@@ -55,7 +55,7 @@ const HeroContent = memo(function HeroContent({
         variants={itemVariants}
         className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-lg border border-[var(--border-line)] bg-[var(--bg-surface)] text-[11px] font-mono uppercase tracking-wider text-[var(--text-muted)] backdrop-blur-sm"
       >
-        <div className="w-1.5 h-1.5 rounded-full bg-[var(--accent-blue)] animate-pulse shadow-[0_0_8px_rgba(91,95,255,0.8)]" />
+        <div className="w-1.5 h-1.5 rounded-full bg-[var(--accent-blue)] animate-pulse shadow-[0_0_8px_var(--accent-blue)]" />
         <span>{translations.badge}</span>
       </motion.div>
 
@@ -143,7 +143,7 @@ const HeroImage = memo(function HeroImage({
               className="relative w-full h-full"
             >
               <Image
-                src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=800&fit=crop"
+                src="/hero.png"
                 alt="Technology and Innovation"
                 fill
                 sizes="(max-width: 768px) 100vw, 500px"
@@ -161,7 +161,7 @@ const HeroImage = memo(function HeroImage({
             className="absolute bottom-4 left-4 right-4 glass-panel rounded-xl p-3 border-l border-l-[var(--accent-cyan)]/40"
           >
             <div className="flex items-start gap-2.5">
-              <div className="shrink-0 w-1.5 h-1.5 rounded-full bg-[var(--accent-cyan)] mt-1.5 animate-pulse shadow-[0_0_8px_rgba(0,212,255,0.8)]" />
+              <div className="shrink-0 w-1.5 h-1.5 rounded-full bg-[var(--accent-cyan)] mt-1.5 animate-pulse shadow-[0_0_8px_var(--accent-cyan)]" />
               <div>
                 <div className="text-xs font-semibold text-[var(--text-primary)] mb-0.5">
                   {imageTitle}

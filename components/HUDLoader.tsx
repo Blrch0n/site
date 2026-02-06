@@ -5,25 +5,38 @@ import Image from "next/image";
 
 export default function HUDLoader() {
   const [show, setShow] = useState(true);
+  const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
     document.body.setAttribute("aria-busy", "true");
+    document.body.style.overflow = "hidden";
 
-    const timer = setTimeout(() => {
+    const fadeTimer = setTimeout(() => {
+      setFadeOut(true);
+    }, 1500);
+
+    const hideTimer = setTimeout(() => {
       setShow(false);
       document.body.removeAttribute("aria-busy");
+      document.body.style.overflow = "";
     }, 2000);
 
     return () => {
-      clearTimeout(timer);
+      clearTimeout(fadeTimer);
+      clearTimeout(hideTimer);
       document.body.removeAttribute("aria-busy");
+      document.body.style.overflow = "";
     };
   }, []);
 
   if (!show) return null;
 
   return (
-    <div className="hud-loader" role="status" aria-live="polite">
+    <div
+      className={`hud-loader ${fadeOut ? "hud-loader-fade-out" : ""}`}
+      role="status"
+      aria-live="polite"
+    >
       <span className="hud-loader-sr-only">Loading</span>
       <div className="hud-loader-background" />
       <div className="hud-loader-grid-lines">

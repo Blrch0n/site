@@ -37,8 +37,7 @@ export default function Footer() {
   return (
     <section
       id="contact"
-      className="py-16 md:py-20 border-t border-[var(--border-line)]"
-      style={{ backgroundColor: 'rgba(255, 255, 255, 0.02)' }}
+      className="py-16 md:py-20 border-t border-[var(--border-line)] bg-[var(--bg-surface)]"
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <SectionHeader

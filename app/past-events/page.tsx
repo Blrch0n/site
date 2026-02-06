@@ -51,80 +51,80 @@ const cardVariant = {
 export default function PastEventsPage() {
   const { t } = useLanguage();
 
-const pastEventsData: PastEvent[] = [
-  {
-    id: "1",
-    title: "Haruul Zangi CTF 2024",
-    date: "December 2024",
-    location: "NUM Campus",
-    tags: ["CTF", "Onsite"],
-    imageSrc: "/group-image1.png",
-  },
-  {
-    id: "2",
-    title: "Dev Hackathon 2024",
-    date: "October 2024",
-    location: "MUST",
-    tags: ["Hackathon", "Onsite"],
-    imageSrc: "/group-image2.jpg",
-  },
-  {
-    id: "3",
-    title: "CTF Competition Fall 2024",
-    date: "September 2024",
-    location: "Online",
-    tags: ["CTF", "Online"],
-    imageSrc: "/group-image3.jpg",
-  },
-  {
-    id: "4",
-    title: "Summer CTF Challenge 2024",
-    date: "July 2024",
-    location: "Online",
-    tags: ["CTF", "Online"],
-    imageSrc: "/group-image4.png",
-  },
-  {
-    id: "5",
-    title: "Spring Hackathon 2024",
-    date: "April 2024",
-    location: "NUM Campus",
-    tags: ["Hackathon", "Onsite"],
-    imageSrc: "/group-image5.jpg",
-  },
-  {
-    id: "6",
-    title: "Haruul Zangi CTF 2023",
-    date: "December 2023",
-    location: "NUM Campus",
-    tags: ["CTF", "Onsite"],
-    imageSrc: "/group-image1.png",
-  },
-  {
-    id: "7",
-    title: "Fall CTF Championship 2023",
-    date: "October 2023",
-    location: "Online",
-    tags: ["CTF", "Online"],
-    imageSrc: "/group-image2.jpg",
-  },
-  {
-    id: "8",
-    title: "Dev Hackathon 2023",
-    date: "September 2023",
-    location: "MUST",
-    tags: ["Hackathon", "Onsite"],
-    imageSrc: "/group-image3.jpg",
-  },
-  {
-    id: "9",
-    title: "Summer Tech Workshop 2023",
-    date: "June 2023",
-    location: "NUM Campus",
-    tags: ["Workshop", "Onsite"],
-    imageSrc: "/group-image4.png",
-  },
-];
+  const pastEventsData: PastEvent[] = [
+    {
+      id: "1",
+      title: "Haruul Zangi CTF 2024",
+      date: "December 2024",
+      location: "NUM Campus",
+      tags: ["CTF", "Onsite"],
+      imageSrc: "/group-image1.png",
+    },
+    {
+      id: "2",
+      title: "Dev Hackathon 2024",
+      date: "October 2024",
+      location: "MUST",
+      tags: ["Hackathon", "Onsite"],
+      imageSrc: "/group-image2.jpg",
+    },
+    {
+      id: "3",
+      title: "CTF Competition Fall 2024",
+      date: "September 2024",
+      location: "Online",
+      tags: ["CTF", "Online"],
+      imageSrc: "/group-image3.jpg",
+    },
+    {
+      id: "4",
+      title: "Summer CTF Challenge 2024",
+      date: "July 2024",
+      location: "Online",
+      tags: ["CTF", "Online"],
+      imageSrc: "/group-image4.png",
+    },
+    {
+      id: "5",
+      title: "Spring Hackathon 2024",
+      date: "April 2024",
+      location: "NUM Campus",
+      tags: ["Hackathon", "Onsite"],
+      imageSrc: "/group-image5.jpg",
+    },
+    {
+      id: "6",
+      title: "Haruul Zangi CTF 2023",
+      date: "December 2023",
+      location: "NUM Campus",
+      tags: ["CTF", "Onsite"],
+      imageSrc: "/group-image1.png",
+    },
+    {
+      id: "7",
+      title: "Fall CTF Championship 2023",
+      date: "October 2023",
+      location: "Online",
+      tags: ["CTF", "Online"],
+      imageSrc: "/group-image2.jpg",
+    },
+    {
+      id: "8",
+      title: "Dev Hackathon 2023",
+      date: "September 2023",
+      location: "MUST",
+      tags: ["Hackathon", "Onsite"],
+      imageSrc: "/group-image3.jpg",
+    },
+    {
+      id: "9",
+      title: "Summer Tech Workshop 2023",
+      date: "June 2023",
+      location: "NUM Campus",
+      tags: ["Workshop", "Onsite"],
+      imageSrc: "/group-image4.png",
+    },
+  ];
 
   return (
     <>
@@ -146,7 +146,7 @@ const pastEventsData: PastEvent[] = [
             >
               <motion.div variants={fadeInUp}>
                 <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 mb-8 rounded-lg border border-(--border-line) bg-(--bg-surface) text-[11px] font-mono uppercase tracking-wider text-(--text-muted) backdrop-blur-sm">
-                  <div className="w-1.5 h-1.5 rounded-full bg-(--accent-cyan) animate-pulse shadow-[0_0_8px_rgba(0,212,255,0.8)]" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-(--accent-cyan) animate-pulse shadow-[0_0_8px_var(--accent-cyan)]" />
                   <span>{t("pastEvents.eventArchive")}</span>
                 </div>
               </motion.div>
