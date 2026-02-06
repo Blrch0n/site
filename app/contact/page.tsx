@@ -10,6 +10,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import Footer from "@/components/Footer";
+import GoogleMapEmbed from "@/components/GoogleMapEmbed";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function ContactPage() {
@@ -172,7 +173,7 @@ export default function ContactPage() {
                       <Facebook className="relative z-10" size={20} />
                     </a>
                     <a
-                      href="https://goo.gl/maps/Qwv3RYvybs8YqJsS8"
+                      href="https://maps.app.goo.gl/CZxEJy1dYapyd5hW6"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="relative flex items-center justify-center w-12 h-12 rounded-xl bg-[var(--bg-base)] border border-[var(--border-line)] text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] hover:border-[var(--accent-cyan)]/40 hover:scale-110 transition-all group"
@@ -299,19 +300,11 @@ export default function ContactPage() {
               <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-6">
                 Visit Us
               </h2>
-              <div className="aspect-video w-full rounded-xl overflow-hidden bg-[var(--bg-base)] flex items-center justify-center hover:border-[var(--accent-blue)]/40 transition-all">
-                <a
-                  href="https://goo.gl/maps/Qwv3RYvybs8YqJsS8"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex flex-col items-center gap-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors group"
-                >
-                  <MapPin className="w-12 h-12 text-[var(--accent-violet)] group-hover:scale-110 transition-transform" />
-                  <span className="text-lg font-medium">
-                    Open in Google Maps
-                  </span>
-                </a>
-              </div>
+              <GoogleMapEmbed
+                title="SHUTIS-MHTS Room 400 Location"
+                height={420}
+                className="mb-6"
+              />
             </div>
           </div>
         </div>
