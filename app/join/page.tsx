@@ -815,7 +815,11 @@ export default function JoinPage() {
                                 ...prev,
                                 personal: {
                                   ...prev.personal,
-                                  gender: e.target.value as "Эрэгтэй" | "Эмэгтэй" | "Бусад" | "",
+                                  gender: e.target.value as
+                                    | "Эрэгтэй"
+                                    | "Эмэгтэй"
+                                    | "Бусад"
+                                    | "",
                                 },
                               }));
                               if (errors["personal.gender"])
@@ -990,8 +994,10 @@ export default function JoinPage() {
                                     const newSchools = [
                                       ...formData.educationSchools,
                                     ];
-                                    newSchools[index].schoolName =
-                                      e.target.value;
+                                    if (newSchools[index]) {
+                                      newSchools[index].schoolName =
+                                        e.target.value;
+                                    }
                                     setFormData((prev) => ({
                                       ...prev,
                                       educationSchools: newSchools,
@@ -1007,8 +1013,10 @@ export default function JoinPage() {
                                     const newSchools = [
                                       ...formData.educationSchools,
                                     ];
-                                    newSchools[index].startYear =
-                                      e.target.value;
+                                    if (newSchools[index]) {
+                                      newSchools[index].startYear =
+                                        e.target.value;
+                                    }
                                     setFormData((prev) => ({
                                       ...prev,
                                       educationSchools: newSchools,
@@ -1024,8 +1032,10 @@ export default function JoinPage() {
                                     const newSchools = [
                                       ...formData.educationSchools,
                                     ];
-                                    newSchools[index].transferYear =
-                                      e.target.value;
+                                    if (newSchools[index]) {
+                                      newSchools[index].transferYear =
+                                        e.target.value;
+                                    }
                                     setFormData((prev) => ({
                                       ...prev,
                                       educationSchools: newSchools,
@@ -1041,8 +1051,10 @@ export default function JoinPage() {
                                     const newSchools = [
                                       ...formData.educationSchools,
                                     ];
-                                    newSchools[index].graduationYear =
-                                      e.target.value;
+                                    if (newSchools[index]) {
+                                      newSchools[index].graduationYear =
+                                        e.target.value;
+                                    }
                                     setFormData((prev) => ({
                                       ...prev,
                                       educationSchools: newSchools,
@@ -1058,7 +1070,9 @@ export default function JoinPage() {
                                     const newSchools = [
                                       ...formData.educationSchools,
                                     ];
-                                    newSchools[index].gpa = e.target.value;
+                                    if (newSchools[index]) {
+                                      newSchools[index].gpa = e.target.value;
+                                    }
                                     setFormData((prev) => ({
                                       ...prev,
                                       educationSchools: newSchools,
@@ -1116,8 +1130,10 @@ export default function JoinPage() {
                                     const newLanguages = [
                                       ...formData.languages,
                                     ];
-                                    newLanguages[index].languageName =
-                                      e.target.value;
+                                    if (newLanguages[index]) {
+                                      newLanguages[index].languageName =
+                                        e.target.value;
+                                    }
                                     setFormData((prev) => ({
                                       ...prev,
                                       languages: newLanguages,
@@ -1132,8 +1148,10 @@ export default function JoinPage() {
                                     const newLanguages = [
                                       ...formData.languages,
                                     ];
-                                    newLanguages[index].listening = e.target
-                                      .value as SkillLevel | "";
+                                    if (newLanguages[index]) {
+                                      newLanguages[index].listening = e.target
+                                        .value as SkillLevel | "";
+                                    }
                                     setFormData((prev) => ({
                                       ...prev,
                                       languages: newLanguages,
@@ -1154,8 +1172,10 @@ export default function JoinPage() {
                                     const newLanguages = [
                                       ...formData.languages,
                                     ];
-                                    newLanguages[index].speaking = e.target
-                                      .value as SkillLevel | "";
+                                    if (newLanguages[index]) {
+                                      newLanguages[index].speaking = e.target
+                                        .value as SkillLevel | "";
+                                    }
                                     setFormData((prev) => ({
                                       ...prev,
                                       languages: newLanguages,
@@ -1176,8 +1196,10 @@ export default function JoinPage() {
                                     const newLanguages = [
                                       ...formData.languages,
                                     ];
-                                    newLanguages[index].reading = e.target
-                                      .value as SkillLevel | "";
+                                    if (newLanguages[index]) {
+                                      newLanguages[index].reading = e.target
+                                        .value as SkillLevel | "";
+                                    }
                                     setFormData((prev) => ({
                                       ...prev,
                                       languages: newLanguages,
@@ -1198,8 +1220,10 @@ export default function JoinPage() {
                                     const newLanguages = [
                                       ...formData.languages,
                                     ];
-                                    newLanguages[index].writing = e.target
-                                      .value as SkillLevel | "";
+                                    if (newLanguages[index]) {
+                                      newLanguages[index].writing = e.target
+                                        .value as SkillLevel | "";
+                                    }
                                     setFormData((prev) => ({
                                       ...prev,
                                       languages: newLanguages,
@@ -1221,8 +1245,10 @@ export default function JoinPage() {
                                     const newLanguages = [
                                       ...formData.languages,
                                     ];
-                                    newLanguages[index].overallLevel =
-                                      e.target.value;
+                                    if (newLanguages[index]) {
+                                      newLanguages[index].overallLevel =
+                                        e.target.value;
+                                    }
                                     setFormData((prev) => ({
                                       ...prev,
                                       languages: newLanguages,
@@ -1285,8 +1311,10 @@ export default function JoinPage() {
                                     const newSkills = [
                                       ...formData.computerSkills,
                                     ];
-                                    newSkills[index].programName =
-                                      e.target.value;
+                                    if (newSkills[index]) {
+                                      newSkills[index].programName =
+                                        e.target.value;
+                                    }
                                     setFormData((prev) => ({
                                       ...prev,
                                       computerSkills: newSkills,
@@ -1302,8 +1330,10 @@ export default function JoinPage() {
                                     const newSkills = [
                                       ...formData.computerSkills,
                                     ];
-                                    newSkills[index].learnedHow =
-                                      e.target.value;
+                                    if (newSkills[index]) {
+                                      newSkills[index].learnedHow =
+                                        e.target.value;
+                                    }
                                     setFormData((prev) => ({
                                       ...prev,
                                       computerSkills: newSkills,
@@ -1318,8 +1348,10 @@ export default function JoinPage() {
                                     const newSkills = [
                                       ...formData.computerSkills,
                                     ];
-                                    newSkills[index].level = e.target
-                                      .value as SkillLevel | "";
+                                    if (newSkills[index]) {
+                                      newSkills[index].level = e.target
+                                        .value as SkillLevel | "";
+                                    }
                                     setFormData((prev) => ({
                                       ...prev,
                                       computerSkills: newSkills,
@@ -1442,7 +1474,9 @@ export default function JoinPage() {
                                   value={talent.type}
                                   onChange={(e) => {
                                     const newTalents = [...formData.talents];
-                                    newTalents[index].type = e.target.value;
+                                    if (newTalents[index]) {
+                                      newTalents[index].type = e.target.value;
+                                    }
                                     setFormData((prev) => ({
                                       ...prev,
                                       talents: newTalents,
@@ -1456,7 +1490,9 @@ export default function JoinPage() {
                                   value={talent.years}
                                   onChange={(e) => {
                                     const newTalents = [...formData.talents];
-                                    newTalents[index].years = e.target.value;
+                                    if (newTalents[index]) {
+                                      newTalents[index].years = e.target.value;
+                                    }
                                     setFormData((prev) => ({
                                       ...prev,
                                       talents: newTalents,
@@ -1470,8 +1506,10 @@ export default function JoinPage() {
                                   value={talent.rankOrTitle}
                                   onChange={(e) => {
                                     const newTalents = [...formData.talents];
-                                    newTalents[index].rankOrTitle =
-                                      e.target.value;
+                                    if (newTalents[index]) {
+                                      newTalents[index].rankOrTitle =
+                                        e.target.value;
+                                    }
                                     setFormData((prev) => ({
                                       ...prev,
                                       talents: newTalents,
@@ -1528,8 +1566,10 @@ export default function JoinPage() {
                                 value={award.organization}
                                 onChange={(e) => {
                                   const newAwards = [...formData.awards];
-                                  newAwards[index].organization =
-                                    e.target.value;
+                                  if (newAwards[index]) {
+                                    newAwards[index].organization =
+                                      e.target.value;
+                                  }
                                   setFormData((prev) => ({
                                     ...prev,
                                     awards: newAwards,
@@ -1543,7 +1583,9 @@ export default function JoinPage() {
                                 value={award.awardName}
                                 onChange={(e) => {
                                   const newAwards = [...formData.awards];
-                                  newAwards[index].awardName = e.target.value;
+                                  if (newAwards[index]) {
+                                    newAwards[index].awardName = e.target.value;
+                                  }
                                   setFormData((prev) => ({
                                     ...prev,
                                     awards: newAwards,
@@ -1557,7 +1599,9 @@ export default function JoinPage() {
                                 value={award.awardDate}
                                 onChange={(e) => {
                                   const newAwards = [...formData.awards];
-                                  newAwards[index].awardDate = e.target.value;
+                                  if (newAwards[index]) {
+                                    newAwards[index].awardDate = e.target.value;
+                                  }
                                   setFormData((prev) => ({
                                     ...prev,
                                     awards: newAwards,

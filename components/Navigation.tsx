@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo, memo } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -11,6 +11,63 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { TranslationKey } from "@/lib/translations";
 import LanguageSwitcher from "./LanguageSwitcher";
 import ThemeSwitcher from "./ThemeSwitcher";
+import { throttle } from "@/lib/utils";
+
+const NavLink = memo(function NavLink({
+  href,
+  isActive,
+  children,
+}: {
+  href: string;
+  isActive: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      className={`text-[13px] font-medium transition-colors duration-200 relative group py-2 ${
+        isActive
+          ? "text-[var(--text-primary)]"
+          : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+      }`}
+    >
+      {children}
+      <span
+        className={`absolute bottom-0 left-0 h-px bg-gradient-to-r from-[var(--accent-blue)] to-[var(--accent-cyan)] transition-all duration-300 ${
+          isActive ? "w-full" : "w-0 group-hover:w-full"
+        }`}
+      />
+    </Link>
+  );
+});
+
+const MobileMenuItem = memo(function MobileMenuItem({
+  href,
+  onClick,
+  children,
+  index,
+}: {
+  href: string;
+  onClick: () => void;
+  children: React.ReactNode;
+  index: number;
+}) {
+  return (
+    <motion.li
+      initial={{ x: -20, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ delay: index * 0.05, duration: 0.3 }}
+    >
+      <Link
+        href={href}
+        onClick={onClick}
+        className="block py-3 text-lg font-medium text-[var(--text-primary)] hover:text-[var(--accent-cyan)] transition-colors"
+      >
+        {children}
+      </Link>
+    </motion.li>
+  );
+});
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -19,17 +76,9 @@ export default function Navigation() {
   const { t } = useLanguage();
 
   useEffect(() => {
-    let ticking = false;
-
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          setIsScrolled(window.scrollY > 80);
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
+    const handleScroll = throttle(() => {
+      setIsScrolled(window.scrollY > 80);
+    }, 100);
 
     // Set initial state
     handleScroll();
@@ -42,6 +91,10 @@ export default function Navigation() {
 
   const handleLinkClick = useCallback(() => {
     setIsMobileMenuOpen(false);
+  }, []);
+
+  const toggleMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen((prev) => !prev);
   }, []);
 
   const desktopNavItems = useMemo(
@@ -66,7 +119,6 @@ export default function Navigation() {
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="flex items-center justify-between h-16">
-            {}
             <Link
               href="/"
               className="flex items-center gap-2.5 hover:opacity-80 transition-opacity group"
@@ -81,33 +133,19 @@ export default function Navigation() {
               />
             </Link>
 
-            {}
             <ul className="hidden md:flex items-center gap-8">
               {desktopNavItems.map((link) => {
                 const isActive = pathname === link.path;
                 return (
                   <li key={link.path}>
-                    <Link
-                      href={link.path}
-                      className={`text-[13px] font-medium transition-colors duration-200 relative group py-2 ${
-                        isActive
-                          ? "text-[var(--text-primary)]"
-                          : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
-                      }`}
-                    >
+                    <NavLink href={link.path} isActive={isActive}>
                       {t(`nav.${link.id}` as TranslationKey)}
-                      <span
-                        className={`absolute bottom-0 left-0 h-px bg-gradient-to-r from-[var(--accent-blue)] to-[var(--accent-cyan)] transition-all duration-300 ${
-                          isActive ? "w-full" : "w-0 group-hover:w-full"
-                        }`}
-                      />
-                    </Link>
+                    </NavLink>
                   </li>
                 );
               })}
             </ul>
 
-            {}
             <div className="hidden md:flex items-center gap-3">
               <ThemeSwitcher />
               <LanguageSwitcher />
@@ -121,11 +159,11 @@ export default function Navigation() {
               </Link>
             </div>
 
-            {}
             <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              onClick={toggleMobileMenu}
               className="md:hidden p-2 text-[var(--text-primary)] hover:text-[var(--text-secondary)] transition-colors"
               aria-label="Toggle menu"
+              aria-expanded={isMobileMenuOpen}
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -133,7 +171,6 @@ export default function Navigation() {
         </div>
       </motion.nav>
 
-      {}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -142,7 +179,7 @@ export default function Navigation() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="fixed inset-0 z-40 md:hidden"
-            onClick={() => setIsMobileMenuOpen(false)}
+            onClick={handleLinkClick}
           >
             <div className="absolute inset-0 bg-[var(--bg-base)]/95 backdrop-blur-xl" />
             <motion.div
@@ -151,34 +188,28 @@ export default function Navigation() {
               exit={{ y: -20, opacity: 0 }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
               className="relative mt-20 mx-6 p-8 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-line)]"
+              onClick={(e) => e.stopPropagation()}
             >
               <ul className="flex flex-col gap-4">
                 {NAV_ITEMS.map((link, index) => (
-                  <motion.li
+                  <MobileMenuItem
                     key={link.path}
-                    initial={{ x: -20, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: index * 0.05, duration: 0.3 }}
+                    href={link.path}
+                    onClick={handleLinkClick}
+                    index={index}
                   >
-                    <Link
-                      href={link.path}
-                      onClick={handleLinkClick}
-                      className="block py-3 text-lg font-medium text-[var(--text-primary)] hover:text-[var(--accent-cyan)] transition-colors"
-                    >
-                      {t(`nav.${link.id}` as TranslationKey)}
-                    </Link>
-                  </motion.li>
+                    {t(`nav.${link.id}` as TranslationKey)}
+                  </MobileMenuItem>
                 ))}
               </ul>
 
-              {}
               <div className="mt-6 mb-4">
                 <ThemeSwitcher />
               </div>
 
               <Link
                 href="/join"
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={handleLinkClick}
                 className="mt-4 block w-full text-center px-6 py-3 rounded-xl bg-gradient-to-r from-[var(--accent-cyan)] via-[var(--accent-blue)] to-[var(--accent-violet)] text-white font-semibold"
               >
                 {t("nav.join")}

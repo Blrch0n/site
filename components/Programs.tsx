@@ -18,8 +18,12 @@ const ProgramCard = memo(function ProgramCard({
   delay?: number;
   icon: React.ReactNode;
 }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, {
+    once: true,
+    margin: "-100px",
+    amount: 0.3,
+  });
 
   return (
     <motion.div
@@ -91,7 +95,7 @@ export default function Programs() {
         <div className="grid md:grid-cols-3 gap-6">
           {programData.map((program, index) => (
             <ProgramCard
-              key={index}
+              key={`${program.number}-${index}`}
               number={program.number}
               label={program.label}
               icon={program.icon}

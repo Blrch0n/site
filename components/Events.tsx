@@ -1,13 +1,13 @@
 "use client";
 
-import { useRef, ReactNode, useMemo } from "react";
+import { useRef, ReactNode, useMemo, memo } from "react";
 import { motion, useInView } from "framer-motion";
 import SectionFrame from "@/components/SectionFrame";
 import { SectionHeader } from "@/components/FAQ";
 import { Code, Box, Palette, Globe } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-function TrainingCard({
+const TrainingCard = memo(function TrainingCard({
   icon,
   title,
   description,
@@ -20,8 +20,12 @@ function TrainingCard({
   delay?: number;
   accentColor: string;
 }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, {
+    once: true,
+    margin: "-100px",
+    amount: 0.3,
+  });
 
   return (
     <motion.div
@@ -52,7 +56,7 @@ function TrainingCard({
       </div>
     </motion.div>
   );
-}
+});
 
 export default function Events() {
   const { t } = useLanguage();
@@ -107,7 +111,7 @@ export default function Events() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
           {trainingsData.map((training, index) => (
             <TrainingCard
-              key={index}
+              key={`${training.title}-${index}`}
               icon={training.icon}
               title={training.title}
               description={training.description}

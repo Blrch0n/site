@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, memo } from "react";
 import SectionFrame from "@/components/SectionFrame";
 import { SectionHeader } from "@/components/FAQ";
 import { PillarCard } from "@/components/Cards";
@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-export default function Pillars() {
+function Pillars() {
   const { t } = useLanguage();
 
   const pillarsData = useMemo(
@@ -75,7 +75,7 @@ export default function Pillars() {
         <div className="grid md:grid-cols-3 gap-5">
           {pillarsData.map((pillar, index) => (
             <PillarCard
-              key={index}
+              key={`${pillar.title}-${index}`}
               icon={pillar.icon}
               title={pillar.title}
               description={pillar.description}
@@ -87,3 +87,5 @@ export default function Pillars() {
     </section>
   );
 }
+
+export default memo(Pillars);

@@ -28,13 +28,20 @@ const nextConfig: NextConfig = {
   // Enable compression
   compress: true,
 
+  // External packages
+  serverExternalPackages: ["web-vitals"],
+
   // Experimental features for better performance
   experimental: {
-    optimizePackageImports: ["lucide-react", "framer-motion"],
+    optimizePackageImports: ["lucide-react", "framer-motion", "next-themes"],
   },
 
   // Turbopack config
   turbopack: {},
+
+  // Additional performance optimizations
+  poweredByHeader: false,
+  reactStrictMode: true,
 };
 
 export default nextConfig;

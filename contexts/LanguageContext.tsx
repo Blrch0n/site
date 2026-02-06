@@ -8,6 +8,7 @@ import React, {
   useMemo,
 } from "react";
 import { translations, TranslationKey } from "@/lib/translations";
+import { safeLocalStorage } from "@/lib/utils";
 
 export type Language = "en" | "mn";
 
@@ -20,26 +21,35 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(
   undefined,
 );
+
+const STORAGE_KEY = "language";
+const DEFAULT_LANGUAGE: Language = "en";
+
+function getInitialLanguage(): Language {
+  if (typeof window === "undefined") return DEFAULT_LANGUAGE;
+  const saved = safeLocalStorage.getItem(STORAGE_KEY) as Language | null;
+  if (saved && (saved === "en" || saved === "mn")) {
+    return saved;
+  }
+  return DEFAULT_LANGUAGE;
+}
+
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  // Use lazy initialization to avoid setState in useEffect
-  const [language, setLanguageState] = useState<Language>(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("language") as Language;
-      if (saved && (saved === "en" || saved === "mn")) {
-        return saved;
-      }
-    }
-    return "en";
-  });
+  const [language, setLanguageState] = useState<Language>(getInitialLanguage);
 
   const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang);
-    localStorage.setItem("language", lang);
+    safeLocalStorage.setItem(STORAGE_KEY, lang);
   }, []);
 
   const t = useCallback(
-    (key: TranslationKey) => {
-      return translations[language][key] || key;
+    (key: TranslationKey): string => {
+      const translation = translations[language]?.[key];
+      if (!translation) {
+        console.warn(`Missing translation for key: ${key}`);
+        return key;
+      }
+      return translation;
     },
     [language],
   );
@@ -56,7 +66,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function useLanguage() {
+export function useLanguage(): LanguageContextType {
   const context = useContext(LanguageContext);
   if (!context) {
     throw new Error("useLanguage must be used within a LanguageProvider");
