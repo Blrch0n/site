@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Footer from "@/components/Footer";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 // Type definition for past event data
 type PastEvent = {
@@ -46,6 +47,9 @@ const cardVariant = {
     },
   }),
 };
+
+export default function PastEventsPage() {
+  const { t } = useLanguage();
 
 const pastEventsData: PastEvent[] = [
   {
@@ -122,7 +126,6 @@ const pastEventsData: PastEvent[] = [
   },
 ];
 
-export default function PastEventsPage() {
   return (
     <>
       <main className="relative overflow-x-hidden min-h-screen">
@@ -144,21 +147,20 @@ export default function PastEventsPage() {
               <motion.div variants={fadeInUp}>
                 <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 mb-8 rounded-lg border border-(--border-line) bg-(--bg-surface) text-[11px] font-mono uppercase tracking-wider text-(--text-muted) backdrop-blur-sm">
                   <div className="w-1.5 h-1.5 rounded-full bg-(--accent-cyan) animate-pulse shadow-[0_0_8px_rgba(0,212,255,0.8)]" />
-                  <span>Event Archive</span>
+                  <span>{t("pastEvents.eventArchive")}</span>
                 </div>
               </motion.div>
               <motion.h1
                 variants={fadeInUp}
                 className="text-5xl md:text-6xl lg:text-7xl font-bold text-(--text-primary) mb-6 tracking-tight"
               >
-                Past Events
+                {t("pastEvents.pageTitle")}
               </motion.h1>
               <motion.p
                 variants={fadeInUp}
                 className="text-lg md:text-xl text-(--text-muted) max-w-2xl mx-auto leading-relaxed"
               >
-                Explore previous Haruul Zangi CTF events and highlights from our
-                community
+                {t("pastEvents.pageSubtitle")}
               </motion.p>
             </motion.div>
           </div>

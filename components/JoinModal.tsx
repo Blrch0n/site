@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, FormEvent, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, CheckCircle, Copy, Facebook, Phone } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface JoinModalProps {
   isOpen: boolean;
@@ -18,11 +19,11 @@ interface FormData {
 }
 
 const INTEREST_OPTIONS = [
-  "Programming",
-  "UI/UX Design",
-  "Web Development",
-  "Competitive Programming",
-  "General Exploration",
+  "joinModal.interest.programming",
+  "joinModal.interest.uiux",
+  "joinModal.interest.webdev",
+  "joinModal.interest.competitive",
+  "joinModal.interest.exploration",
 ] as const;
 
 const FACEBOOK_LINK = "https://www.facebook.com/syscotech";
@@ -30,6 +31,7 @@ const PHONE_NUMBER = "+976 9911-1234";
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -82,26 +84,26 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
     const newErrors: Partial<FormData> = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = "Name is required";
+      newErrors.name = t("joinModal.error.nameRequired");
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
+      newErrors.email = t("joinModal.error.emailRequired");
     } else if (!EMAIL_REGEX.test(formData.email)) {
-      newErrors.email = "Invalid email format";
+      newErrors.email = t("joinModal.error.emailInvalid");
     }
 
     if (!formData.major.trim()) {
-      newErrors.major = "Major is required";
+      newErrors.major = t("joinModal.error.majorRequired");
     }
 
     if (!formData.interest) {
-      newErrors.interest = "Please select an interest";
+      newErrors.interest = t("joinModal.error.interestRequired");
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  }, [formData]);
+  }, [formData, t]);
 
   const handleSubmit = useCallback(
     (e: FormEvent) => {
@@ -166,12 +168,12 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
             <div className="relative flex items-center justify-between px-6 py-5 border-b border-[var(--border-line)]">
               <div>
                 <h2 className="text-2xl font-bold text-[var(--text-primary)]">
-                  {isSubmitted ? "Welcome!" : "Join Sys&CoTech"}
+                  {isSubmitted ? t("joinModal.title.welcome") : t("joinModal.title.join")}
                 </h2>
                 <p className="text-sm text-[var(--text-muted)] mt-1">
                   {isSubmitted
-                    ? "Application received successfully"
-                    : "Start your innovation journey"}
+                    ? t("joinModal.subtitle.success")
+                    : t("joinModal.subtitle.join")}
                 </p>
               </div>
               <button
@@ -191,8 +193,8 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                       htmlFor="name"
                       className="block text-sm font-medium text-[var(--text-secondary)] mb-2"
                     >
-                      Full Name{" "}
-                      <span className="text-[var(--accent-pink)]">*</span>
+                      {t("joinModal.form.fullName")}{" "}
+                      <span className="text-[var(--accent-pink)]">{t("joinModal.form.required")}</span>
                     </label>
                     <input
                       ref={inputRef}
@@ -207,7 +209,7 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                           ? "border-[var(--accent-pink)]/40"
                           : "border-[var(--border-line)]"
                       } text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:bg-[var(--bg-surface-hover)] transition-all`}
-                      placeholder="Your name"
+                      placeholder={t("joinModal.form.placeholder.name")}
                     />
                     {errors.name && (
                       <p className="text-xs text-[var(--accent-pink)] mt-1.5">
@@ -221,7 +223,7 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                       htmlFor="email"
                       className="block text-sm font-medium text-[var(--text-secondary)] mb-2"
                     >
-                      Email <span className="text-[var(--accent-pink)]">*</span>
+                      {t("joinModal.form.email")} <span className="text-[var(--accent-pink)]">{t("joinModal.form.required")}</span>
                     </label>
                     <input
                       id="email"
@@ -235,7 +237,7 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                           ? "border-[var(--accent-pink)]/40"
                           : "border-[var(--border-line)]"
                       } text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:bg-[var(--bg-surface-hover)] transition-all`}
-                      placeholder="your.email@example.com"
+                      placeholder={t("joinModal.form.placeholder.email")}
                     />
                     {errors.email && (
                       <p className="text-xs text-[var(--accent-pink)] mt-1.5">
@@ -249,7 +251,7 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                       htmlFor="major"
                       className="block text-sm font-medium text-[var(--text-secondary)] mb-2"
                     >
-                      Major <span className="text-[var(--accent-pink)]">*</span>
+                      {t("joinModal.form.major")} <span className="text-[var(--accent-pink)]">{t("joinModal.form.required")}</span>
                     </label>
                     <input
                       id="major"
@@ -263,7 +265,7 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                           ? "border-[var(--accent-pink)]/40"
                           : "border-[var(--border-line)]"
                       } text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:bg-[var(--bg-surface-hover)] transition-all`}
-                      placeholder="e.g., Computer Science"
+                      placeholder={t("joinModal.form.placeholder.major")}
                     />
                     {errors.major && (
                       <p className="text-xs text-[var(--accent-pink)] mt-1.5">
@@ -277,8 +279,8 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                       htmlFor="interest"
                       className="block text-sm font-medium text-[var(--text-secondary)] mb-2"
                     >
-                      Primary Interest{" "}
-                      <span className="text-[var(--accent-pink)]">*</span>
+                      {t("joinModal.form.primaryInterest")}{" "}
+                      <span className="text-[var(--accent-pink)]">{t("joinModal.form.required")}</span>
                     </label>
                     <select
                       id="interest"
@@ -293,7 +295,7 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                       } text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:bg-[var(--bg-surface-hover)] transition-all`}
                     >
                       <option value="" className="bg-[var(--bg-base)]">
-                        Select an area
+                        {t("joinModal.form.placeholder.selectArea")}
                       </option>
                       {INTEREST_OPTIONS.map((option) => (
                         <option
@@ -301,7 +303,7 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                           value={option}
                           className="bg-[var(--bg-base)]"
                         >
-                          {option}
+                          {t(option)}
                         </option>
                       ))}
                     </select>
@@ -317,7 +319,7 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                       htmlFor="message"
                       className="block text-sm font-medium text-[var(--text-secondary)] mb-2"
                     >
-                      Message (Optional)
+                      {t("joinModal.form.message")}
                     </label>
                     <textarea
                       id="message"
@@ -327,7 +329,7 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                       }
                       rows={3}
                       className="w-full px-4 py-2.5 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-line)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:bg-[var(--bg-surface-hover)] transition-all resize-none"
-                      placeholder="Tell us about yourself..."
+                      placeholder={t("joinModal.form.placeholder.message")}
                     />
                   </div>
 
@@ -335,7 +337,7 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                     type="submit"
                     className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-[var(--accent-blue)]/30 bg-[var(--accent-blue)]/10 text-[var(--text-primary)] font-medium hover:border-[var(--accent-blue)]/50 hover:bg-[var(--accent-blue)]/20 hover:shadow-[0_0_24px_var(--panel-glow)] transition-all duration-200 relative overflow-hidden group"
                   >
-                    <span className="relative z-10">Submit Application</span>
+                    <span className="relative z-10">{t("joinModal.form.submit")}</span>
                     <div className="absolute inset-0 bg-gradient-to-r from-[var(--accent-blue)]/20 via-[var(--accent-cyan)]/20 to-[var(--accent-blue)]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </button>
                 </form>
@@ -349,11 +351,10 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
 
                   <div className="text-center">
                     <h3 className="text-xl font-semibold mb-2 text-[var(--text-primary)]">
-                      Application Received!
+                      {t("joinModal.success.title")}
                     </h3>
                     <p className="text-[var(--text-secondary)] text-sm leading-relaxed">
-                      Thanks for your interest, {formData.name}! Connect with us
-                      through Facebook or call to complete your registration.
+                      {t("joinModal.success.message").replace("{name}", formData.name)}
                     </p>
                   </div>
 
@@ -368,17 +369,17 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                         </div>
                         <div className="text-left">
                           <div className="text-sm font-medium text-[var(--text-primary)]">
-                            Visit on Facebook
+                            {t("joinModal.success.facebook")}
                           </div>
                           <div className="text-xs text-[var(--text-muted)]">
-                            @syscotech
+                            {t("joinModal.success.facebookHandle")}
                           </div>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
                         {copiedItem === "facebook" && (
                           <span className="text-xs text-[#00D4FF]">
-                            Copied!
+                            {t("joinModal.success.copied")}
                           </span>
                         )}
                         <Copy className="w-4 h-4 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors" />
@@ -395,7 +396,7 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                         </div>
                         <div className="text-left">
                           <div className="text-sm font-medium text-[var(--text-primary)]">
-                            Call Us
+                            {t("joinModal.success.call")}
                           </div>
                           <div className="text-xs text-[var(--text-muted)]">
                             {PHONE_NUMBER}
@@ -405,7 +406,7 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                       <div className="flex items-center gap-2">
                         {copiedItem === "phone" && (
                           <span className="text-xs text-[#00D4FF]">
-                            Copied!
+                            {t("joinModal.success.copied")}
                           </span>
                         )}
                         <Copy className="w-4 h-4 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors" />
@@ -417,7 +418,7 @@ export default function JoinModal({ isOpen, onClose }: JoinModalProps) {
                     onClick={onClose}
                     className="w-full mt-4 px-5 py-2.5 rounded-lg border border-[var(--border-line)] bg-[var(--bg-surface)] text-[var(--text-secondary)] font-medium hover:text-[var(--text-primary)] hover:border-[var(--border-line-hover)] hover:bg-[var(--bg-surface-hover)] transition-all"
                   >
-                    Close
+                    {t("joinModal.button.close")}
                   </button>
                 </div>
               )}

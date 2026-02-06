@@ -12,6 +12,7 @@ import {
   Trash2,
 } from "lucide-react";
 import Footer from "@/components/Footer";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 type SkillLevel = "Маш сайн" | "Сайн" | "Дунд" | "Анхан шат";
 type PersonalSkillValue = 1 | 2 | 3 | 4 | "";
@@ -117,6 +118,7 @@ const PERSONAL_SKILLS_CONFIG = [
 ] as const;
 
 export default function JoinPage() {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState<MembershipFormData>({
     personal: {
       lastName: "",
@@ -412,10 +414,10 @@ export default function JoinPage() {
 
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-6xl font-bold text-[var(--text-primary)] mb-4">
-              ИДЭВХТЭН ГИШҮҮНИЙ АНКЕТ
+              {t("joinPage.title")}
             </h1>
             <p className="text-lg md:text-xl text-[var(--text-secondary)]">
-              Анкетыг гаргацтай, үг товчлохгүйгээр бөглөнө үү
+              {t("joinPage.subtitle")}
             </p>
           </div>
 

@@ -5,8 +5,10 @@ import { motion, useInView } from "framer-motion";
 import SectionFrame from "./SectionFrame";
 import { SectionHeader } from "./FAQ";
 import FeedbackForm from "./FeedbackForm";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Feedback() {
+  const { t } = useLanguage();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -19,9 +21,9 @@ export default function Feedback() {
 
         <div className="relative">
           <SectionHeader
-            eyebrow="GET IN TOUCH"
-            title="Send Us Your Feedback"
-            subtitle="Have questions, suggestions, or just want to say hello? We'd love to hear from you."
+            eyebrow={t("feedback.eyebrow")}
+            title={t("feedback.title")}
+            subtitle={t("feedback.subtitle")}
           />
 
           <motion.div

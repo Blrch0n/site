@@ -91,7 +91,7 @@ export default function ContactPage() {
             <div className="space-y-6">
               <div className="bg-[var(--bg-surface)] border border-[var(--border-line)] rounded-2xl p-8">
                 <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-6">
-                  Get in Touch
+                  {t("contactPage.getInTouch")}
                 </h2>
 
                 <div className="space-y-5">
@@ -104,7 +104,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <div className="text-xs text-[var(--text-muted)] mb-1">
-                        Phone
+                        {t("contactPage.phone")}
                       </div>
                       <div className="font-medium">+976 9494 5798</div>
                     </div>
@@ -119,7 +119,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <div className="text-xs text-[var(--text-muted)] mb-1">
-                        Alternative
+                        {t("contactPage.alternative")}
                       </div>
                       <div className="font-medium">+976 9435 1314</div>
                     </div>
@@ -134,7 +134,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <div className="text-xs text-[var(--text-muted)] mb-1">
-                        Email
+                        {t("contactPage.email")}
                       </div>
                       <div className="font-medium break-all text-sm">
                         contact@syscotech.club
@@ -148,7 +148,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <div className="text-xs text-[var(--text-muted)] mb-1">
-                        Location
+                        {t("contactPage.location")}
                       </div>
                       <div className="font-medium text-[var(--text-secondary)]">
                         SHUTIS-MHTS Room 400
@@ -159,7 +159,7 @@ export default function ContactPage() {
 
                 <div className="mt-6 pt-6 border-t border-[var(--border-line)]">
                   <h3 className="text-sm font-semibold text-[var(--text-primary)] mb-4">
-                    Connect With Us
+                    {t("contactPage.connectWithUs")}
                   </h3>
                   <div className="flex gap-3">
                     <a
@@ -189,14 +189,14 @@ export default function ContactPage() {
 
             <div className="bg-[var(--bg-surface)] border border-[var(--border-line)] rounded-2xl p-8">
               <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-6">
-                Send a Message
+                {t("contactPage.sendMessage")}
               </h2>
 
               {showSuccess && (
                 <div className="mb-4 p-4 rounded-xl bg-[var(--accent-cyan)]/10 border border-[var(--accent-cyan)]/30 flex items-center gap-3 animate-in fade-in slide-in-from-top-2 duration-300">
                   <CheckCircle2 className="w-5 h-5 text-[var(--accent-cyan)]" />
                   <span className="text-[var(--accent-cyan)] text-sm font-medium">
-                    Message sent successfully! We&apos;ll get back to you soon.
+                    {t("contactPage.successMessage")}
                   </span>
                 </div>
               )}
@@ -207,7 +207,7 @@ export default function ContactPage() {
                     htmlFor="contact-name"
                     className="block text-sm font-medium text-[var(--text-secondary)] mb-2"
                   >
-                    Your Name
+                    {t("contactPage.form.yourName")}
                   </label>
                   <input
                     id="contact-name"
@@ -216,7 +216,7 @@ export default function ContactPage() {
                     onChange={handleInputChange("name")}
                     required
                     className="w-full px-4 py-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-line)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:ring-2 focus:ring-[var(--accent-blue)]/10 transition-all"
-                    placeholder="Enter your name"
+                    placeholder={t("contactPage.form.placeholder.name")}
                   />
                 </div>
 
@@ -225,7 +225,7 @@ export default function ContactPage() {
                     htmlFor="contact-email"
                     className="block text-sm font-medium text-[var(--text-secondary)] mb-2"
                   >
-                    Email Address
+                    {t("contactPage.form.emailAddress")}
                   </label>
                   <input
                     id="contact-email"
@@ -234,7 +234,7 @@ export default function ContactPage() {
                     onChange={handleInputChange("email")}
                     required
                     className="w-full px-4 py-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-line)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:ring-2 focus:ring-[var(--accent-blue)]/10 transition-all"
-                    placeholder="your.email@example.com"
+                    placeholder={t("contactPage.form.placeholder.email")}
                   />
                 </div>
 
@@ -243,7 +243,7 @@ export default function ContactPage() {
                     htmlFor="contact-subject"
                     className="block text-sm font-medium text-[var(--text-secondary)] mb-2"
                   >
-                    Subject
+                    {t("contactPage.form.subject")}
                   </label>
                   <input
                     id="contact-subject"
@@ -252,7 +252,7 @@ export default function ContactPage() {
                     onChange={handleInputChange("subject")}
                     required
                     className="w-full px-4 py-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-line)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:ring-2 focus:ring-[var(--accent-blue)]/10 transition-all"
-                    placeholder="How can we help?"
+                    placeholder={t("contactPage.form.placeholder.subject")}
                   />
                 </div>
 
@@ -261,7 +261,7 @@ export default function ContactPage() {
                     htmlFor="contact-message"
                     className="block text-sm font-medium text-[var(--text-secondary)] mb-2"
                   >
-                    Message
+                    {t("contactPage.form.message")}
                   </label>
                   <textarea
                     id="contact-message"
@@ -270,7 +270,7 @@ export default function ContactPage() {
                     onChange={handleInputChange("message")}
                     required
                     className="w-full px-4 py-3 rounded-xl bg-[var(--bg-base)] border border-[var(--border-line)] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-blue)]/40 focus:ring-2 focus:ring-[var(--accent-blue)]/10 transition-all resize-none"
-                    placeholder="Tell us what's on your mind..."
+                    placeholder={t("contactPage.form.placeholder.message")}
                   />
                 </div>
 
@@ -282,11 +282,11 @@ export default function ContactPage() {
                   {isSubmitting ? (
                     <>
                       <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      <span>Sending...</span>
+                      <span>{t("contactPage.form.sending")}</span>
                     </>
                   ) : (
                     <>
-                      <span>Send Message</span>
+                      <span>{t("contactPage.form.sendButton")}</span>
                       <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </>
                   )}
@@ -298,10 +298,10 @@ export default function ContactPage() {
           <div className="mt-16 max-w-6xl mx-auto">
             <div className="bg-[var(--bg-surface)] border border-[var(--border-line)] rounded-2xl p-8">
               <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-6">
-                Visit Us
+                {t("contactPage.visitUs")}
               </h2>
               <GoogleMapEmbed
-                title="SHUTIS-MHTS Room 400 Location"
+                title={t("contactPage.mapTitle")}
                 height={420}
                 className="mb-6"
               />

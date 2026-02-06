@@ -9,39 +9,40 @@ import {
   LucideIcon,
 } from "lucide-react";
 import Footer from "@/components/Footer";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { TranslationKey } from "@/lib/translations";
 
 interface PreviewCard {
   icon: LucideIcon;
-  title: string;
-  description: string;
+  title: TranslationKey;
+  description: TranslationKey;
   color: string;
 }
 
 const PREVIEW_CARDS: PreviewCard[] = [
   {
     icon: Users,
-    title: "Member Directory",
-    description:
-      "Connect with fellow members, see who's working on what, and find collaboration opportunities.",
+    title: "communityPage.memberDirectory.title",
+    description: "communityPage.memberDirectory.description",
     color: "blue",
   },
   {
     icon: Calendar,
-    title: "Event Calendar",
-    description:
-      "Stay updated with upcoming workshops, hackathons, and social gatherings all in one place.",
+    title: "communityPage.eventCalendar.title",
+    description: "communityPage.eventCalendar.description",
     color: "cyan",
   },
   {
     icon: MessageSquare,
-    title: "Discussion Forum",
-    description:
-      "Share ideas, ask questions, and engage in meaningful tech discussions with the community.",
+    title: "communityPage.discussionForum.title",
+    description: "communityPage.discussionForum.description",
     color: "violet",
   },
 ];
 
 export default function CommunityPage() {
+  const { t } = useLanguage();
+
   return (
     <>
       <main className="relative overflow-x-hidden min-h-screen">
@@ -55,15 +56,14 @@ export default function CommunityPage() {
             <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full bg-[var(--accent-blue)]/10 border border-[var(--accent-blue)]/20">
               <Sparkles className="w-4 h-4 text-[var(--accent-blue)]" />
               <span className="text-sm font-medium text-[var(--accent-blue)]">
-                Building Something Special
+                {t("communityPage.buildingSomething")}
               </span>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold text-[var(--text-primary)] mb-6">
-              Community Hub
+              {t("communityPage.title")}
             </h1>
             <p className="text-lg md:text-xl text-[var(--text-secondary)] max-w-2xl mx-auto">
-              We&apos;re crafting a space where our members can connect,
-              collaborate, and grow together.
+              {t("communityPage.subtitle")}
             </p>
           </div>
 
@@ -85,10 +85,10 @@ export default function CommunityPage() {
                   <h3
                     className={`text-xl font-semibold text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-${card.color})] transition-colors`}
                   >
-                    {card.title}
+                    {t(card.title)}
                   </h3>
                   <p className="text-[var(--text-secondary)] text-sm group-hover:text-[var(--text-primary)] transition-colors">
-                    {card.description}
+                    {t(card.description)}
                   </p>
                 </div>
               );
@@ -97,24 +97,23 @@ export default function CommunityPage() {
 
           <div className="bg-[var(--bg-surface)] border border-[var(--border-line)] rounded-2xl p-12 text-center">
             <h2 className="text-3xl font-bold text-[var(--text-primary)] mb-4">
-              Want to Be Notified?
+              {t("communityPage.wantNotified")}
             </h2>
             <p className="text-[var(--text-secondary)] mb-8 max-w-xl mx-auto">
-              Join our club now and be the first to know when the community hub
-              launches.
+              {t("communityPage.notifyMessage")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/join"
                 className="px-8 py-3 bg-gradient-to-r from-[var(--accent-blue)] to-[var(--accent-cyan)] text-white rounded-xl font-medium hover:opacity-90 transition-opacity"
               >
-                Join the Club
+                {t("communityPage.joinClub")}
               </Link>
               <Link
                 href="/"
                 className="px-8 py-3 border border-[var(--border-line)] bg-transparent text-[var(--text-primary)] rounded-xl font-medium hover:bg-[var(--bg-surface-hover)] transition-colors"
               >
-                Explore More
+                {t("communityPage.exploreMore")}
               </Link>
             </div>
           </div>

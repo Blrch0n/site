@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import { Twitter, MessageCircle, Linkedin, Instagram } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface SocialCard {
   source: string;
@@ -68,6 +69,7 @@ const logos: Logo[] = [
 ];
 
 export default function AsSeenOn() {
+  const { t } = useLanguage();
   const duplicatedCards = useMemo(() => [...socialCards, ...socialCards], []);
   const duplicatedLogos = useMemo(() => [...logos, ...logos], []);
 
@@ -89,7 +91,7 @@ export default function AsSeenOn() {
 
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-2">
-            <span className="spectral-text">AS SEEN ON :</span>
+            <span className="spectral-text">{t("asSeenOn.title")}</span>
           </h2>
           <div className="hud-label">COMMUNITY VOICES</div>
         </div>
