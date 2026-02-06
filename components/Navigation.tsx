@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useJoinModal } from "./JoinModalProvider";
 import { NAV_ITEMS } from "@/lib/siteNav";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { TranslationKey } from "@/lib/translations";
@@ -16,7 +15,6 @@ import ThemeSwitcher from "./ThemeSwitcher";
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { openModal } = useJoinModal();
   const pathname = usePathname();
   const { t } = useLanguage();
 
@@ -114,13 +112,13 @@ export default function Navigation() {
               <ThemeSwitcher />
               <LanguageSwitcher />
 
-              <button
-                onClick={openModal}
+              <Link
+                href="/join"
                 className="flex items-center justify-center px-5 py-2 rounded-xl border border-[var(--border-line)] bg-[var(--bg-surface)] text-[var(--text-primary)] font-medium text-sm hover:border-[var(--border-accent)] hover:bg-[var(--bg-surface-hover)] hover:shadow-[0_0_20px_var(--panel-glow)] transition-all duration-200 relative overflow-hidden group"
               >
                 <span className="relative z-10">{t("nav.join")}</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-[var(--accent-cyan)]/10 via-[var(--accent-blue)]/10 to-[var(--accent-violet)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </button>
+              </Link>
             </div>
 
             {}
@@ -178,15 +176,13 @@ export default function Navigation() {
                 <ThemeSwitcher />
               </div>
 
-              <button
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  openModal();
-                }}
+              <Link
+                href="/join"
+                onClick={() => setIsMobileMenuOpen(false)}
                 className="mt-4 block w-full text-center px-6 py-3 rounded-xl bg-gradient-to-r from-[var(--accent-cyan)] via-[var(--accent-blue)] to-[var(--accent-violet)] text-white font-semibold"
               >
                 {t("nav.join")}
-              </button>
+              </Link>
             </motion.div>
           </motion.div>
         )}

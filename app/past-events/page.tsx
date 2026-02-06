@@ -1,227 +1,223 @@
 "use client";
 
-import Link from "next/link";
-import {
-  Calendar,
-  Trophy,
-  Users,
-  Code,
-  ArrowUpRight,
-  LucideIcon,
-} from "lucide-react";
+import { motion } from "framer-motion";
+import Image from "next/image";
 import Footer from "@/components/Footer";
-import { useLanguage } from "@/contexts/LanguageContext";
 
-interface StatCard {
-  icon: LucideIcon;
-  count: string;
-  label: string;
-  color: string;
-}
+// Type definition for past event data
+type PastEvent = {
+  id: string;
+  title: string;
+  date: string;
+  location?: string;
+  tags?: string[];
+  imageSrc: string;
+};
 
-const STATS: StatCard[] = [
-  { icon: Calendar, count: "17+", label: "Years of CTF", color: "blue" },
-  { icon: Code, count: "10+", label: "Hackathons", color: "cyan" },
-  { icon: Users, count: "1000+", label: "Participants", color: "violet" },
-  { icon: Trophy, count: "50+", label: "Events", color: "pink" },
-];
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
+  },
+};
 
-const pastEvents = [
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const cardVariant = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (index: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      delay: index * 0.1,
+      ease: [0.16, 1, 0.3, 1] as const,
+    },
+  }),
+};
+
+const pastEventsData: PastEvent[] = [
   {
-    year: "2024-2025",
-    events: [
-      {
-        title: "Dev Hackathon 2024",
-        date: "October 2024",
-        description:
-          "10th annual hackathon introducing innovative ideas and solutions",
-        icon: Code,
-        participants: "50+",
-        color: "blue",
-      },
-      {
-        title: "CTF Competition 2024",
-        date: "September 2024",
-        description: "17th annual competitive programming contest",
-        icon: Trophy,
-        participants: "80+",
-        color: "cyan",
-      },
-    ],
+    id: "1",
+    title: "Haruul Zangi CTF 2024",
+    date: "December 2024",
+    location: "NUM Campus",
+    tags: ["CTF", "Onsite"],
+    imageSrc: "/group-image1.png",
   },
   {
-    year: "2023-2024",
-    events: [
-      {
-        title: "Dev Hackathon 2023",
-        date: "October 2023",
-        description: "9th annual hackathon with record participation",
-        icon: Code,
-        participants: "45+",
-        color: "violet",
-      },
-      {
-        title: "CTF Competition 2023",
-        date: "September 2023",
-        description: "16th annual competitive programming contest",
-        icon: Trophy,
-        participants: "70+",
-        color: "pink",
-      },
-    ],
+    id: "2",
+    title: "Dev Hackathon 2024",
+    date: "October 2024",
+    location: "MUST",
+    tags: ["Hackathon", "Onsite"],
+    imageSrc: "/group-image2.jpg",
   },
   {
-    year: "2022-2023",
-    events: [
-      {
-        title: "Dev Hackathon 2022",
-        date: "October 2022",
-        description: "8th annual hackathon focusing on social impact",
-        icon: Code,
-        participants: "40+",
-        color: "blue",
-      },
-      {
-        title: "CTF Competition 2022",
-        date: "September 2022",
-        description: "15th annual competitive programming contest",
-        icon: Trophy,
-        participants: "65+",
-        color: "cyan",
-      },
-    ],
+    id: "3",
+    title: "CTF Competition Fall 2024",
+    date: "September 2024",
+    location: "Online",
+    tags: ["CTF", "Online"],
+    imageSrc: "/group-image3.jpg",
+  },
+  {
+    id: "4",
+    title: "Summer CTF Challenge 2024",
+    date: "July 2024",
+    location: "Online",
+    tags: ["CTF", "Online"],
+    imageSrc: "/group-image4.png",
+  },
+  {
+    id: "5",
+    title: "Spring Hackathon 2024",
+    date: "April 2024",
+    location: "NUM Campus",
+    tags: ["Hackathon", "Onsite"],
+    imageSrc: "/group-image5.jpg",
+  },
+  {
+    id: "6",
+    title: "Haruul Zangi CTF 2023",
+    date: "December 2023",
+    location: "NUM Campus",
+    tags: ["CTF", "Onsite"],
+    imageSrc: "/group-image1.png",
+  },
+  {
+    id: "7",
+    title: "Fall CTF Championship 2023",
+    date: "October 2023",
+    location: "Online",
+    tags: ["CTF", "Online"],
+    imageSrc: "/group-image2.jpg",
+  },
+  {
+    id: "8",
+    title: "Dev Hackathon 2023",
+    date: "September 2023",
+    location: "MUST",
+    tags: ["Hackathon", "Onsite"],
+    imageSrc: "/group-image3.jpg",
+  },
+  {
+    id: "9",
+    title: "Summer Tech Workshop 2023",
+    date: "June 2023",
+    location: "NUM Campus",
+    tags: ["Workshop", "Onsite"],
+    imageSrc: "/group-image4.png",
   },
 ];
 
 export default function PastEventsPage() {
-  const { t } = useLanguage();
-
   return (
     <>
       <main className="relative overflow-x-hidden min-h-screen">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 py-32">
-          <div className="absolute inset-0 -z-10 overflow-hidden">
-            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[var(--accent-blue)]/5 rounded-full blur-3xl" />
-            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[var(--accent-cyan)]/5 rounded-full blur-3xl" />
-          </div>
-
-          <div className="text-center mb-16">
-            <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-[var(--accent-blue)]/10 border border-[var(--accent-blue)]/20">
-              <span className="text-sm font-medium text-[var(--accent-blue)]">
-                {t("pastEvents.eyebrow")}
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-6xl font-bold text-[var(--text-primary)] mb-4">
-              {t("pastEvents.title")}
-            </h1>
-            <p className="text-lg md:text-xl text-[var(--text-secondary)] max-w-2xl mx-auto">
-              {t("pastEvents.description")}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
-            {STATS.map((stat, index) => {
-              const Icon = stat.icon;
-              return (
-                <div
-                  key={index}
-                  className={`bg-[var(--bg-surface)] border border-[var(--border-line)] rounded-xl p-6 text-center hover:border-[var(--accent-${stat.color})]/40 hover:-translate-y-1 hover:shadow-lg transition-all cursor-pointer group`}
-                >
-                  <Icon
-                    className={`w-6 h-6 text-[var(--accent-${stat.color})] mx-auto mb-3 group-hover:scale-125 transition-transform`}
-                  />
-                  <div
-                    className={`text-3xl font-bold text-[var(--text-primary)] mb-1 group-hover:text-[var(--accent-${stat.color})] transition-colors`}
-                  >
-                    {stat.count}
-                  </div>
-                  <div className="text-sm text-[var(--text-muted)]">
-                    {stat.label}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="space-y-12">
-            {pastEvents.map((yearData) => (
-              <div key={yearData.year} className="relative">
-                <div className="flex items-center gap-4 mb-8">
-                  <h2 className="text-3xl font-bold text-[var(--text-primary)]">
-                    {yearData.year}
-                  </h2>
-                  <div className="flex-1 h-px bg-gradient-to-r from-[var(--border-line)] to-transparent" />
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-5">
-                  {yearData.events.map((event, eventIndex) => {
-                    const Icon = event.icon;
-                    return (
-                      <div
-                        key={eventIndex}
-                        className="group bg-[var(--bg-surface)] border border-[var(--border-line)] rounded-2xl p-6 hover:border-[var(--accent-blue)]/40 hover:shadow-lg hover:shadow-[var(--accent-blue)]/10 hover:-translate-y-1 transition-all duration-300 cursor-pointer"
-                      >
-                        <div className="flex items-start justify-between mb-4">
-                          <div className="flex items-start gap-4">
-                            <div
-                              className={`p-3 rounded-xl bg-[var(--accent-${event.color})]/10 border border-[var(--accent-${event.color})]/20 text-[var(--accent-${event.color})] group-hover:scale-110 transition-transform`}
-                            >
-                              <Icon className="w-6 h-6" />
-                            </div>
-                            <div className="flex-1">
-                              <h3 className="text-xl font-semibold text-[var(--text-primary)] mb-1">
-                                {event.title}
-                              </h3>
-                              <p className="text-sm text-[var(--text-muted)]">
-                                {event.date}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                        <p className="text-[var(--text-secondary)] mb-4 leading-relaxed">
-                          {event.description}
-                        </p>
-                        <div className="flex items-center justify-between pt-4 border-t border-[var(--border-line)]">
-                          <div className="flex items-center gap-2 text-sm text-[var(--text-muted)]">
-                            <Users className="w-4 h-4" />
-                            <span>{event.participants} participants</span>
-                          </div>
-                          <div className="text-xs text-[var(--text-muted)] opacity-0 group-hover:opacity-100 transition-opacity">
-                            <ArrowUpRight className="w-4 h-4" />
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-16 text-center bg-[var(--bg-surface)] border border-[var(--border-line)] rounded-2xl p-12">
-            <h2 className="text-3xl font-bold text-[var(--text-primary)] mb-4">
-              Be Part of Our Next Event
-            </h2>
-            <p className="text-lg text-[var(--text-secondary)] mb-8 max-w-2xl mx-auto">
-              Join us in creating more memorable moments and pushing the
-              boundaries of innovation together.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/join"
-                className="px-8 py-3 bg-gradient-to-r from-[var(--accent-blue)] to-[var(--accent-cyan)] text-white rounded-xl font-medium hover:opacity-90 transition-opacity"
-              >
-                Join Our Club
-              </Link>
-              <Link
-                href="/"
-                className="px-8 py-3 border border-[var(--border-line)] bg-transparent text-[var(--text-primary)] rounded-xl font-medium hover:bg-[var(--bg-surface-hover)] transition-colors"
-              >
-                Back to Home
-              </Link>
-            </div>
-          </div>
+        {/* Background blurred elements - page-local only */}
+        <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-(--accent-blue)/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-(--accent-cyan)/5 rounded-full blur-3xl" />
         </div>
+
+        {/* Hero Section */}
+        <section className="relative py-24 md:py-32 lg:py-40">
+          <div className="max-w-7xl mx-auto px-6 md:px-12">
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={staggerContainer}
+              className="text-center max-w-4xl mx-auto"
+            >
+              <motion.div variants={fadeInUp}>
+                <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 mb-8 rounded-lg border border-(--border-line) bg-(--bg-surface) text-[11px] font-mono uppercase tracking-wider text-(--text-muted) backdrop-blur-sm">
+                  <div className="w-1.5 h-1.5 rounded-full bg-(--accent-cyan) animate-pulse shadow-[0_0_8px_rgba(0,212,255,0.8)]" />
+                  <span>Event Archive</span>
+                </div>
+              </motion.div>
+              <motion.h1
+                variants={fadeInUp}
+                className="text-5xl md:text-6xl lg:text-7xl font-bold text-(--text-primary) mb-6 tracking-tight"
+              >
+                Past Events
+              </motion.h1>
+              <motion.p
+                variants={fadeInUp}
+                className="text-lg md:text-xl text-(--text-muted) max-w-2xl mx-auto leading-relaxed"
+              >
+                Explore previous Haruul Zangi CTF events and highlights from our
+                community
+              </motion.p>
+            </motion.div>
+          </div>
+        </section>
+
+        <section className="relative py-12 md:py-16">
+          <div className="max-w-7xl mx-auto px-6 md:px-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+              {pastEventsData.map((event, index) => (
+                <motion.div
+                  key={event.id}
+                  custom={index}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-50px" }}
+                  variants={cardVariant}
+                  whileHover={{ scale: 1.03, y: -8 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-(--accent-blue)/20 transition-shadow duration-300 cursor-pointer border border-(--border-line) hover:border-(--accent-blue)/40"
+                >
+                  <div className="relative h-64 md:h-72 w-full overflow-hidden">
+                    <Image
+                      src={event.imageSrc}
+                      alt={event.title}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-110"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+
+                    <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent" />
+
+                    {event.tags && event.tags[0] && (
+                      <div className="absolute top-4 right-4 px-3 py-1.5 bg-(--accent-blue)/90 backdrop-blur-sm rounded-full text-xs font-semibold text-white">
+                        {event.tags[0]}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
+                    <h3 className="text-xl md:text-2xl font-bold text-white mb-2 line-clamp-2">
+                      {event.title}
+                    </h3>
+                    <div className="flex flex-wrap items-center gap-2 text-sm text-white/80">
+                      <span>{event.date}</span>
+                      {event.location && (
+                        <>
+                          <span>•</span>
+                          <span>{event.location}</span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <div className="h-24" />
       </main>
       <Footer />
     </>

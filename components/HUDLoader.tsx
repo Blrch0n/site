@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 export default function HUDLoader() {
   const [show, setShow] = useState(true);
@@ -39,6 +40,19 @@ export default function HUDLoader() {
       <div className="hud-loader-corner-bottom-right" />
       <div className="hud-loader-loading-text-left">LOADING</div>
       <div className="hud-loader-loading-text-right">LOADING</div>
+
+      <div className="hud-loader-center-icon">
+        <div className="relative w-24 h-24 md:w-32 md:h-32">
+          <Image
+            src="/loading_logo.gif"
+            alt="Loading"
+            fill
+            className="object-contain"
+            unoptimized
+            priority
+          />
+        </div>
+      </div>
     </div>
   );
 }

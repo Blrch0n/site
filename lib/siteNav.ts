@@ -46,7 +46,7 @@ export const NAV_ITEMS: SiteNavItem[] = [
     path: "/join",
     shortLabel: "JOIN US",
     index: "05",
-    showInDesktop: true,
+    showInDesktop: false,
   },
 ];
 

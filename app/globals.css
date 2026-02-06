@@ -880,6 +880,12 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10;
+  animation: hud-loader-breathe 3s ease-in-out infinite;
+}
+
+.hud-loader-center-icon img {
+  filter: drop-shadow(0 0 20px rgba(91, 95, 255, 0.4));
 }
 
 .hud-loader-rainbow-ring {
